@@ -55,6 +55,48 @@ function getCooksDetails($cooksId){
     }
 }
 
+function updateCooksDetail($id,$data){
+    $this->db->where('id',$id);
+    if($this->db->update('cooks',$data)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function updateUserName($id,$data){
+    $this->db->where('id',$id);
+    if($this->db->update('users',$data)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function deleteCook($id){
+
+    if($this->db->delete('cooks',array('id'=>$id))){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+function deleteUser($id){
+    if($this->db->delete('users',array('id'=>$id))){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -11,7 +11,7 @@
 
                     </div>
                     </form>
-                    <span class="option-title">Kitchen Name</span><span>{{kitn.kitchename}}</span><a ng-class="{'active':kitchename_show}"href="javascript:void(0)" title="" ng-click="formShowing(kitchenameForm,true)"><i class="fa fa-pencil" ng-hide="kitchename_show"></i><i class="fa fa-times" ng-show="kitchename_show"></i></a>
+                    <span class="option-title">Kitchen Name</span><span class="option-value">{{kitn.kitchename}}</span><a ng-class="{'active':kitchename_show}"href="javascript:void(0)" title="" ng-click="formShowing(kitchenameForm,true)"><i class="fa fa-pencil" ng-hide="kitchename_show"></i><i class="fa fa-times" ng-show="kitchename_show"></i></a>
                     </li>
 
                     <li>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     </form>
-                    <span class="option-title">Address</span><span>{{kitn.address}}</span><a ng-class="{'active':address_show}"href="javascript:void(0)" title="" ng-click="formShowing(addressForm,true)"><i class="fa fa-pencil" ng-hide="address_show"></i><i class="fa fa-times" ng-show="address_show"></i></a>
+                    <span class="option-title">Address</span><span class="option-value">{{kitn.address}}</span><a ng-class="{'active':address_show}"href="javascript:void(0)" title="" ng-click="formShowing(addressForm,true)"><i class="fa fa-pencil" ng-hide="address_show"></i><i class="fa fa-times" ng-show="address_show"></i></a>
                     </li>
                     <li>
                         <form name="locationForm" ng-show="location_show" method="get" accept-charset="utf-8" novalidate="true" ng-submit="submitKitchen(locationForm,'location',kitn.location)">
@@ -37,19 +37,19 @@
                         </div>   
                         </form>
 
-                        <span class="option-title">Location</span><span>{{kitn.location}}</span>
+                        <span class="option-title">Location</span><span class="option-value">{{kitn.location}}</span>
                         <a ng-class="{'active': location_show}"href="javascript:void(0)" title="edit" ng-click="formShowing(locationForm,true)"><i class="fa fa-pencil" ng-hide="location_show"></i><i class="fa fa-times" ng-show="location_show"></i></a>
                     </li>
                     <li>
                         <form name="deliveryOptionsForm" ng-show="deliveryOptions_show" ng-submit="submitDeliveryOptions(deliveryOptionsForm,kitn.pickup,kitn.home_delivery)" accept-charset="utf-8">
                         <label for="deliverySelect"  class="form-label">Change Delivery Options</label>
                         <label class="checkbox" for="pickUp" ng-click="toggleInput('pickup')" >
-                        
+                        <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>
                           <input type="checkbox" delivery-methods name="pickUpInput" id="pickUpInput" data-toggle="checkbox">
                           Pick up 
                         </label>
                         <label class="checkbox" for="homeDelivery" ng-click="toggleInput('homeDelivery')">
-                        
+                        <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>
                           <input type="checkbox" delivery-methods name="homeDelivery" id="homeDelivery" data-toggle="checkbox" >
                           Home Delivery 
                         </label>
@@ -60,8 +60,8 @@
                         <button type="submit" class="btn btn-default" ng-disabled="deliveryOptionsForm.$invalid">Submit</button>    
                         </form>
                         <label class="option-title" >Delivery Options</label><br>
-                        <span ng-show="kitn.pickup">Pick Up </span>
-                        <span ng-show="kitn.home_delivery">Home delivery</span>
+                        <span ng-show="kitn.pickup" class="option-value">Pick Up </span>
+                        <span ng-show="kitn.home_delivery" class="option-value">Home delivery</span>
                         <a ng-class="{'active':deliveryOptions_show}"href="javascript:void(0)" title="edit" ng-click="formShowing(deliveryOptionsForm,true)"><i class="fa fa-pencil" ng-hide="deliveryOptions_show"></i><i class="fa fa-times" ng-show="deliveryOptions_show"></i></a>
                         
 

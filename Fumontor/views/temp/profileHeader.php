@@ -32,6 +32,7 @@
         
         <script src="assets/js/home/jquery-ui-1.10.3.custom.min.js"></script>
         <script src="assets/js/home/jquery.ui.touch-punch.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/home/bootstrap-select.js"></script>
         <script src="assets/js/home/bootstrap-switch.js"></script>
         <script src="assets/js/home/flatui-checkbox.js"></script>

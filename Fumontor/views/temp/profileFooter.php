@@ -16,7 +16,7 @@
 </div>
 <script src="assets/js/home/classie.js"></script>
 <script src="assets/js/home/clipboard.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+
 
 <script src="assets/js/home/jquery.placeholder.js"></script>
 <script src="assets/bootstrap/js/google-code-prettify/prettify.js"></script>

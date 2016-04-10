@@ -92,8 +92,11 @@
 .fu-modal-header{
     color: #ffffff;
     background: #6a1b99;
-    font-size: 1.2em;
     font-family: Oxygen;
+}
+.fu-modal-header h2.modal-header{
+    font-size: 1.2em;
+    font-weight: normal;
 }
 .fu-modal-body{
     padding: 15px;

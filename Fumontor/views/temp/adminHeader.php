@@ -35,8 +35,10 @@
         <script src="assets/js/home/bootstrap-switch.js"></script>
         
         <script src="assets/js/home/flatui-radio.js"></script>
+        <script type="text/javascript" src="assets/js/notificationFx.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
+
         <script src="assets/js/home/flatui-checkbox.js"></script>
     </head>
         
