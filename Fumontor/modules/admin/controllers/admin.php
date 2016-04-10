@@ -157,8 +157,10 @@ function deleteCook($id,$userid){
                 if($this->adminmodel->deleteUser($userid)){
                     echo 'sucessfully deleted !!';
                 }else{
+                    echo 'user cannot be deleted!!';
                 }
             }else{
+                echo 'Cook can not be deleted !!';
             }
         }
     }
