@@ -258,8 +258,11 @@ span.pending,span.recived,span.delivered,span.ondelivery{
     float: right;
 }
 .quantity{
-    font-size: .7em;
+    font-size: 1em;
     font-weight: 100;
+    font-family: RobotoLight;
+    margin-right: 3px;
+    color:#ff5555;
     text-transform: lowercase;
 }
 .title{
@@ -272,6 +275,21 @@ span.pending,span.recived,span.delivered,span.ondelivery{
 }
 .total .card-column-list-item span{
     float: right;
+}
+.paid{
+    text-align: left;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    
+}
+.paid .paid-input{
+    width: 80px;
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 1.2em;
+}
+.paid input.paid-input{
+    font-size: 1em;
 }
 .blinkRed{
     animation: blinksRed 1s;

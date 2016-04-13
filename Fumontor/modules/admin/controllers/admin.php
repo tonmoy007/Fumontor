@@ -169,9 +169,42 @@ function getTemplate($page){
     $this->load->view($page);
 
 }
+function cookAccounts(){
+    if ($this->ion_auth->logged_in())
+            {
+                if($this->ion_auth->is_admin()){
+                    $user = $this->ion_auth->user()->row(); 
+                    $data['user'] =$user->username;
+                    $data['title']="Admin Dashboard";
+                    $data['totalOrders']= $this->adminmodel->getTotalOrders();
+                    
+                    $this->load->view('temp/adminHeader',$data);
+                    $this->load->view('cookAccounts');
+                    $this->load->view('temp/adminFooter');  
+                }else{
+                    redirect('','refresh');
+                }
+                
+                
+            }else{
+                redirect("auth/login");
+            }
+}
 
+function getAllOrderInfo(){
 
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_admin()){
 
+            $data=$this->adminmodel->getAllOrderInfo();
+            echo json_encode($data);
+        }else{
+            redirect('','refresh');
+        }
+    }else{
+        redirect('auth/login');
+    }
+}
 
 
 

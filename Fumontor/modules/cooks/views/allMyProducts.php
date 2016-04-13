@@ -107,11 +107,9 @@
                             </div>
                         </div>
                     <?php }
-                    }else{
+                    }elseif(!$owner){
                     echo '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-times-circle"></i></button> No menu Item Added</div>';
-                    if($owner){
-                        $this->load->view("addNewItemBlock");
-                    }
+                    
                     }?>
                     </div>
                     

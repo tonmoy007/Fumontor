@@ -28,6 +28,8 @@
                     <th>Order Type</th>
                     <th>Customer Name</th>
                     <th>Customer Phone</th>
+                    <th>Paid</th>
+                    <th>Due</th>
                 </tr>
             </thead>
             <tbody class="table-body">
@@ -48,6 +50,8 @@
                 <td><?php echo $data['ordertype'];?></td>
                 <td><?php echo $data['first_name'].' '.$data['last_name'];?></td>
                 <td><?php echo $data['phone'];?></td>
+                <td><?php echo $data['paid'];?></td>
+                <td><?php echo $data['due'];?></td>
                 </tr>
                 <?php } ?>
             </tbody>

@@ -100,6 +100,7 @@ $cont = "";
         $recivedOrders='';
         $ondeliveryOrders='';
         $deliveredOrders='';
+        $Accounts='';
         if($cont=="admin"){
             if($view=="allCooks"){
                 $Cooks=$a;
@@ -122,6 +123,8 @@ $cont = "";
             }elseif ($view=='deliverdOrders') {
                 $deliveredOrders=$a;
                 $orders=$a;
+            }elseif($view=='cookAccounts'){
+                $Accounts=$a;
             }
         }
 ?>
@@ -151,14 +154,10 @@ $cont = "";
                     </ul>
                 </li>
 
-                <li class="has-children comments ">
-                    <a href="#0">Comments</a>
+                <li class="comments <?php echo $Accounts;?> ">
+                    <a href="admin/cookAccounts">Cook Accounts</a>
                     
-                    <ul>
-                        <li><a href="#0">All Comments</a></li>
-                        <li><a href="#0">Edit Comment</a></li>
-                        <li><a href="#0">Delete Comment</a></li>
-                    </ul>
+                    
                 </li>
             </ul>
 
