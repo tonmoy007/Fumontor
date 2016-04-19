@@ -114,10 +114,63 @@ public function getOrderDetails($orderid){
 
 
 
+function getProducts(){
+    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address');
+    $this->db->from('menuitem');
+    $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
+    $this->db->order_by('menuitem.created','desc');
+    $query=$this->db->get();
+    $data=array();
+    $i=0;
+    foreach($query->result_array() as $row){
+        $data[]=$row;
+        $catagories=explode(',',$data[$i]['catagories']);
+        $catagoryTagHolder=array();
+        if(intval($data[$i]['todays_menu'])==1){
+            $data[$i]['todays_menu']=true;
+        }else{
+            $data[$i]['todays_menu']=false;
+        }
+        foreach($catagories as $catagory){
+                    $mdata=array('text'=>$catagory);
+                    array_push($catagoryTagHolder,$mdata);
+                }
+        $data[$i]['catagoryList']=$catagoryTagHolder;
+        $i++;
+    
+    };
+    if($query->num_rows()>0){
+        return $data; 
+    }else{
+        echo false;
+    }
+}
 
+function submitProductInfo($data){
 
+    $updateData=array(
+        'title'=>$data->title,
+        'catagories'=>$data->catagories,
+        'description'=>$data->description,
+        'price'=>$data->price,
+        'todays_menu'=>($data->todays_menu)?1:0,
+        'cusines'=>$data->cusines,
+        );
+    $this->db->where('id',$data->id);
+    if($this->db->update('menuitem',$updateData)){
+        return true;
+    }else{
+        return false;
+    }
+}
 
-
+function deleteProduct($id){
+    if($this->db->delete('menuitem',array('id'=>$id))){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
 

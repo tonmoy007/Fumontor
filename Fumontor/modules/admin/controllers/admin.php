@@ -199,6 +199,25 @@ function getAllOrderInfo(){
             $data=$this->adminmodel->getAllOrderInfo();
             echo json_encode($data);
         }else{
+            echo 'Access Denied!!';
+        }
+    }else{
+        echo 'not logged in';
+    }
+}
+public function AllProducts(){
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_admin()){
+
+            $user = $this->ion_auth->user()->row(); 
+            $data['user'] =$user->username;
+            $data['title']="Admin Dashboard";
+            $data['totalOrders']= $this->adminmodel->getTotalOrders();
+            
+            $this->load->view('temp/adminHeader',$data);
+            $this->load->view('allProducts');
+            $this->load->view('temp/adminFooter'); 
+        }else{
             redirect('','refresh');
         }
     }else{
@@ -208,11 +227,55 @@ function getAllOrderInfo(){
 
 
 
+function allProductsInfo(){
+     if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_admin()){
 
+            $data=$this->adminmodel->getProducts();
+            echo json_encode($data);
+        }else{
+            echo 'Access Denied!!';
+        }
+    }else{
+        echo 'not logged in';
+    }
+}
+function submitProductInfo(){
 
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+    
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_admin()){
+            if($this->adminmodel->submitProductInfo($request)){
+                echo 'success';
+            }else{
+                echo '<div class="alert alert-danger>error in php!!</div>"';
+            }
+        }else{
+            echo 'Access Denied!!';
+        }
+    }else{
+        echo 'need to log in';
+    }
+}
 
+function deleteProduct($id){
 
-
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_admin()){
+            if($this->adminmodel->deleteProduct($id)){
+                echo 'success';
+            }else{
+                echo '<div class="alert alert-danger>error in php!!</div>"';
+            }
+        }else{
+            echo 'Access Denied!!';
+        }
+    }else{
+        echo 'need to log in';
+    }    
+}
 
 
 

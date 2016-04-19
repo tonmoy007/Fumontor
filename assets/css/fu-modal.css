@@ -89,6 +89,9 @@
     text-indent: 100%;
     
 }
+.fu-modal-close.alter{
+     background: transparent url(../img/cd-close-black.svg ) no-repeat center ;
+}
 .fu-modal-header{
     color: #ffffff;
     background: #6a1b99;

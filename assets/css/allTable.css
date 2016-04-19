@@ -65,8 +65,9 @@ thead tr th a:focus{
     background-color: rgba(56, 31, 205, 0.38);
     font-size: 1em;
     line-height: 1.2em;
-    padding: 0 5px;
+    padding: 0 10px;
     margin-bottom: 5px;
+    border-radius: 20px;
 }
 .blue-list li:last-child{
     margin-bottom: 0;

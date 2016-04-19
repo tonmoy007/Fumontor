@@ -109,6 +109,10 @@ a:hover,a:focus{
     background-color: #6a1b99;
     border-color: #6a1b99;
 }
+.form-list .form-control.focus,.form-list .form-control:focus{
+    
+    border-color:#6a1b99;
+}
 
 .tagsinput{
     border-color: #6a1b99;
@@ -156,7 +160,7 @@ strong{
     }
 }
 ::-webkit-scrollbar {
-    width: .3em;
+    width: .5em;
 }
  
 ::-webkit-scrollbar-track {

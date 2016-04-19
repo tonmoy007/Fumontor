@@ -38,7 +38,8 @@
         <script type="text/javascript" src="assets/js/notificationFx.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
-
+        <script src="assets/js/fileUpload/ng-file-upload.min.js"></script>
+        <script src="assets/js/fileUpload/ng-file-upload-shim.min.js"></script>
         <script src="assets/js/home/flatui-checkbox.js"></script>
     </head>
         
@@ -101,6 +102,7 @@ $cont = "";
         $ondeliveryOrders='';
         $deliveredOrders='';
         $Accounts='';
+        $allProducts='';
         if($cont=="admin"){
             if($view=="allCooks"){
                 $Cooks=$a;
@@ -125,6 +127,8 @@ $cont = "";
                 $orders=$a;
             }elseif($view=='cookAccounts'){
                 $Accounts=$a;
+            }elseif($view=='allProducts'){
+                $allProducts=$a;
             }
         }
 ?>
@@ -156,6 +160,11 @@ $cont = "";
 
                 <li class="comments <?php echo $Accounts;?> ">
                     <a href="admin/cookAccounts">Cook Accounts</a>
+                    
+                    
+                </li>
+                <li class="<?php echo $allProducts;?> ">
+                    <a href="admin/allProducts">All Products</a>
                     
                     
                 </li>
