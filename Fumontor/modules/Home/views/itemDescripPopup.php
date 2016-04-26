@@ -15,24 +15,48 @@
                 </div>
                 <div class="col-md-6 model-column">
                     <div class="product-title">
-                        {{item.title}}
+                        <strong>{{item.title}}</strong>
                     </div>
                     <div class="product-status">
                           {{item.status}}
                     </div>
                     <div class="product-price">
-                           BDT : {{item.price}}
+                           BDT : <strong>{{item.price}} ৳</strong>
                     </div>
                     <div class="product-cooksName">
-                              Cooked by {{item.kitchename}}
+                              Cooked by <strong>{{item.kitchename}}</strong>
+                    </div>
+                    <div class="product-address">
+                        <strong>Address</strong><br>
+                        <div class="addressField">
+                            {{item.address}}
+                        </div>
+                    </div>
+
+                    <div class="product-cusine">
+                        <strong>Cusine</strong><br>
+                        <div class="cusineField">
+                            {{item.cusines}}
+                        </div>
+                    </div>
+                    <div class="servicetag">
+                    <label><strong>Catagories</strong></label><div class="clearfix">
+                        
+                    </div>
+                        <label class="tag catagory" ng-repeat="catagory in item.catagoryList">{{catagory}}</label>
+                    </div>
+                    <div class="clearfix">
+                        
                     </div>
                     <div class="product-description">
-                        <b>Description </b>
+                        <strong>Description </strong>
                         <br>
                         <div class="product-description">
                             {{item.description}}
                         </div>
                     </div>
+                <label class="tag" ng-show="item.pickup">Pick up</label>
+                <label class="tag" ng-show='item.home_delivery'>Home Delivery</label>
 
                 <div class="cd-customization active details" >
                 
@@ -42,7 +66,7 @@
                     <button href="#0" class="btn-plus btn btn-danger"><i class="fa fa-plus"></i></button>
                     
                 </div>
-                <button  class="add-to-cart btn btn-danger pull-right">
+                <button  class="add-to-cart btn btn-embossed btn-wide btn-danger pull-right">
                     <em><i class="fa fa-shopping-cart"></i></em>
                     <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32">
                         <path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>

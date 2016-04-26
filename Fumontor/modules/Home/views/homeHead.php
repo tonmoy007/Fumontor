@@ -22,6 +22,7 @@
         <link href="assets/css/home.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/css/ns-style-attached.css">
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
 
         <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css">
         <script src="assets/js/home/jquery-2.1.1.js"></script>
@@ -29,21 +30,15 @@
         <script src="assets/js/modernizr.js"></script>
         <script src="assets/js/essentials/angular.min.js"></script>
         <script src="assets/js/essentials/ui-bootstrap-tpls-0.9.0.js"></script>
+        <script src="assets/js/home/rzslider.min.js"></script>
         <script src="assets/js/essentials/locationSearch.js"></script>
+
         
     </head>
     <!-- END HEAD -->
-    <body ng-app="homeApp">
+    <body ng-app="homeApp" ng-controller="searchCtrl">
         
    
-     <div class="brand">
-        <div class="heading">
-            <div class="center">
-                <div class="logo">
-                    <h1>Fumontor</h1>
-                </div>
-            </div>
-        </div>
-        
-    </div>   
+        <search-bar></search-bar>
+       <fu-notification></fu-notification>
  

@@ -1,11 +1,15 @@
 .fu-modal{
     position: fixed;
+    text-align: center;
     top: 0;
     left: 0;
-    width: 100%;
+    line-height: 100vh;
+    vertical-align: middle;
+    width: calc(100% - 8px);
     height: 100%;
     min-height: 100vh;
     font-size: 14px;
+    margin-right: 8px;
     background: rgba(233, 234, 237, 0.9);
     cursor: pointer;
     z-index: 10001;
@@ -30,7 +34,6 @@
   opacity: 1;
 }
 .fu-modal-container{
-    margin: 4em auto;
     cursor: default;
     width: 100%;
     max-width: 764px;
@@ -53,6 +56,14 @@
   -ms-transform: scale(0);
   -o-transform: scale(0);
   transform: scale(0);
+}
+.fu-modal .fu-modal-container{
+   line-height: 100vh;
+    vertical-align: middle;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    
 }
 .fu-modal .fu-modal-container.is-visible{
     visibility: visible;
@@ -91,6 +102,9 @@
 }
 .fu-modal-close.alter{
      background: transparent url(../img/cd-close-black.svg ) no-repeat center ;
+}
+.fu-modal-header,.fu-modal-body{
+    line-height: 1.5em;
 }
 .fu-modal-header{
     color: #ffffff;
