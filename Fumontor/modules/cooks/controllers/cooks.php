@@ -73,11 +73,11 @@ class Cooks extends MX_Controller {
        }
 
     }
-    public function registerForm(){
+    public function registerCook(){
         $data['title']="Cooks Registration";
-        $this->load->view('temp/formHeader',$data);
-        $this->load->view('register');
-        $this->load->view('temp/formFooter');
+        $this->load->view('temp/headerHome',$data);
+        $this->load->view('homepage');
+        $this->load->view('temp/homeFooter');
     }
 
     public function addMenuItem() {

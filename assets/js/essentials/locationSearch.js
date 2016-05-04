@@ -10,12 +10,12 @@ angular.module('queryfilter',[]).filter("getqueryresults",function() { // regist
 var app=angular.module('homeApp',['ui.bootstrap','rzModule','queryfilter','ngRoute','ngAnimate']);
 var ItemData={};
 app.config(function($routeProvider) {
-    $routeProvider.when('/',{
-        templateUrl:'home/getTamplate/home-products',
-        
-    }).when('/kitchen/:id',{
+    $routeProvider.when('/kitchen/:id',{
         templateUrl:'home/getTamplate/kitchenPage',
         controller:'kitchenShowCtrl'
+    }).otherwise({
+        templateUrl:'home/getTamplate/home-products',
+        
     });
 });
 

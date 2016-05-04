@@ -3,7 +3,7 @@
                     <li><a href="" title="Signin/register" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-in"></i></a>
                         <ul class="dropdown-menu cool-shadow">
                             <li><a href="auth/login">Signin</a></li>
-                            <li><a href="">Register As Cook</a></li>
+                            <li><a href="cooks/registerCook">Register As Cook</a></li>
                             <li><a href="">Register As Foodie</a></li>
                             
                         

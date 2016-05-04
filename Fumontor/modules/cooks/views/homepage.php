@@ -143,7 +143,7 @@
                         <div class="register-logo"></div>
                     </div>
                     <div class="form-btn center">
-                        <a href="#fullbody" class="btn btn-danger btn-wide btn-embossed"> Register Now <span class="btn-tip">( Its Free!!)</span></a>
+                        <a href="cooks/registerCook" class="btn btn-danger btn-wide btn-embossed"> Register Now <span class="btn-tip">( Its Free!!)</span></a>
                     </div>
                 </div>
 

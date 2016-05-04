@@ -13,6 +13,9 @@
     font-family: Lindy;
     
 }
+body{
+    font-size: 100%;
+}
 .header-logo{
     position: absolute;
     left: 10px;
