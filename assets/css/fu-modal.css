@@ -13,6 +13,7 @@
     background: rgba(233, 234, 237, 0.9);
     cursor: pointer;
     z-index: 10001;
+    overflow: hidden;
     overflow-y: scroll;
     opacity: 0;
     visibility: hidden;
@@ -44,7 +45,7 @@
     border-color: #e9eaed #e9eaed #d1d1d1;
     border-radius: .25em;
     z-index: 3;
-    overflow: hidden;
+    overflow: visible;
     transition: transform 1s ease-in-out;
     -webkit-transition: transform .5s ease-in-out;
     -moz-transition:transform .5s ease-in-out;

@@ -1,5 +1,5 @@
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.3.0/ng-tags-input.js"></script>
+<link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.3.0/ng-tags-input.min.css">
 <script type="text/javascript" src="assets/js/settings.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 <link rel="stylesheet" type="text/css" href="assets/css/settings.css">

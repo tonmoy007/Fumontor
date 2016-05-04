@@ -1,10 +1,10 @@
 
 $(document).ready(function() {
     $("#lightSlider").lightSlider({
-        item: 3,
+        item: 4,
         autoWidth: false,
         slideMove: 1, // slidemove will be 1 if loop is true
-        slideMargin: 8,
+        slideMargin: 10,
  
         addClass: '',
         mode: "slide",
@@ -12,14 +12,14 @@ $(document).ready(function() {
         cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
         easing: 'linear', //'for jquery animation',////
  
-        speed: 800, //ms'
-        auto: true,
-        loop: true,
+        speed: 1000, //ms'
+        auto: false,
+        loop: false,
         slideEndAnimation: true,
-        pause: 2000,
+        pause: 40000,
  
         keyPress: true,
-        controls: false,
+        controls: true,
         prevHtml: '',
         nextHtml: '',
  
@@ -27,14 +27,14 @@ $(document).ready(function() {
         adaptiveHeight:false,
  
         vertical:false,
-        verticalHeight:500,
-        vThumbWidth:200,
+        verticalHeight:100,
+        vThumbWidth:100,
  
         thumbItem:16,
         pager: true,
         gallery: false,
         galleryMargin: 10,
-        thumbMargin: 10,
+        thumbMargin: 8,
         currentPagerPosition: 'middle',
  
         enableTouch:true,

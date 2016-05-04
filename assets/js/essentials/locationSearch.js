@@ -7,16 +7,26 @@ angular.module('queryfilter',[]).filter("getqueryresults",function() { // regist
     };
  });
 
-var app=angular.module('homeApp',['ui.bootstrap','rzModule','queryfilter']);
+var app=angular.module('homeApp',['ui.bootstrap','rzModule','queryfilter','ngRoute','ngAnimate']);
 var ItemData={};
+app.config(function($routeProvider) {
+    $routeProvider.when('/',{
+        templateUrl:'home/getTamplate/home-products',
+        
+    }).when('/kitchen/:id',{
+        templateUrl:'home/getTamplate/kitchenPage',
+        controller:'kitchenShowCtrl'
+    });
+});
 
 app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
-    $scope.searched=true;
+    $scope.searched=false;
     $scope.fixedTop=false;
     $scope.count=0;
     $scope.filter={};
     $scope.showCart=false;
-    $scope.menuItems={name:'dhaka'};
+    $scope.menuItems=[];
+    //console.log($scope.menuItems);
     $scope.cartItems=[];
     $scope.cartSubTotal=0;
     $scope.cartTotal=0;
@@ -58,16 +68,18 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
         
         $scope.places=data.places;
         $scope.menuItems=data.products;
+
         $scope.cartTotal=data.cartTotal;
         $scope.cartTotalItems=parseInt(data.cartTotalItems);
         
         log=[];
         cartCatagoriseItem=[];
+        //console.log(data.cartContents);
         angular.forEach(data.cartContents,function(value,key){
             var options=JSON.parse(value.options);
             var cid=options.cooksid;
             var kitchen=options.kitchenName;
-            //console.log(JSON.parse(value.options).cooksid);
+            //console.log(JSON.parse(value.options).min_order);
             
             var cKey=false;
             angular.forEach($scope.cartItems,function(ivalue,ikey){
@@ -81,10 +93,11 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             
             
             var obj={};
-
+            //console.log(options.min_order);
             obj[key]=value;
             obj['cooksId']=options.cooksid;
             obj['kitchenName']=kitchen;
+            obj['min_order']=parseInt(options.min_order);
             obj['subtotal']=parseInt(value.subtotal);
             //console.log(parseInt(value.subtotal));
             if(!cKey){
@@ -111,7 +124,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.addItemToCart=function(cooksId,Kitchen,key,value){
         var cKey=false;
         //console.log($scope.cartItems);
-
+        var update=false;
         angular.forEach($scope.cartItems,function(ivalue,ikey){
                 
 
@@ -122,23 +135,30 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
                     
                     }else{
                        $scope.cartItems[ikey][key]['qty']+=value.qty;
-                       $scope.cartItems[ikey][key]['subtotal']+=parseInt(value.subtotal); 
+                       $scope.cartItems[ikey][key]['subtotal']+=parseInt(value.subtotal);
+                       update=true; 
                     }
                     $scope.cartItems[ikey]['subtotal']+=parseInt(value.subtotal);
+                    
                 }
+
             },log);
             
             
             
-            var obj={};
+            
+            //console.log(obj);
+            if(!cKey){
+                var obj={};
             obj[key]=value;
             obj['cooksId']=options.cooksid;
             obj['kitchenName']=Kitchen;
-            obj['subtotal']=value.subtotal;
-            //console.log(obj);
-            if(!cKey){
+            obj['subtotal']=parseInt(value.subtotal);
+            obj['min_order']=parseInt(options.min_order);
                 $scope.cartItems.push(obj);
+                
             }
+            return update;
             
     }
 
@@ -160,7 +180,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
       }
       $scope.notiClose=function(){
         $scope.notiVisibility='ns-hide';
-        $timeout(function(){$scope.notiHide=true;},290);
+        $timeout(function(){$scope.notiHide=true;},300);
       }
       $scope.notiOpen=function(){
         $scope.notiVisibility='ns-show';
@@ -237,8 +257,9 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     }
     $scope.addToCart=function(data){
         //console.log(data);
+        
         subtotal=parseInt(data.price)*parseInt(data.quantity);
-        options={'cooksid':data.cooksID,'kitchenName':data.kitchename}
+        options={'cooksid':data.cooksID,'kitchenName':data.kitchename,'min_order':data.min_order}
         send={
             id:data.id,
             name:data.title,
@@ -257,15 +278,23 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             data:send
         }).success(function(response){
             //console.log(response);
-            if(response!="failed"){
+            if(response=='noavailable'){
+                $scope.showNoti("Stock Limit Excided");
+                return;
+            }
+            else if(response!="failed"){
                 send.rowid=response;
                 
-                $scope.addItemToCart(data.cooksID,data.kitchename,response,send);
+                update=$scope.addItemToCart(data.cooksID,data.kitchename,response,send);
                 $scope.cartSubTotal+=subtotal;
                 $scope.cartTotalItems+=parseInt(data.quantity);
                 //console.log($scope.cartItems);
-                $scope.cartTotal++;
-                $scope.showNoti("Item SuccessFully added to the cart");
+                if(!update){
+                    $scope.cartTotal++;
+                }
+                (data.stock_quantity==0)?$scope.showNoti('Sorry Item is out of stock your order will be taken as Pre Order '):$scope.showNoti("Item SuccessFully added to the cart");
+                data.stock_quantity-=data.quantity;
+                
             }else{
                 $scope.showNoti("Sorry Item Can not be added to the cart");
             }
@@ -296,7 +325,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             method:'POST',
             data:{rowid:data.rowid}
         }).success(function(response){
-            console.log(response);
+            //console.log(response);
             if(response=='success'){
                 $scope.cartItems[cid]['subtotal']-=data.subtotal;
                 $scope.cartSubTotal-=data.subtotal;
@@ -307,6 +336,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
                 if($scope.cartItems[cid]['subtotal']==0){
                     if($scope.cartItems.length){
                         delete $scope.cartItems.splice(cid,1);
+
                         
                         
                     }
@@ -360,8 +390,38 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
 
 
 
- app.controller('productShowCtrl',function($scope,$http,$timeout){
+ app.controller('kitchenShowCtrl',function($scope,$http,$timeout,$routeParams){
+    $scope.loading=true;
+    $scope.kitchenData=[];
+    $scope.kitchenProducts=[];
+    $scope.cookid=$routeParams.id;
+    $scope.todaysMenuItems=[];
+    //console.log($scope.cookid);
     
+    $scope.danti=function(){
+        var d=damti(4);
+        console.log(d);
+    };
+
+    $http({
+        url:'home/getKitchenPageData/'+$scope.cookid,
+    }).success(function(response){
+       created=response.kitchenInfo[0].createdon.split(' ');
+       
+       date=created[0].split('-');
+       //console.log(created);
+       time=created[1].split(':');
+       var mydate = new Date(date[0],date[1],date[2],time[0],time[1],time[2]);
+        response.kitchenInfo[0].createdon=mydate.valueOf();
+        $scope.kitchenData=response.kitchenInfo[0];
+        $scope.menuItems=response.products;
+        $scope.loading=false;
+        $scope.kitchenShow=true;
+        $scope.todaysMenuItems=response.products;
+        $scope.found=true;
+    });
+
+
  });
  // **********************************************************
  //                             Directives
@@ -545,7 +605,20 @@ app.directive('fuNotification',function(){
         }
     };
 });
-
+app.directive('slider', function($timeout) {
+  return {
+    restrict: 'AE',
+    replace: true,
+    controller:'kitchenShowCtrl',
+    templateUrl: 'home/getTamplate/slider',
+    link:function(scope,elem,attr){
+        
+        slideme(4,elem.children('#lightSlider'));
+        console.log(elem.children('#lightSlider'));
+    }
+    
+  };
+});
 // ***************** Factory  ********************************
 
 
@@ -557,7 +630,8 @@ app.directive('fuNotification',function(){
 var catagories=[
 {name:'Home Food',checked:false,catagory:'home-food'},
 {name:'Fast Food',checked:false,catagory:'fast-food'},
-{name:'deshi',checked:false,catagory:'desi'}
+{name:'deshi',checked:false,catagory:'desi'},
+{name:'Juice',checked:false,catagory:'juice'}
 ];
 var cusineFilters=[
 {value:'Bangla'},
@@ -595,3 +669,58 @@ var orderTypes=[
 {name:'Pre-Order',value:'0',checked:false},
 {name:'Order Now',value:'1',checked:false}
 ];
+
+var slideme=function(item,elem){
+    $(elem).lightSlider({
+        item: item,
+        autoWidth: false,
+        slideMove: 1, // slidemove will be 1 if loop is true
+        slideMargin: 10,
+ 
+        addClass: '',
+        mode: "slide",
+        useCSS: true,
+        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
+        easing: 'linear', //'for jquery animation',////
+ 
+        speed: 400, //ms'
+        
+        pauseOnHover: true,
+        loop: false,
+        slideEndAnimation: false,
+        pause: 4000,
+        auto: true,
+        keyPress: true,
+        controls: true,
+        prevHtml: '',
+        nextHtml: '',
+ 
+        rtl:false,
+        adaptiveHeight:true,
+ 
+        vertical:false,
+        verticalHeight:100,
+        vThumbWidth:100,
+ 
+        thumbItem:16,
+        pager: true,
+        gallery: false,
+        galleryMargin: 10,
+        thumbMargin: 8,
+        currentPagerPosition: 'middle',
+ 
+        enableTouch:true,
+        enableDrag:true,
+        freeMove:true,
+        swipeThreshold: 50,
+ 
+        responsive : [],
+ 
+        onBeforeStart: function (el) {},
+        onSliderLoad: function (el) {},
+        onBeforeSlide: function (el) {},
+        onAfterSlide: function (el) {},
+        onBeforeNextSlide: function (el) {},
+        onBeforePrevSlide: function (el) {}
+    });
+};

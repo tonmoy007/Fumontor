@@ -5,13 +5,24 @@
     
 }
 .logo {
-    margin-bottom: 20px;
+    margin-bottom: 1px;
     font-size: 3em;
     text-shadow: 1px 0 2px rgba(0,0,0,.3);
     color: #6a1b99;
     font-weight: bolder;
     font-family: Lindy;
     
+}
+.header-logo{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    line-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.kitchen-menu{
+    font-size: 1.3em;
 }
 .brand{
     padding-top: 203px
@@ -420,7 +431,16 @@
 .model-column{
     margin-top: 20px;
     text-align: left;
-    font-size: 20px;
+    font-size: 1em;
+}
+.model-column strong{
+    font-size: 1.2em;
+}
+.model-column .product{
+    margin-bottom: 10px;
+}
+.product.action{
+    padding: 25px;
 }
 .filter-label{
     margin-top: 16px;

@@ -1,15 +1,24 @@
 <div class="top-head">
+
+
     <div class="search-form-container" id="searchForm"  >
         <div class="form-overlay" >
         <right-navigation></right-navigation>
-        <catagory-bar></catagory-bar>
+<catagory-bar></catagory-bar>
+        <div class="header-logo">
+            <a class="navbar-brand"  href="#/">
+                <div class="logo" style="font-size: 1.3em">
+                    Fumontor
+                </div>
+            </a>
+        </div>
             <div class="form" >
                 <div class="">
                     <form name="Location" method="get" accept-charset="utf-8" ng-submit="submitQuery(query.city,query.location,Location)">
                     <ul class="search-list cool-shadow">
                     <li class="form-list"><label>I am in </label></li>
 
-                        <li class="form-list"><select required="true" name="city" ng-init="query.city=cities[0].name" ng-model="query.city" ng-options="city.name for city in cities" class="form-control">
+                        <li class="form-list"><select required="true" name="city" ng-init="query.city=cities[0].name" ng-model="query.city" ng-options="city.name for city in cities" class="form-control select select-primary select-block mbl">
                         <option value="">City?</option>
                             
                         </select></li>

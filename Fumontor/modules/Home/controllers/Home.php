@@ -179,6 +179,16 @@ function getFilterData(){
         }
 }
 
+function getKitchenPageData($id){
+    $data['kitchenInfo']=$this->common->getWhere('cooks','user_id',$id);
+    $this->homemodel->selectProduct();
+    $this->db->where('cooksID',$id);
+    $query=$this->db->get();
+
+    $data['products']=$this->homemodel->getProductJson($query);
+    // print_r($data);
+    echo json_encode($data);
+}
 
 
 

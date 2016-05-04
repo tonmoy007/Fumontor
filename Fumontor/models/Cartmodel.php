@@ -42,11 +42,11 @@ class Cartmodel extends CI_Model
     }
     function deleteItem($rowid){
         $data = array(
-        'rowid'   => $rowid,
+        'rowid'   => $rowid.'',
         'qty'     => 0
         );
         
-        
+
         return $this->cart->update($data);
     }
 

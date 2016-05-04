@@ -15,22 +15,25 @@
     <ul class="cd-cart-items" ng-repeat="(cid,kichenCartItem) in cartItems" >
     
           
-          <label for="" class="text-theme form-header" >{{kichenCartItem.kitchenName}} </label>
+          <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="text-theme form-header" >{{kichenCartItem.kitchenName}} </a>
           
-          <li class="cart-item" ng-repeat='(key,cartItem) in kichenCartItem' ng-if='!isString(cartItem)&& key!="subtotal"' >
+          <li class="cart-item" ng-repeat='(key,cartItem) in kichenCartItem' ng-if='!isString(cartItem)&& key!="subtotal"&&key!="min_order"' >
 
             <div class="item-title">
               <span class="cd-qty">{{cartItem.qty}} x</span> 
               {{cartItem.name}}
               
             </div>
-            <div class="cd-price"  >{{cartItem.price}}</div>
+            <div class="cd-price"  >{{cartItem.price}}<small>/u</small></div>
             <div class="cd-subtotal">
               {{cartItem.subtotal}}
             </div>
             <a  href="" class="cd-item-remove cd-img-replace" ng-click="removeCartItem(cid,cartItem)" >Remove</a>
           </li>
-          <div class="cd-cart-total" ng-if="kichenCartItem.subtotal>0">
+          <div class="alert alert-info" ng-if="kichenCartItem.subtotal<kichenCartItem.min_order">
+            This kitchen doesn't take orders if it is not eqal to or more than <strong>{{kichenCartItem.min_order}}</strong> tk so please fullfil the order by perchasing more from <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="link" >{{kichenCartItem.kitchenName}} </a>
+          </div>
+          <div class="cd-cart-total sub" ng-if="kichenCartItem.subtotal>0">
           <p>Subtotal <span>৳ <label class="total"> {{kichenCartItem.subtotal}}</label></span></p>
 
           </div> 
@@ -42,9 +45,9 @@
 
     </div> <!-- cd-cart-total -->
 
-    <a href="#0" ng-if="cartSubTotal>0" class=" checkout btn btn-danger btn-wide">Proceed to Checkout</a>
+    <a href="#0" ng-if="cartSubTotal>200" class=" checkout btn btn-danger btn-wide">Proceed to Checkout</a>
     
-    <p ng-if="cartSubTotal>0" class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
+    <p ng-if="cartSubTotal>200" class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
   </div>
   </div> <!-- cd-cart -->
        

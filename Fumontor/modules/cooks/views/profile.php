@@ -1,12 +1,11 @@
    
    <link rel="stylesheet" type="text/css" href="assets/css/tabs.css" />
 
-<link type="text/css" rel="stylesheet" href="assets/css/lightslider.min.css" /> 
-
+<link rel="stylesheet" type="text/css" href="assets/css/ngTimepicker.css">
 
 <link rel="stylesheet" type="text/css" href="assets/css/tabstyles.css" />
 <link href="assets/css/profile.css" rel="stylesheet">
-<script src="assets/js/lightslider.min.js"></script> 
+<script src="assets/js/essentials/ngTimepicker.min.js"></script>
 <script type="text/javascript" src="assets/js/notificationFx.js"></script>
 
         <?php
@@ -43,6 +42,7 @@
         
         <div class="content__body">
             <div class="view__container text-theme cool-border">
+
                 <div class="view__header">
                     <h2 class="content__header__text"> <strong><?php
             if(!empty($cook['kitchename'])){
@@ -51,7 +51,7 @@
                 echo 'Fumontor Kitchen';
             }
 
-            ?></strong></h2>
+            ?></strong><small><?php if(!empty($cook['kitchen_sub_title'])) echo $cook['kitchen_sub_title']?></small></h2>
             <h4 class="content__header__text__sub text-muted"><em>by</em> <?php if(!empty($cook['name'])){
                 echo $cook['name'];
                 }else{
@@ -141,6 +141,9 @@
                 </div>
                
 
+                
+             </div>
+            <div class="slider cool-border " style="padding: 40px; margin: 20px">
                 <ul id="lightSlider" class="view__slider">
                     <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
                     <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
@@ -151,12 +154,10 @@
                     <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
                     <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
                 </ul>
-             </div>
-
+            </div>
             </div>
         </div>
     </div> <!-- .content-wrapper -->
 </main> <!-- .cd-main-content -->
 
-
-<script type="text/javascript" src="assets/js/fu-light-slider.js"></script><script type="text/javascript" src="assets/js/orderNotification.js"></script>
+<script type="text/javascript" src="assets/js/orderNotification.js"></script>
