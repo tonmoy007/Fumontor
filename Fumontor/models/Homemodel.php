@@ -174,7 +174,7 @@ function getOrderTypeProducts($orderTypes){
 }
 
 function selectProduct(){
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.preorder_process_time,menuitem.ordernow_time,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,menuitem.min_quantity,menuitem.stock_quantity,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery,cooks.min_order');
+    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.preorder_process_time,menuitem.ordernow_time,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,menuitem.min_quantity,menuitem.stock_quantity,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery,cooks.min_order,cooks.delivery_charge');
     $this->db->from('menuitem');
     $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
     $this->db->order_by('menuitem.created','desc');

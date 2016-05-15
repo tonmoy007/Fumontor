@@ -34,6 +34,16 @@ body{
     width: 100%;
     position: relative;
 }
+.user-options{
+    font-size: .6em;
+}
+.user-options img{
+    width: 35px;
+    line-height: 44px;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 5px;
+}
 
 .productLoading{
     font-size: 2em;

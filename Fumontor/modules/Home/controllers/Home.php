@@ -113,6 +113,10 @@ function getHomeData(){
         'cartTotalItems'=>$this->cartmodel->getCartTotal(),
         'cartContents'=>$this->cartmodel->getCartContent()
         );
+    if($this->ion_auth->logged_in()){
+        $user=$this->ion_auth->user()->row();
+        $data['user']=$user;
+    }
     echo json_encode($data);
 }
 

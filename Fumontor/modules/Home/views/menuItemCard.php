@@ -5,7 +5,7 @@
         <div class="grid-img">
         <div class="grid-side-banner" ng-class="{now:item.todays_menu}">
             <label ng-show='!item.todays_menu' class="  banner-label">Pre Order</label>
-            <label ng-show="item.todays_menu" class=" banner-label">Order Now</label>
+            <label ng-show="item.todays_menu" class=" banner-label">Instant Order</label>
         </div>
             <a href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-search"></i></a>
             

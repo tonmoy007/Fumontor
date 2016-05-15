@@ -35,7 +35,7 @@
        <div id="fullpage" class="fullpage-container ">
             <div class="login-container cool-border">
             
-              <a href="index.php" class="">
+              <a href="" class="">
                 <div class="logo">
                   <img class="img-responsive" src="assets/img/fu-logo.png" alt="fumontor logo">
                 </div>
@@ -93,7 +93,8 @@
                            do not have an account? &nbsp;
                         <a href="index.php/auth/create_user" id="register-link" class="btn btn-raised btn-sm ">Register</a>
 
-                      <label>Other Login Options :&nbsp;&nbsp;</label><a href="index.php/auth/loginfacebook" id="register-link" class="btn btn-raised btn-facebook btn-sm "><i class="fa fa-facebook"></i> </a>
+                      <label>Other Login Options :&nbsp;&nbsp;</label><a href="social/session/facebook" id="register-link" class="btn btn-raised btn-fb btn-sm "><i class="fa fa-facebook"></i> </a>
+                      <a href="social/session/google" id="register-link" class="btn btn-raised btn-google btn-sm "><i class="fa fa-google"></i> </a>
                      
                 </p>
                 <?php $this->view('temp/homeFooter')?>

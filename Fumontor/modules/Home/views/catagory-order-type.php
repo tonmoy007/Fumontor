@@ -19,4 +19,4 @@
         <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span> 
         {{filter.orderTypes[1].name}}</label>
         </li>
-        </ul
+</ul>

@@ -73,7 +73,8 @@ class Facebook_ion_auth {
 				$name = explode(" ", $user->name);
 				// check if this user is already registered
 				// if(!$this->CI->ion_auth_model->identity_check($name[0])){
-
+				print_r($user);
+				return;
 					
 				// 	$register = $this->CI->ion_auth->register($name[0], 'facebookdoesnothavepass123^&*%', $user->email, array('first_name' => $name[0], 'last_name' => $name[1]));
 				// } else {
@@ -83,10 +84,10 @@ class Facebook_ion_auth {
 				if(!$this->CI->ion_auth_model->identity_check($name[0])){
 
 					
-					$register = $this->CI->ion_auth->register($name[0], 'facebook123^&*%', $user->email, array('first_name' => $name[0], 'last_name' => $name[1]));
+					$register = $this->CI->ion_auth->register($name[0], $user->id, $user->email, array('first_name' => $name[0], 'last_name' => $name[1]));
 					return true;
 				} else {
-					$login = $this->CI->ion_auth->login($user->email, 'facebook123^&*%', 1);
+					$login = $this->CI->ion_auth->login($user->email, $user->id, 1);
 					return true;
 				}	
 				}else{
@@ -95,8 +96,9 @@ class Facebook_ion_auth {
 						if ($email==null) {
 							exit();
 						}
-						$login = $this->CI->ion_auth->login($email, 'facebook123^&*%', 1);
-						redirect('/','refresh');
+						$login = $this->CI->ion_auth->login($email, $user->id, 1);
+						
+						redirect('user','refresh');
 					}else
 						return $user;
 				}

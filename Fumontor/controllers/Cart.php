@@ -36,14 +36,16 @@ function addItem(){
     $request = json_decode($postdata);
     
 
+       
         $insert=array('id'=>$request->id,'name'=>$request->name,'price'=>$request->price,'qty'=>$request->qty,'options'=>json_encode($request->options));
-        
-        $id=$this->cartmodel->insertItem($insert);
-        if($id){
-            echo $id;
-        }else{
-            echo "failed";
-        }
+               
+               $id=$this->cartmodel->insertItem($insert);
+               if($id){
+                   echo $id;
+               }else{
+                   echo "failed";
+               }
+           
 }
   
 function destroy(){
