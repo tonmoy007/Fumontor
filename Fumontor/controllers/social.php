@@ -52,6 +52,16 @@ class Social extends CI_Controller {
         }
 
     //foursquare
+        else if($provider == 'linkedin'){
+
+            $app_id     = '75yj56pgtwgexp';
+            $app_secret = '7PmMB8Rq2CODae6k';
+            $provider   = $this->oauth2->provider($provider, array(
+                'id' => $app_id,
+                'secret' => $app_secret,
+                'redirect'=>$this->page,
+            ));             
+        }
         else if($provider == 'foursquare'){
 
             $app_id     = $this->config->item('foursquare_appid');
@@ -59,6 +69,7 @@ class Social extends CI_Controller {
             $provider   = $this->oauth2->provider($provider, array(
                 'id' => $app_id,
                 'secret' => $app_secret,
+
             ));             
         }
 
@@ -82,7 +93,8 @@ class Social extends CI_Controller {
                 $user = $provider->get_user_info($token);
                 // echo $page;
                 // return;
-                //print_r($user);
+                // print_r($user);
+                // return;
                 if($this->uri->segment(3) == 'google'){
                      //Your code stuff here 
                     // print_r($user);
@@ -251,9 +263,81 @@ class Social extends CI_Controller {
                     }
 
 
-                }elseif($this->uri->segment(3) == 'foursquare'){
+                }elseif($this->uri->segment(3) == 'linkedin'){
                     // your code stuff here
+                     $email=$user['email'];
+                    if(!empty($user['email'])){
+                    if(!$this->ion_auth_model->identity_check($email)){
+
+                        // print_r($user);
+                        // return;
+                        $register = $this->ion_auth->register($user['first_name'], $user['email'], $email, array('first_name' => $user['first_name'], 'last_name' => $user['last_name'],'name'=>$user['name']));
+                        
+                            $login = $this->ion_auth->login($email, $user['email'], 1);
+                          if(isset($user['image'])){
+                                    $this->common->updateUserImage($email,$user['image']);
+                                    }else{
+                                        $this->common->updateUserImage($email,'');
+                                    } 
+                                // $user_info = $this->ion_auth->user()->row(); 
+                                // $uid =$user_info->id;
+                                 if(!IS_AJAX){
+                                    if(strcmp($page,'checkout')==0){
+                                        redirect('#/checkout');
+                                        
+                                    }else redirect("",'refresh');
+                                    }else{
+                                        echo 'success';
+                                    }
+                            
+                        
+                    } else {
+                        $login = $this->ion_auth->login($email, $user['email'], 1);
+                        if(isset($user['image'])){
+                                    $this->common->updateUserImage($email,$user['image']);
+                                    }else{
+                                        $this->common->updateUserImage($email,'');
+                                    }
+                                // $user_info = $this->ion_auth->user()->row(); 
+                                // $uid =$user_info->id;
+                                 if(!IS_AJAX){
+                                       if(strcmp($page,'checkout')==0){
+                                        redirect('#/checkout');
+                                        
+                                    }else redirect("",'refresh');
+                                    }else{
+                                        echo 'success';
+                                    }
+                            
+                    }   
+                    }else{
+                        if($this->ion_auth_model->username_check($nickname)){
+                            $email=$this->ion_auth_model->getUserEmail($nickname);
+                            if ($email==null) {
+                                echo 'noemail';
+                            }
+                            $login = $this->ion_auth->login($email, $user['email'], 1);
+                            
+                            if(isset($user['image'])){
+                                    $this->common->updateUserImage($email,$user['image']);
+                                    }else{
+                                        $this->common->updateUserImage($email,'');
+                                    }
+
+                             if(!IS_AJAX){
+                                if(strcmp($page,'checkout')==0){
+                                        redirect('#/checkout');
+                                        
+                                    }else redirect("",'refresh');
+
+                                    }else{
+                                        echo 'success';
+                                    }
+                        }else{
+                            echo "noemail";
+                        }
                 }
+            }
 
             // $this->session->set_flashdata('info',$message);
             //     redirect('social?tabindex=s&status=sucess');

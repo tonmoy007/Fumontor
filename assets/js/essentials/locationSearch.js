@@ -549,7 +549,9 @@ $scope.procedeNext=function(index){
             if(response=='success'){
             $scope.$parent.showNoti('Order Is Successfully Submitted Thanks For Using Fumontor');
 
-            $timeout(function(){redirect('')},1000);
+            $timeout(function(){
+                window.location='#/'
+            },1000);
             $scope.cartItems=[];
         }
         }).error(function(response) {

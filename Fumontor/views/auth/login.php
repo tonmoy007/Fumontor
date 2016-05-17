@@ -95,6 +95,7 @@
 
                       <label>Other Login Options :&nbsp;&nbsp;</label><a href="social/session/facebook" id="register-link" class="btn btn-raised btn-fb btn-sm "><i class="fa fa-facebook"></i> </a>
                       <a href="social/session/google" id="register-link" class="btn btn-raised btn-google btn-sm "><i class="fa fa-google"></i> </a>
+                      <a href="social/session/linkedin" id="register-link" class="btn btn-raised btn-google btn-sm "><i class="fa fa-linkedin"></i> </a>
                      
                 </p>
                 <?php $this->view('temp/homeFooter')?>
