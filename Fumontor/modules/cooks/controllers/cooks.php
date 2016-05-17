@@ -15,8 +15,7 @@ class Cooks extends MX_Controller {
      */
     function __construct() {
         parent::__construct();
-        $this->load->model('cooks_model');
-        $this->load->model('common');
+        $this->load->model(array('cooks_model','homemodel','common'));
         $this->load->database();
         $this->load->library(array('ion_auth','form_validation'));
         $this->load->helper(array('url','language'));
@@ -74,11 +73,11 @@ class Cooks extends MX_Controller {
        }
 
     }
-    public function registerForm(){
+    public function registerCook(){
         $data['title']="Cooks Registration";
-        $this->load->view('temp/formHeader',$data);
-        $this->load->view('register');
-        $this->load->view('temp/formFooter');
+        $this->load->view('temp/headerHome',$data);
+        $this->load->view('homepage');
+        $this->load->view('temp/homeFooter');
     }
 
     public function addMenuItem() {
@@ -242,23 +241,23 @@ class Cooks extends MX_Controller {
     }
 
     public function imgUploader(){
-                       $luser = $this->ion_auth->user()->row();
-                       $data['productId']=$this->input->get('productId');
-                       $message="Upload Slider Images";
-                       $data['mode']='old';
-                       $data['message']=$message;
-                       $Products=$this->common->getWhere('menuitem','id',$data['productId']);
-                        foreach ($Products as $Product) {
-                            $data['ProductName']=$Product['title'];
-                        }
-                        $head['title']="Add Images";
-                   
-                    $head['id']=$luser->id;
-                    $head['user']=$luser->first_name;
-                    $head['userKitchenName']=$this->cooks_model->getKitchenName($user->id);
-                       $this->load->view('temp/profileHeader',$head);
-                       $this->load->view('imgUploader',$data);
-                       $this->load->view('temp/profileFooter');
+           $luser = $this->ion_auth->user()->row();
+           $data['productId']=$this->input->get('productId');
+           $message="Upload Slider Images";
+           $data['mode']='old';
+           $data['message']=$message;
+           $Products=$this->common->getWhere('menuitem','id',$data['productId']);
+            foreach ($Products as $Product) {
+                $data['ProductName']=$Product['title'];
+            }
+            $head['title']="Add Images";
+       
+        $head['id']=$luser->id;
+        $head['user']=$luser->first_name;
+        $head['userKitchenName']=$this->cooks_model->getKitchenName($user->id);
+           $this->load->view('temp/profileHeader',$head);
+           $this->load->view('imgUploader',$data);
+           $this->load->view('temp/profileFooter');
     }
 
     public function allProducts(){
@@ -268,6 +267,209 @@ class Cooks extends MX_Controller {
         $this->load->view('allMyProducts',$data);
         $this->load->view('temp/footer');
     }
+
+// (((((((((((((((((((((((((((Menu Page Apis)))))))))))))))))))))))))))
+
+
+
+public function getMenuPageData(){
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_cook()){
+            $user=$this->ion_auth->user()->row();
+            $this->homemodel->selectProduct();
+            $this->db->where('cooksID',$user->id);
+            $query=$this->db->get();
+            $send=array(
+                'menuItems'=>$this->homemodel->getProductJson($query),
+                'userid'=>$user->id
+                );
+            echo json_encode($send) ;
+        }else{
+            echo 'bad request';
+        }
+    }else{
+            echo 'not logged_in';
+    }
+}
+
+function submitNewMenuItem(){
+
+     if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_cook()){
+            
+            $request = file_get_contents("php://input");
+            $postdata=$this->input->post();
+            // $data=$request['title'];
+            // echo $data;
+            // return;
+            //$postdata = json_decode($request);
+            $this->load->model('uploadmodel');
+            $ppt=$postdata['preorder_start']['_hr'].':'.$postdata['preorder_start']['_min'];
+            $onpt=$postdata['ordernow_start']['_hr'].':'.$postdata['ordernow_start']['_min'];
+           
+            // echo $postdata['title'];
+
+            // return;
+            $data=array(
+                'title'=>$postdata['title'],
+                'price'=>$postdata['price'],
+                'description'=>$postdata['description'],
+                'cooksID'=>$postdata['cooksID'],
+                'cusines'=>$postdata['cusines'],
+                'min_quantity'=>$postdata['min_quantity'],
+                'catagories'=>$postdata['catagories'],
+                'preorder_process_time'=>$ppt,
+                'ordernow_time'=>$onpt
+                );
+
+             
+            if($this->db->insert('menuitem',$data)){
+                $id=$this->common->getLastUserID('menuitem');
+                //echo $id;
+                $upload_info=$this->uploadmodel->upload_img($id);
+                if($upload_info){
+                    $this->db->where('id',$id);
+                    $this->db->update('menuitem',array('feature_img'=>$upload_info->name));
+                    // $upload_info['id']=$id;
+                    $this->homemodel->selectProduct();
+                    $this->db->where('menuitem.id',$id);
+                    $query=$this->db->get();
+                    $send=array(
+                        'item'=>$this->homemodel->getProductJson($query),
+
+                        );
+                    echo json_encode($send);
+
+                }else{
+                    echo 'failed';
+                }
+            }
+        }else{
+            echo 'Access Denied!!';
+        }
+    }else{
+        echo 'Need to Login!!';
+    }
+    
+
+}
+
+function setAsTodaysMenu(){
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_cook()){
+
+            $request = file_get_contents("php://input");
+            
+            $result=json_decode($request);
+          
+                $data=array('todays_menu'=>$result->todays_menu,'stock_quantity'=>$result->stock_quantity);
+                $this->db->where('id',$result->id);
+               if( $this->db->update('menuitem',$data)){
+                echo 'success';
+               }else{
+                echo 'failed';
+               }
+                
+            
+
+        }else{
+            echo 'Access Denied !! ';
+        }
+    }else{
+        echo 'Not Logged in!!';
+    }
+}
+
+
+function changeFeatureImage(){
+    $this->load->model('uploadmodel');
+    $data=$this->input->post();
+    $upload_info=$this->uploadmodel->upload_img($data['id']);
+    if($upload_info){
+        $this->db->where('id',$data['id']);
+        $this->db->update('menuitem',array('feature_img'=>$upload_info->name));
+        }
+    echo json_encode($upload_info);
+}
+
+function changeItem(){
+    if($this->ion_auth->logged_in()) {
+        
+        if($this->ion_auth->is_cook()){
+            $request = file_get_contents("php://input");
+                    
+            $data=json_decode($request);
+            $update=array($data->key=>$data->value);
+            $this->db->where('id',$data->id);
+            if($this->db->update('menuitem',$update)){
+                echo 'success';
+        
+            }else{
+                echo 'failed';
+            }
+        }else{
+            echo 'Access Denied !!!';
+        }
+    }else{
+        echo 'not logged in';
+    }
+}
+
+function deleteItem($id){
+    
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_cook()){
+            if($this->db->delete('menuitem',array('id'=>$id))){
+                echo 'success';
+            }else{
+                echo 'failed';
+            }
+        }else{
+            echo "access denied!";
+        }
+    }else{
+        echo 'not logged in';
+    }
+}
+
+
+function changeItemScedule(){
+    $request = file_get_contents("php://input");
+    $data=json_decode($request);
+    
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_cook()){
+            $update=array(
+                'preorder_process_time'=>$data->ordernowtime->hr->value.':'.$data->ordernowtime->min->value,
+                'ordernow_time'=>$data->preordertime->hr->value.':'.$data->preordertime->min->value
+                );
+            $this->db->where('id',$data->id);
+            $this->db->update('menuitem',$update);
+            $send['preorder_time_text']=$this->homemodel->convertOrderTime($update['preorder_process_time']);
+            $send['ordernow_time_text']=$this->homemodel->convertOrderTime($update['ordernow_time']);
+            echo json_encode($send);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function cook_registration(){
 
@@ -536,6 +738,7 @@ function getProfileInfo($userId){
 
         $profile['user']=$this->common->getWhere('users','id',$userId);
         $profile['kitchen']=$this->common->getWhere('cooks','user_id',$userId);
+
         echo ( json_encode($profile));
    
     
@@ -647,13 +850,28 @@ function phoneCheck($phone){
     }
 }
 
-function profileSettings(){
-    echo $this->load->view('profileSettings');
-}
-  
+
 function getpage($pageName){
     $this->load->view($pageName);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

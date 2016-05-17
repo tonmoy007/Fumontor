@@ -30,6 +30,9 @@
         <script src="assets/js/home/jquery-2.1.1.js"></script>
         <script src="assets/js/modernizr.js"></script>
         
+<link type="text/css" rel="stylesheet" href="assets/css/lightslider.min.css" />
+
+        <script src="assets/js/lightslider.min.js"></script> 
         <script src="assets/js/home/jquery-ui-1.10.3.custom.min.js"></script>
         <script src="assets/js/home/jquery.ui.touch-punch.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
@@ -38,7 +41,14 @@
         <script src="assets/js/home/flatui-checkbox.js"></script>
         <script src="assets/js/home/flatui-radio.js"></script>
         <script src="assets/js/home/jquery.tagsinput.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+
+
+<script type="text/javascript" src="assets/js/fu-light-slider.js"></script> 
+
+
+        <script src="assets/js/essentials/angular.min.js"></script>
+        
+        <script src="assets/js/essentials/ui-bootstrap-tpls-0.9.0.js"></script>
     </head>
 <body>
 <?php 
@@ -66,20 +76,7 @@
         <nav class="cd-nav nav navbar navbar-right">
             <ul class="cd-top-nav">
                 
-                <li><?php  if ($this->ion_auth->logged_in())
-                            {
-                                $this->load->model('common');
-                                $cartItem=$this->common->getWhere('cart','user_id',$user->id);
-                                $data['cartItem']=$cartItem;
-                                $itemNo=count($cartItem);
-                                $this->view('cart',$data);
-                                ?>
-                                <a href="#" id="cart-button" class="cd-cart <?php if ($itemNo>0) echo 'items-added';?>" data-target="#" class="dropdown-toggle " data-toggle="dropdown"><i class="fa fa-cart-arrow-down"></i><label for="">&nbsp;&nbsp;Cart</label>
-                                <span>
-
-                                <?php echo $itemNo; ?></span></a>
-                            <?php }
-                            ?></li>
+                
                 <li class="has-children account">
                     <a href="#0">
                         <img src="assets/img/avatar.png" alt="avatar">

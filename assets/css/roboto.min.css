@@ -13,5 +13,9 @@
 @font-face{font-family:Oxygen;src:url("../fonts/Oxygen-Bold.ttf") format('Truetype');}
 @font-face{font-family:Oxygen;src:url("../fonts/Oxygen-Light.ttf") format('Truetype');}
 @font-face{font-family:Oxygen;src:url("../fonts/Oxygen-Regular.ttf") format('Truetype');}
-
-@import url(https://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+@import  url(https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Lora:400,700,700italic,400italic);
+@import url(https://fonts.googleapis.com/css?family=Oxygen:400,300,700,900);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+@import url(https://www.google.com/fonts#ReviewPlace:refine/Collection:Raleway:400,300,700,800,900);
+@import url(https://fonts.googleapis.com/css?family=Crete+Round);
+@font-face{font-family:Bluebrush;src:url("../fonts/blowbrush.otf") format('Opentype');}

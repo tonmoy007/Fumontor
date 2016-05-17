@@ -17,7 +17,7 @@ class Users extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->library(array('form_validation','ion_auth'));
-        $this->load->model(array('common','user'));
+        $this->load->model(array('common','user','cartmodel'));
 
         $this->load->helper('date');
     }
@@ -143,27 +143,70 @@ function insertTempData(){
         }
   
 
-function makeOrders($userid){
-    $data=array();
-    $flag=false;
-    $query=$this->db->query('select * from cart where user_id='.$userid.' and checkout=false group by cooksid');
-    foreach($query->result_array() as $row){
-        
-        if($this->user->placeOrder($userid,$row['cooksid'],'Pre-Order')){
-            $flag= true;
+
+
+function submitCart(){
+
+    if($this->ion_auth->logged_in()){
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+    $paymentType='';
+    foreach($request->payment_type as $payment=>$status){
+        if($status){
+           $paymentType=$payment;
+           break; 
+        }
+    }
+    // print_r($request);
+    // return;
+        $user=$this->ion_auth->user()->row();
+        $return=$this->cartmodel->transferCart($user->id);
+        if($return){
+            $this->cartmodel->destroy();
+            $this->user->makeOrders($user->id,$request->delivery_type,$paymentType);
+        }
+    }
+
+}
+function updateUser(){
+    if($this->ion_auth->logged_in()){
+        $postdata = file_get_contents("php://input");
+        $request = json_decode($postdata);
+        $user=$this->ion_auth->user()->row();
+        $data=array();
+        foreach($request as $key=>$value){
+            $data[$key]=$value;
+        }
+        // print_r($data);
+        $this->db->where('id',$user->id);
+        if($this->db->update('users',$data)){
+            echo 'success';
         }else{
-            $flag=false;
+            echo 'failed update';
         }
 
     }
-    if($flag){
-            echo 'success';
-        }else{
-            echo 'failed';
-        }
-    
 }
+function phoneCheck($phone){
+    if($this->ion_auth->logged_in()){
+        $user=$this->ion_auth->user()->row();
+    if($user->phone==$phone){
+        return false;
+    }
+    $this->db->select('*');
+    $this->db->from('users');
 
+    $this->db->where('phone',$phone);
+    $query = $this->db->get();
+    $data=array();
+    
+    if($query->num_rows() != 0){
+        echo 'success';
+    }else{
+        return false;
+    }
+    }
+}
 
 
 

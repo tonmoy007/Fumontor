@@ -44,6 +44,8 @@
     <div class="horizontal-card">
         <div class="card-title"> <i class="fa fa-star"></i> Order Account Status</div>
         <div class="card-body">
+        <?php
+                if(!empty($allDelivered)){ ?>
                    <table id="cooks-table" class=" display table table-striped table-bordered "  cellspacing="0" width="100%" data-page-length="10" data-order="[[ 1, &quot;asc&quot; ]]">
             <thead class="cool-border">
                 <tr class="cool-border">
@@ -65,7 +67,9 @@
                 <td><?php echo $data['due'];?></td>
                 
                 </tr>
-                <?php } ?>
+                <?php } }else{
+                    echo 'no Transaction Details';
+                    } ?>
             </tbody>
 
         </table>

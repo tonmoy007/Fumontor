@@ -17,7 +17,7 @@ class Cooks_model extends CI_Model {
             'price'=>$ItemPrice,
             'cusines'=>$cusine,
             'cooksID'=>$AddcooksID,
-            'catagories'=>$ItemCatagories
+            'catagories'=>$ItemCatagories,
             );
            if( $this->db->insert('menuitem', $data)){
             return true;
@@ -156,6 +156,7 @@ function updateDeliveryOptions($data,$id){
         return false;
     }
 }
+
 
 
 

@@ -142,7 +142,10 @@ class Common extends CI_Model
     }
 
 
-
+public function updateUserImage($email,$data){
+    $this->db->where('email',$email);
+    $this->db->update('users',array('image'=>$data));
+}
 
 
  

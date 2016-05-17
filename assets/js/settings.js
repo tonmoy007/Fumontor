@@ -1,7 +1,7 @@
 
      var settingsCard=$('#settings-card');
      var userId=$('#userID').attr('data-di');
-     var app=angular.module('settingsApp',[]);
+     var app=angular.module('settingsApp',['jkuri.timepicker','ngTagsInput']);
 
 
 // ***************** CONTROLERS******************
@@ -24,7 +24,8 @@ app.controller('settingsCtrl',function($scope,$http) {
     $scope.location_show=false;
     $scope.deliveryCharg_show=false;
     $scope.deliveryMethod_show=false;
-    
+    $scope.kitchenSubShow=false;
+    $scope.deliveryChargeFormShow=false;
     var click=0;
       // Initialising the variable.
       $scope.emailCheck=false;
@@ -38,8 +39,17 @@ app.controller('settingsCtrl',function($scope,$http) {
         
         $scope.userInfo = data.user;
         $scope.kitchenInfo=data.kitchen;
+        var serviceAreas=$scope.kitchenInfo[0].service_areas.split(',');
+        // var log=[];
+        // var serviceList=[];
+        // angular.forEach(serviceAreas,function(value,key){
+        //   serviceList.push({'text':value});
+        // },log);
+        $scope.kitchenInfo[0].serviceList=serviceAreas;
+
+        //console.log($scope);
         
-        
+        $scope.kitchenInfo[0].min_order=parseInt($scope.kitchenInfo[0].min_order);
 
         if(data.kitchen[0].pickup=='true'){
             $scope.kitchenInfo[0].pickup=true;
@@ -85,12 +95,12 @@ app.controller('settingsCtrl',function($scope,$http) {
         if($scope.kitchenInfo[0].pickup){
             var elem=angular.element( document.querySelector( '#pickUpInput' ) );
             elem.attr('checked', 'true');
-            console.log(elem);
+            //console.log(elem);
         }
         if($scope.kitchenInfo[0].home_delivery){
             var elem=angular.element( document.querySelector( '#homeDelivery' ) );
             elem.attr('checked', 'true');
-            console.log(elem);
+            //console.log(elem);
         }
       }
       
@@ -102,7 +112,10 @@ app.controller('settingsCtrl',function($scope,$http) {
         }
           $http.post('cooks/updateUserData/'+model+'/'+value).success(function(dataa){
             
-            $scope.formShowing(form,true);
+            if(model!='last_name'){
+              $scope.formShowing(form,true);
+            }
+            
           });
 
 
@@ -112,6 +125,24 @@ app.controller('settingsCtrl',function($scope,$http) {
         if(form.$invalid){
             return;
         }
+
+        if(model=='service_areas'){
+          log=[];
+          var areas='';
+          length=value.length;
+          countLength=1;
+          angular.forEach(value,function(val,key){
+            if(length>countLength){
+                        areas+=val.text+',';
+                      }else{
+                        areas+=val.text;
+                      }
+                      countLength++;
+
+          },log);
+          value=areas;
+        }
+        
         var dataSend=JSON.stringify({'model':model,'value':value});
         
           $http({
@@ -120,8 +151,10 @@ app.controller('settingsCtrl',function($scope,$http) {
             data:dataSend,
             headers: {'Content-Type': 'application/json'}
              }).success(function(dataa){
-            //console.log(dataa);
-            $scope.formShowing(form,true);
+            console.log(dataa);
+            if(model!='kitchen_end_time'){
+              $scope.formShowing(form,true);
+            }
           });
 
 
@@ -142,12 +175,20 @@ app.controller('settingsCtrl',function($scope,$http) {
             $scope.address_show=!$scope.address_show;
         }else if(data.$name=='deliveryOptionsForm'){
             $scope.deliveryOptions_show=!$scope.deliveryOptions_show;
-        }else if(data.$name=='deliveryChargeForm'){
-            $scope.deliveryCharg_show=flag;
         }else if(data.$name=="deliveryMethodForm"){
             $scope.deliveryMethod_show=flag;
         }else if(data.$name=="locationForm"){
             $scope.location_show=!$scope.location_show;
+        }else if(data.$name=='kitchenSubForm'){
+          $scope.kitchenSubShow=!$scope.kitchenSubShow;
+        }else if(data.$name=='deliveryChargeForm'){
+          $scope.deliveryChargeFormShow=!$scope.deliveryChargeFormShow;
+        }else if(data.$name=='KitchenStartForm'){
+          $scope.kitche_start_form_show=!$scope.kitche_start_form_show;
+        }else if(data.$name=='serviceAreaForm'){
+          $scope.serviceArea_show=!$scope.serviceArea_show;
+        }else if(data.$name=='minOrderForm'){
+          $scope.minOrder_show=!$scope.minOrder_show;
         }
 
       };
@@ -232,16 +273,16 @@ app.directive('deliveryMethods',function(){
             if(elem[0].id=='homeDelivery'&&scope.kitn.home_delivery){
                 elem.attr('checked','');
                 elem.parent('label').addClass('checked');
-                console.log(elem);
+                //console.log(elem);
             }
             else if(elem[0].id=='pickUpInput'&&scope.kitn.pickup){
                             elem.attr('checked','');
                             elem.parent('label').addClass('checked');
-                            console.log(elem);
+                            //console.log(elem);
                         }
 
 
-            console.log(scope);
+            //console.log(scope);
         }
     };
 });

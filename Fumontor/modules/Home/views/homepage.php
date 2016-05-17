@@ -101,7 +101,7 @@
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
             </div>
         </div>
-        <div class="slide-show-container box1">
+        <!-- <div class="slide-show-container box1">
             <ul class="cb-slideshow">
                     <li><span>Image 01</span><div><h3>re·lax·a·tion</h3><a href="" class="btn btn-danger btn-wide btn-emboshed"> Join Us</a></div></li>
                     <li><span>Image 02</span><div><h3>qui·e·tude</h3></div></li>
@@ -110,11 +110,11 @@
                     <li><span>Image 05</span><div><h3>com·po·sure</h3></div></li>
                     <li><span>Image 06</span><div><h3>se·ren·i·ty</h3></div></li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </section>
 
-<section id="story" class="story">
+<!-- <section id="story" class="story">
     <div class="container">
     <h1 class="section-header text-theme2">Stories</h1>
     <p class="sub-head text-muted">Select a logo or suggest any other color combination</p>
@@ -129,7 +129,7 @@
         </div>
     </div>
 </section>
-
+ -->
 <section id="register" class="register">
     <div class="container">
         <h1 class="section-head text-theme2">Join Us</h1>
@@ -143,7 +143,7 @@
                         <div class="register-logo"></div>
                     </div>
                     <div class="form-btn center">
-                        <a href="index.php/cooks/registerForm" class="btn btn-danger btn-wide btn-embossed"> Register Now <span class="btn-tip">( Its Free!!)</span></a>
+                        <a href="#fullbody" class="btn btn-danger btn-wide btn-embossed"> Register Now <span class="btn-tip">( Its Free!!)</span></a>
                     </div>
                 </div>
 

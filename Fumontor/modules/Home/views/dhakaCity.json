@@ -1,0 +1,342 @@
+stdClass Object
+(
+    [tagsList] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Chiken
+                    [checked] => 
+                )
+
+            [1] => stdClass Object
+                (
+                    [name] => Beef
+                    [checked] => 
+                )
+
+            [2] => stdClass Object
+                (
+                    [name] => Rice
+                    [checked] => 
+                )
+
+            [3] => stdClass Object
+                (
+                    [name] => Polau
+                    [checked] => 
+                )
+
+            [4] => stdClass Object
+                (
+                    [name] => Khichuri
+                    [checked] => 
+                )
+
+            [5] => stdClass Object
+                (
+                    [name] => Kacchi
+                    [checked] => 
+                )
+
+            [6] => stdClass Object
+                (
+                    [name] => Mutton
+                    [checked] => 
+                )
+
+            [7] => stdClass Object
+                (
+                    [name] => Fish
+                    [checked] => 
+                )
+
+            [8] => stdClass Object
+                (
+                    [name] => Fish (Shutki)
+                    [checked] => 
+                )
+
+            [9] => stdClass Object
+                (
+                    [name] => Vegetable
+                    [checked] => 
+                )
+
+            [10] => stdClass Object
+                (
+                    [name] => Dal
+                    [checked] => 
+                )
+
+            [11] => stdClass Object
+                (
+                    [name] => Bharta
+                    [checked] => 
+                )
+
+            [12] => stdClass Object
+                (
+                    [name] => Salad
+                    [checked] => 
+                )
+
+            [13] => stdClass Object
+                (
+                    [name] => Set Menu
+                    [checked] => 
+                )
+
+        )
+
+    [catagories] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Home Food
+                    [checked] => 
+                    [catagory] => home-food
+                )
+
+            [1] => stdClass Object
+                (
+                    [name] => Fast Food
+                    [checked] => 
+                    [catagory] => fast-food
+                )
+
+            [2] => stdClass Object
+                (
+                    [name] => deshi
+                    [checked] => 
+                    [catagory] => desi
+                )
+
+        )
+
+    [offerList] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Special Offers
+                    [checked] => 
+                )
+
+            [1] => stdClass Object
+                (
+                    [name] => Hot deal
+                    [checked] => 
+                )
+
+        )
+
+    [orderTypes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Pre-Order
+                    [value] => 0
+                    [checked] => 
+                )
+
+            [1] => stdClass Object
+                (
+                    [name] => Order Now
+                    [value] => 1
+                    [checked] => 1
+                )
+
+        )
+
+    [cusineFilters] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [value] => Bangla
+                )
+
+            [1] => stdClass Object
+                (
+                    [value] => Chinise
+                )
+
+            [2] => stdClass Object
+                (
+                    [value] => French
+                )
+
+            [3] => stdClass Object
+                (
+                    [value] => Thai
+                )
+
+            [4] => stdClass Object
+                (
+                    [value] => English
+                )
+
+            [5] => stdClass Object
+                (
+                    [value] => Italian
+                )
+
+        )
+
+    [menuOrderType] => 1
+    [delivery_methods] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [name] => Pick Up
+                    [checked] => 1
+                    [value] => pickup
+                )
+
+            [1] => stdClass Object
+                (
+                    [name] => Home Delivery
+                    [checked] => 
+                    [value] => home_delivery
+                )
+
+        )
+
+    [PriceRangeSlider] => stdClass Object
+        (
+            [min] => 0
+            [max] => 1000
+            [options] => stdClass Object
+                (
+                    [floor] => 0
+                    [ceil] => 1000
+                )
+
+        )
+
+)
+success
+
+
+
+    $scope.submitDeliveryMethodQuery=function(data){
+
+        $scope.StartLoading();
+        $scope.gotop();
+        send={delivery_method:data};
+        $http({
+            url:'home/getProduct',
+            method:'POST',
+            dataType:'JSON',
+            data:send
+        }).success(function(response){
+            console.log(response);
+            $scope.menuItems=response;
+            $scope.endLoading();
+        });
+
+    }
+
+    $scope.submitCusineQuery=function(data){
+        $scope.StartLoading();
+        $scope.gotop();
+        send={cusine:data};
+        $http({
+            url:'home/getProduct',
+            method:'POST',
+            'dataType':'JSON',
+            'data':send
+        }).success(function(response){
+            if(response!='false'){
+                $scope.menuItems=response;
+                $scope.endLoading();
+            }else{
+                $scope.menuItems={};
+                $scope.NotFoundMessage='No Item Found in that cusine';
+                $scope.endLoading();  
+            }
+        });
+    }
+
+
+    $scope.submitOrderTypeQuery=function(orderTypes){
+        $scope.StartLoading();
+        send={};
+        if(orderTypes=='0'){
+
+        send={orderType:"false"};
+            $scope.preorder=true;
+            $scope.ordernow=false;
+        }else if(orderTypes=='1'){
+            send={orderType:"true"};
+            $scope.preorder=false;
+            $scope.ordernow=true;
+        }
+        $http({
+            url:'home/getProduct',
+            method:'POST',
+            dataType:'JSON',
+            data:send
+        }).success(function(response){
+            console.log(response);
+            if(response!='false'){
+                $scope.menuItems=response;
+                $scope.endLoading();
+            }else{
+                $scope.menuItems={};
+                $scope.NotFoundMessage='No Item Found ';
+                $scope.endLoading();  
+            }
+        });
+    }
+    $scope.submitCatagoryQuery=function(data){
+        $scope.searched=true;
+        $scope.gotop();
+        $scope.StartLoading();
+        
+        
+        $send={catagories:data};
+        $http({
+            url:'home/getProduct',
+            dataType:'JSON',
+            method:'POST',
+            data:$send
+        }).success(function(response){
+            if(response!='false'){
+                $scope.menuItems=response;
+                $scope.endLoading();
+            }else{
+                $scope.menuItems={};
+                $scope.endLoading();
+                $scope.NotFoundMessage='No product found in this catagory'
+            }
+        }).error(function(status,error,code){
+            return false;
+        });
+        return true;
+    }
+
+    $scope.submitPriceQuery=function(data){
+        $scope.searched=true;
+        $scope.gotop();
+        $scope.StartLoading();
+
+        //console.log(data);
+        if(data!=undefined){
+            send={priceRange:data}
+            $http({
+                url:'home/getProduct',
+                method:'POST',
+                dataType:'JSON',
+                data:send,
+            }).success(function(response){
+                if(response!='false'){
+                    $scope.menuItems=response;
+                    $scope.endLoading();
+                }else{
+                    $scope.menuItems={};
+                    $scope.endLoading();
+                    $scope.NotFoundMessage="No Products available in this Price range";
+                }
+            });
+        }
+    }
+    

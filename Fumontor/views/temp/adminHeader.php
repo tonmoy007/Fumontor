@@ -38,7 +38,8 @@
         <script type="text/javascript" src="assets/js/notificationFx.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
-
+        <script src="assets/js/fileUpload/ng-file-upload.min.js"></script>
+        <script src="assets/js/fileUpload/ng-file-upload-shim.min.js"></script>
         <script src="assets/js/home/flatui-checkbox.js"></script>
     </head>
         
@@ -100,6 +101,8 @@ $cont = "";
         $recivedOrders='';
         $ondeliveryOrders='';
         $deliveredOrders='';
+        $Accounts='';
+        $allProducts='';
         if($cont=="admin"){
             if($view=="allCooks"){
                 $Cooks=$a;
@@ -122,6 +125,10 @@ $cont = "";
             }elseif ($view=='deliverdOrders') {
                 $deliveredOrders=$a;
                 $orders=$a;
+            }elseif($view=='cookAccounts'){
+                $Accounts=$a;
+            }elseif($view=='allProducts'){
+                $allProducts=$a;
             }
         }
 ?>
@@ -151,14 +158,15 @@ $cont = "";
                     </ul>
                 </li>
 
-                <li class="has-children comments ">
-                    <a href="#0">Comments</a>
+                <li class="comments <?php echo $Accounts;?> ">
+                    <a href="admin/cookAccounts">Cook Accounts</a>
                     
-                    <ul>
-                        <li><a href="#0">All Comments</a></li>
-                        <li><a href="#0">Edit Comment</a></li>
-                        <li><a href="#0">Delete Comment</a></li>
-                    </ul>
+                    
+                </li>
+                <li class="<?php echo $allProducts;?> ">
+                    <a href="admin/allProducts">All Products</a>
+                    
+                    
                 </li>
             </ul>
 

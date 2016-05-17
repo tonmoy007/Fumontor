@@ -46,12 +46,12 @@ foreach($orders as $order){
     ?>
     <div class="order-card  notfound">
                             
-                            <div class="order-label"><span class="order-sender-name">No Order !!</span>
-                            </div>
-                            <div class="order-action">
-                            <span class="order-status text-<?php echo $orderStatus;?>"><?php echo $orderStatus;?></span>
-                            <a href="javascript:void(0)" title="" class="btn dlt-btn bg-pending text-white"><i class="fa fa-trash"></i></a></div>
+        <div class="order-label"><span class="order-sender-name">No Order !!</span>
+        </div>
+        <div class="order-action">
+        <span class="order-status text-<?php echo $orderStatus;?>"><?php echo $orderStatus;?></span>
+        <a href="javascript:void(0)" title="" class="btn dlt-btn bg-pending text-white"><i class="fa fa-trash"></i></a></div>
                             
-                        </div>
+    </div>
 
   
