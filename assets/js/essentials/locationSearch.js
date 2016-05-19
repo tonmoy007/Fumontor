@@ -539,13 +539,19 @@ $scope.procedeNext=function(index){
         $scope.checkout[index+1].current=true;
         $scope.checkout[index].current=false;
     }else{
-        send={delivery_type:$scope.$parent.order,payment_type:$scope.payment,user:$scope.$parent.user}
+        console.log(index);
+        send={
+            delivery_type:$scope.$parent.order,
+            payment_type:$scope.payment,
+            user:$scope.$parent.user
+        }
         $http({
             url:'users/submitCart',
             method:'POST',
             dataType:'JSON',
             data:send,
         }).success(function(response){
+            console.log(response);
             if(response=='success'){
             $scope.$parent.showNoti('Order Is Successfully Submitted Thanks For Using Fumontor');
 
