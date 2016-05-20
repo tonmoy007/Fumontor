@@ -513,6 +513,7 @@ app.controller('checkoutCtrl',function($scope,$http,$timeout,$window){
     $scope.$parent.searched=false;
     $scope.showCart=false;
     $scope.paymentSelected=false;
+    console.log($scope);
     $scope.checkout=[
         {current:true,visited:false},
         {current:false,visited:false},
@@ -554,11 +555,11 @@ $scope.procedeNext=function(index){
             console.log(response);
             if(response=='success'){
             $scope.$parent.showNoti('Order Is Successfully Submitted Thanks For Using Fumontor');
-
+            $scope.$parent.clearCart();
             $timeout(function(){
                 window.location='#/'
             },1000);
-            $scope.cartItems=[];
+            
         }
         }).error(function(response) {
             /* Act on the event */

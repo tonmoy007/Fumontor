@@ -62,13 +62,18 @@ function makeOrders($userid,$deliveryType,$paymentMethod){
     foreach($query->result_array() as $row){
         $options=json_decode(json_decode($row['options']));
         // $dType=json_decode($deliveryType);
-        // // echo $options->orderType;
-        if($deliveryType->{$options->cooksid}){
-
-             $delivery='pickup';
-        }else{
-            $delivery='home_delivery';
-        }
+        // echo $options->orderType;
+        // print_r($deliveryType->{$options->cooksid});
+        // return;
+       foreach ($deliveryType as $key => $value) {
+           if($key==$options->cooksid){
+            if($value){
+                $delivery='pickup';
+            }else{
+                $delivery='home_delivery';
+            }
+           }
+       }
 
         // print_r($delivery);
         // print_r($paymentMethod.'');
