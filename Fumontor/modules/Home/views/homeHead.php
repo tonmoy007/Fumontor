@@ -24,6 +24,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
         <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
 
+
         <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css">
         <script src="assets/js/home/jquery-2.1.1.js"></script>
         <script src="assets/js/modernizr.js"></script>
@@ -44,6 +45,7 @@
     <body ng-app="homeApp" ng-controller="searchCtrl">
         
    
-        <search-bar></search-bar>
+        <!-- <search-bar></search-bar> -->
+        <fu-head></fu-head>
        <fu-notification></fu-notification>
  

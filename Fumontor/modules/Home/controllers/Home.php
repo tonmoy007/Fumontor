@@ -107,7 +107,6 @@ function getTamplate($page){
 function getHomeData(){
     $data=array(
         'places'=>$this->homemodel->getPlaces(),
-        'products'=>$this->homemodel->getAllProducts(),
         'cartSubTotal'=>$this->cartmodel->getCartTotalAmount(),
         'cartTotal'=>$this->cartmodel->getTotalCartRow(),
         'cartTotalItems'=>$this->cartmodel->getCartTotal(),

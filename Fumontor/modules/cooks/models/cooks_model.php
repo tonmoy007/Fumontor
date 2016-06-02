@@ -114,7 +114,7 @@ class Cooks_model extends CI_Model {
         }
         return $tdue;
     }
-        function getTotalPaid($cooksid){
+function getTotalPaid($cooksid){
         $this->db->select('paid');
         $this->db->from('orders');
         $array=array('cooksid'=>$cooksid,'orderstatus'=>'delivered');

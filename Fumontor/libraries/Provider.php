@@ -75,7 +75,7 @@ abstract class OAuth2_Provider
 		isset($options['scope']) and $this->scope = $options['scope'];
 		
 		if(strcmp($options['redirect'],'home')!=0){
-			$this->redirect_uri = site_url(get_instance()->uri->uri_string().'?from='.$options['redirect'].'&');
+			$this->redirect_uri = site_url(get_instance()->uri->uri_string().'?from='.$options['redirect']);
 		}else{
 			$this->redirect_uri = site_url(get_instance()->uri->uri_string());
 		}

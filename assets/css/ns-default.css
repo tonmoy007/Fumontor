@@ -7,7 +7,7 @@
 	line-height: 1.4;
 	z-index: 10000000000;
 	pointer-events: none;
-	color: #6a1b99;
+	color: #029AAC;
 	font-size: 90%;
     border-radius: 3px;
 	font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -63,7 +63,7 @@
 	height: 60%;
 	top: 50%;
 	left: 50%;
-	background: #6a1b99;
+	background: #029AAC;
 }
 
 .ns-close:hover::before,

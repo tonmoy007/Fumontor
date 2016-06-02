@@ -567,7 +567,7 @@ function changeItemScedule(){
 
 
 
-
+// ((((((((((((((((((((((Order Manager))))))))))))))))))))))
 
 
 public function orders(){
@@ -630,6 +630,7 @@ public function countAllUnseen($id){
 }
 
 public function getUnseenOrders($cooksId){
+    $cooksId=$this->ion_auth->user()->row()->id;
     if(IS_AJAX){
         $unseenOrders=$this->cooks_model->getOrders($cooksId,'unseen');
         if(!empty($unseenOrders)){
@@ -640,10 +641,10 @@ public function getUnseenOrders($cooksId){
 
             foreach($orderDetails as $orderDetail){
                             $total+=((int)$orderDetail['quantity']*(int)$orderDetail['price']);
-                            $orderDetailsDiv='<li><span class="quantity">'.$orderDetail['quantity'].'X</span><span class="product-name">'. $orderDetail['title'].'</span><span class="price">'. $orderDetail['price'].'</span></li>';
+                            $orderDetailsDiv.='<li><span class="quantity">'.$orderDetail['quantity'].'X</span><span class="product-name">'. $orderDetail['title'].'</span><span class="price">'. $orderDetail['price'].'</span></li>';
                         }
                                 
-                            $orderDetailsDiv+='<li> <span class="total">Total</span><span class="price total">'.$total.'</span></li>';
+                            $orderDetailsDiv.='<li> <span class="total">Total</span><span class="price total">'.$total.'</span></li>';
                             
                             
                              
