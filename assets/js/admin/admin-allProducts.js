@@ -87,9 +87,9 @@ capp.controller('adminAllProductCtrl',function($scope,$http,$timeout){
         $scope.notiVisibility='ns-show';
         $scope.notiHide=false;
       }
-      $scope.deleteCook=function(pId){
+      $scope.deleteCook=function(cId){
         $http({
-            url:'admin/deleteProduct/'+pId,
+            url:'admin/deleteProduct/'+cId,
             method:'POST'
         }).success(function(data){
             for(var i=0;i<allProductsData.length;i++){

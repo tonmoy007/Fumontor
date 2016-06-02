@@ -34,15 +34,20 @@ class Cart extends CI_Controller {
 function addItem(){
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
-    $insert=array('id'=>$request->id,'name'=>$request->name,'price'=>$request->price,'qty'=>$request->qty,'options'=>json_encode($request->options));
     
-    $id=$this->cartmodel->insertItem($insert);
-    if($id){
-        echo $id;
-    }else{
-        echo "failed";
-    }
+
+       
+        $insert=array('id'=>$request->id,'name'=>$request->name,'price'=>$request->price,'qty'=>$request->qty,'options'=>json_encode($request->options));
+               
+               $id=$this->cartmodel->insertItem($insert);
+               if($id){
+                   echo $id;
+               }else{
+                   echo "failed";
+               }
+           
 }
+  
 function destroy(){
     $this->cartmodel->destroy();
 }
@@ -55,6 +60,45 @@ function deleteItem(){
         echo 'failed';
     }
 }
+
+function checkProductAvailability($id,$quantity){
+    $this->db->select('stock_quantity');
+    $this->db->from('menuitem');
+    $this->db->where('id',$id);
+    $query=$this->db->get();
+    $data=array();
+    foreach($query->result_array() as $row){
+        $data[]=$row;
+    }
+    if($data['stock_quantity']>=$quantity){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   

@@ -107,12 +107,15 @@ function getTamplate($page){
 function getHomeData(){
     $data=array(
         'places'=>$this->homemodel->getPlaces(),
-        'products'=>$this->homemodel->getAllProducts(),
         'cartSubTotal'=>$this->cartmodel->getCartTotalAmount(),
         'cartTotal'=>$this->cartmodel->getTotalCartRow(),
         'cartTotalItems'=>$this->cartmodel->getCartTotal(),
         'cartContents'=>$this->cartmodel->getCartContent()
         );
+    if($this->ion_auth->logged_in()){
+        $user=$this->ion_auth->user()->row();
+        $data['user']=$user;
+    }
     echo json_encode($data);
 }
 
@@ -179,6 +182,16 @@ function getFilterData(){
         }
 }
 
+function getKitchenPageData($id){
+    $data['kitchenInfo']=$this->common->getWhere('cooks','user_id',$id);
+    $this->homemodel->selectProduct();
+    $this->db->where('cooksID',$id);
+    $query=$this->db->get();
+
+    $data['products']=$this->homemodel->getProductJson($query);
+    // print_r($data);
+    echo json_encode($data);
+}
 
 
 

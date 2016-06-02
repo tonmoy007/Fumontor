@@ -23,6 +23,6 @@
 <script src="assets/js/home/application.js"></script>
 <script src="assets/js/admin/jquery.menu-aim.js"></script>
 <script src="assets/js/admin/main.js"></script> <!-- Resource jQuery -->
-<script type="text/javascript" src="assets/js/addtoCart.js"></script>
+
 </body>
 </html>

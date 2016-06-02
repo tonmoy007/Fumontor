@@ -3,9 +3,9 @@
 <div class="col-md-2  grid fadeIn animated">
     <div class="grid-lg">
         <div class="grid-img">
-        <div class="grid-side-banner">
-            <label ng-show='!item.todays_menu' class=" tag banner-label">Pre Order</label>
-            <label ng-show="item.todays_menu" class="tag banner-label">Order Now</label>
+        <div class="grid-side-banner" ng-class="{now:item.todays_menu}">
+            <label ng-show='!item.todays_menu' class="  banner-label">Pre Order</label>
+            <label ng-show="item.todays_menu" class=" banner-label">Instant Order</label>
         </div>
             <a href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-search"></i></a>
             
@@ -13,20 +13,13 @@
             
             <img ng-show="!item.feature_img" src="assets/uploads/default/thumb.jpg" title="khichuri" alt="khichuri">
             
-            <li ng-show="item.admin" class="dropdown grid-option">
-                <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="   fa fa-caret-down"></i></a>
-                <ul class="dropdown-menu ">
-                    <li><a href="javascript:void(0)"><i class="fa fa-trash"></i>&nbsp; Delete</a></li>
-                    <li><a href="javascript:void(0)">Make available</a></li>
-                    <li><a href="javascript:void(0)">option3</a></li>
-                </ul>
-            </li>
+            
         </div>
         <div class="grid-description">
             <div class="description-body">
                 <a href="javascript:void(0)" class="main-url cool-shadow "><h4>{{item.title}}</h4></a>
                 <label class="secendery-url">by 
-                    <a href="cooks?id={{item.cooksID}}" class=" small">  {{item.kitchename}} </a>
+                    <a href="#/kitchen/{{item.cooksID}}" class=" small">  {{item.kitchename}} </a>
                 </label>
                 <label for="" class="hidden cID">{{item.cooksID}}</label>
                 
@@ -40,14 +33,17 @@
                     </div>
                 </div>
                 <span class="rate">৳ <label class="price">{{item.price}}</label></span>
-               
+               <small class="text-muted" ng-if="item.todays_menu">Order before {{item.ordernow_time_text}}</small>
+               <small class="text-muted" ng-if="!item.todays_menu">Order before {{item.preorder_time_text}}</small>
+               <small class="text-muted" ng-if="item.stock_quantity>0">{{item.stock_quantity}} item available</small>
+               <small class="text-danger" ng-if="item.stock_quantity<=0">out of stock </small>
             </div>
-            <div class="cd-customization" ng-class="{active:item.active}" ng-click="makeItemActive(key)">
+            <div ng-if="item.stock_quantity>0" class="cd-customization" ng-class="{active:item.active}" ng-click="makeItemActive(key)">
                 
-                <div class="quantity">
-                    <button href="#0" ng-if="item.quantity>1" ng-click="item.quantity=item.quantity" class="btn-minus btn btn-danger"><i class="fa fa-minus"></i></button>
+                <div class="quantity"  ng-init="item.quantity=item.min_quantity">
+                    <button href="#0" ng-if="item.quantity>item.min_quantity" ng-click="item.quantity=item.quantity-1" class="btn-minus btn btn-danger"><i class="fa fa-minus"></i></button>
                     <span class="quantity-amount">{{item.quantity}}</span>
-                    <button href="#0" ng-click="item.quantity=item.quantity+1" class="btn-plus btn btn-danger"><i class="fa fa-plus"></i></button>
+                    <button href="#0" ng-if="true" ng-click="item.quantity=item.quantity+1" class="btn-plus btn btn-danger"><i class="fa fa-plus"></i></button>
                     
                 </div>
                 <button id="cartBtn{{item.id}}"  class="add-to-cart btn btn-danger pull-right" ng-click="addToCart(item)">
@@ -57,7 +53,18 @@
                     </svg>
                 </button>
             </div> <!-- .cd-customization -->
-        <div    class="pIDin hidden">{{item.id}}</div>
+            <div class="item-out-of-stock  cd-customization" ng-if="item.stock_quantity==0">
+                <div class="quantity">
+                    <button href="#0" ng-if="item.quantity>item.min_quantity" ng-click="item.quantity=item.quantity-1" class="btn-minus btn btn-danger"><i class="fa fa-minus"></i></button>
+                    <span class="quantity-amount">{{item.quantity}}</span>
+                    <button href="#0" ng-if="true" ng-click="item.quantity=item.quantity+1" class="btn-plus btn btn-danger"><i class="fa fa-plus"></i></button>
+                    
+                </div>
+                <a id="cartBtn{{item.id}}"  class=" add-to-cart btn btn-danger pull-right" ng-click="addToCart(item)">
+                    <em><i class="fa fa-shopping-cart"></i></em>
+                </a>
+            </div>
+        <div class="pIDin hidden">{{item.id}}</div>
         </div>
     </div>
 </div>

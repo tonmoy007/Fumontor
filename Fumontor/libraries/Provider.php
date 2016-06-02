@@ -67,13 +67,18 @@ abstract class OAuth2_Provider
 			throw new Exception('Required option not provided: id');
 		}
 
+
 		$this->client_id = $options['id'];
 		
 		isset($options['callback']) and $this->callback = $options['callback'];
 		isset($options['secret']) and $this->client_secret = $options['secret'];
 		isset($options['scope']) and $this->scope = $options['scope'];
-
-		$this->redirect_uri = site_url(get_instance()->uri->uri_string());
+		
+		if(strcmp($options['redirect'],'home')!=0){
+			$this->redirect_uri = site_url(get_instance()->uri->uri_string().'?from='.$options['redirect']);
+		}else{
+			$this->redirect_uri = site_url(get_instance()->uri->uri_string());
+		}
 	}
 
 	/**
@@ -132,6 +137,8 @@ abstract class OAuth2_Provider
 		);
 		
 		$params = array_merge($params, $this->params);
+		//print_r($params);
+		// return;
 		
 		redirect($this->url_authorize().'?'.http_build_query($params));
 	}

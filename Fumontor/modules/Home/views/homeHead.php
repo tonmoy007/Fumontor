@@ -24,11 +24,17 @@
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
         <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
 
+
         <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css">
         <script src="assets/js/home/jquery-2.1.1.js"></script>
         <script src="assets/js/modernizr.js"></script>
         <script src="assets/js/modernizr.js"></script>
+       <link type="text/css" rel="stylesheet" href="assets/css/lightslider.min.css" />
+
+        <script src="assets/js/lightslider.min.js"></script> 
         <script src="assets/js/essentials/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
         <script src="assets/js/essentials/ui-bootstrap-tpls-0.9.0.js"></script>
         <script src="assets/js/home/rzslider.min.js"></script>
         <script src="assets/js/essentials/locationSearch.js"></script>
@@ -39,6 +45,7 @@
     <body ng-app="homeApp" ng-controller="searchCtrl">
         
    
-        <search-bar></search-bar>
+        <!-- <search-bar></search-bar> -->
+        <fu-head></fu-head>
        <fu-notification></fu-notification>
  

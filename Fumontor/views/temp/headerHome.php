@@ -43,7 +43,7 @@
                 }else{
                     echo 'user';
                 }
-                }?>"><div class="logo"><img src="assets/img/fu-logo.png"></div>
+                }?>"><div class="logo">Fumontor</div>
            </a>
         <div class="navigation">
             <div id="nav-icon">
@@ -56,7 +56,7 @@
                     <ul class="menu__list">
                         <li class="menu__item menu__item--current"><a href="#fullbody" class="menu__link">Home</a></li>
                         <li class="menu__item"><a href="#about" class="menu__link">About </a></li>
-                        <li class="menu__item"><a href="#story" class="menu__link">Story </a></li>
+                        <!-- <li class="menu__item"><a href="#story" class="menu__link">Story </a></li> -->
                         <li class="menu__item"><a href="#register" class="menu__link">Join  Us</a></li>
                         
                     </ul>

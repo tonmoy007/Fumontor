@@ -17,7 +17,7 @@ class Cooks_model extends CI_Model {
             'price'=>$ItemPrice,
             'cusines'=>$cusine,
             'cooksID'=>$AddcooksID,
-            'catagories'=>$ItemCatagories
+            'catagories'=>$ItemCatagories,
             );
            if( $this->db->insert('menuitem', $data)){
             return true;
@@ -114,7 +114,7 @@ class Cooks_model extends CI_Model {
         }
         return $tdue;
     }
-        function getTotalPaid($cooksid){
+function getTotalPaid($cooksid){
         $this->db->select('paid');
         $this->db->from('orders');
         $array=array('cooksid'=>$cooksid,'orderstatus'=>'delivered');
@@ -156,6 +156,7 @@ function updateDeliveryOptions($data,$id){
         return false;
     }
 }
+
 
 
 

@@ -18,6 +18,7 @@ function getProductJson($query){
     if($query->num_rows()>0){
 
     foreach($query->result_array() as $row){
+        
         $send[]=$row;
         $catagories=explode(',',$send[$i]['catagories']);
         $send[$i]['catagoryList']=$catagories;
@@ -38,6 +39,29 @@ function getProductJson($query){
         }else{
             $send[$i]['pickup']=false;
         }
+        if(!empty($send[$i]['min_quantity'])){
+            $send[$i]['min_quantity']=intval($send[$i]['min_quantity']);
+        }else{
+            $send[$i]['min_quantity']=1;
+        }
+        // if($send[$i]['stock_quantity']==0){
+            
+        //     $send[$i]['todays_menu']=false;
+        // }
+        
+        $preorderTime=explode(':',$send[$i]['preorder_process_time']);
+        $orderTime=explode(':',$send[$i]['ordernow_time']);
+        
+        $send[$i]['preorder_time_for']['hr']=array('value'=>$preorderTime[0]);
+        $send[$i]['preorder_time_for']['min']=array('value'=>$preorderTime[1]);
+        $send[$i]['ordernow_time_for']['hr']=array('value'=>$orderTime[0]);
+        $send[$i]['ordernow_time_for']['min']=array('value'=>$orderTime[1]);
+
+        $send[$i]['stock_quantity']=intval($send[$i]['stock_quantity']);
+        
+        $send[$i]['preorder_time_text']=$this->convertOrderTime($send[$i]['preorder_process_time']);
+        $send[$i]['ordernow_time_text']=$this->convertOrderTime($send[$i]['ordernow_time']);
+        
         $i++;
     
         }
@@ -47,11 +71,34 @@ function getProductJson($query){
         return false;
     }
 }
+function convertOrderTime($time){
+    $timeFormat=explode(':', $time);
+    $output='';
+    $hour=false;
+    $minits=false;
+    if(strcmp('00',$timeFormat[0])!=0){
+        $val=' hours ';
+        if(strcmp('01',$timeFormat[0])==0){
+            $val=' hour ';
+        }
+        $output.=(intval($timeFormat[0]).$val);
+        $hour=true;
+    }
+    if(strcmp('00',$timeFormat[1])!=0){
+        $val=' minuites ';
+        if(strcmp('01',$timeFormat[1])==0){
+            $val=' minuite ';
+        }
+        $output.=(intval($timeFormat[1]).$val);
+        $minits=true;
+    }
+    if(!$hour&&!$minits){
+        $output='20 minuites';
+    }
+    return $output;
+}
 function getAllProducts(){
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery');
-    $this->db->from('menuitem');
-    $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
-    $this->db->order_by('menuitem.created','desc');
+    $this->selectProduct();
     $query=$this->db->get();
     
     return $this->getProductJson($query);
@@ -69,10 +116,7 @@ function getPlaces(){
 }
 function getCatagoryProducts($data){
     
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery');
-    $this->db->from('menuitem');
-    $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
-    $this->db->order_by('menuitem.created','desc');
+    $this->selectProduct();
     $i=0;
     foreach ($data as $row) {
         
@@ -90,10 +134,7 @@ function getCatagoryProducts($data){
 }
 
 function getPriceRangeProducts($data){
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery');
-    $this->db->from('menuitem');
-    $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
-    $this->db->order_by('menuitem.created','desc');
+    $this->selectProduct();
     $i=0;
     $this->db->where('menuitem.price BETWEEN "'.$data->min.'" AND "'.$data->max.'"');
     $query=$this->db->get();
@@ -103,10 +144,7 @@ function getPriceRangeProducts($data){
 
 function getOrderTypeProduct($data){
     
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery');
-    $this->db->from('menuitem');
-    $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
-    $this->db->order_by('menuitem.created','desc');
+    $this->selectProduct();
     $i=0;
     $p=($data[0]->checked)?"true":"false";
     $h=($data[1]->checked)?"true":"false";
@@ -121,20 +159,14 @@ function getOrderTypeProduct($data){
     return $this->getProductJson($query);
 }
 function getCusineQuery($cusine){
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery');
-    $this->db->from('menuitem');
-    $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
-    $this->db->order_by('menuitem.created','desc');
+    $this->selectProduct();
     
     $query=$this->db->get();
     return $this->getProductJson($query);
 }
 function getOrderTypeProducts($orderTypes){
 
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery');
-    $this->db->from('menuitem');
-    $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
-    $this->db->order_by('menuitem.created','desc');
+    $this->selectProduct();
 
     $query=$this->db->get();
     return $this->getProductJson($query);
@@ -142,7 +174,7 @@ function getOrderTypeProducts($orderTypes){
 }
 
 function selectProduct(){
-    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery');
+    $this->db->select('menuitem.id,menuitem.title,menuitem.catagories,menuitem.description,menuitem.todays_menu,menuitem.preorder_process_time,menuitem.ordernow_time,menuitem.price,menuitem.cooksID,menuitem.feature_img,menuitem.cusines,menuitem.min_quantity,menuitem.stock_quantity,cooks.name,cooks.kitchename,cooks.location,cooks.address,cooks.pickup,cooks.home_delivery,cooks.min_order,cooks.delivery_charge');
     $this->db->from('menuitem');
     $this->db->join('cooks','menuitem.cooksID=cooks.user_id','inner');
     $this->db->order_by('menuitem.created','desc');
