@@ -22,10 +22,10 @@ function selectCatagory($data){
         if($row->checked){
             
             if($i==0){
-                $this->db->like('menuitem.catagories',$row->catagory);
+                $this->db->like('menuitem.catagories',$row->catagory,'both');
              
             }else{
-                $this->db->or_like('menuitem.catagories',$row->catagory);
+                $this->db->or_like('menuitem.catagories',$row->catagory,'both');
              
             }
               
@@ -35,14 +35,20 @@ function selectCatagory($data){
     }
 }
 function selectCusine($data){
+        // print_r($data);
+        if(strcmp($data->value,'')!=0){
+            $this->db->where('menuitem.cusines',$data->value);
+        }
     
-        $this->db->where('cusines',$data->value);
-    
+}
+function selectLocation($data){
+    // echo $data;
+    $this->db->where('location',$data);
 }
 function selectOrderType($data){
 
     if($data[0]->checked||$data[1]->checked){
-        $i=($data[0]->checked)?$this->db->where('todays_menu','0'):$this->db->where('todays_menu','1');
+        $i=($data[0]->checked)?$this->db->where('menuitem.todays_menu','0'):$this->db->where('menuitem.todays_menu','1');
     }
    
 }
@@ -60,8 +66,9 @@ function selectDeliveryMethod($data){
     }
 }
 function getFilteredProducts($data){
+    // print_r($data);return;
     $this->homemodel->selectProduct();
-    
+    $this->selectLocation($data->location);
     $this->selectCatagory($data->catagories);
     if(!empty($data->cusine)){
         $this->selectCusine($data->cusine);

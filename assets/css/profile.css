@@ -8,7 +8,7 @@
     background-color:#E9EAED;
 }
 .bg-theme a{
-    background-color: #6a1b99;
+    background-color: #029ffc;
     color: #fff;
 }
 .bg-theme a:hover{
@@ -102,15 +102,15 @@
     margin-top: 2em;
 }
 .tabs-style-underline nav li a::after{
-    background: #6a1b99;
+    background: #029ffc;
 }
 .tabs-style-topline nav li.tab-current a{
-    color: #6a1b99;
-    box-shadow: inset 0 3px 0 #6a1b99;
+    color: #029ffc;
+    box-shadow: inset 0 3px 0 #029ffc;
 }
 .tabs-style-topline nav a:hover,
 .tabs-style-topline nav a:focus {
-	color: #6a1b99;
+	color: #029ffc;
 }
 .content-current{
     -webkit-animation: fadein .5s ; /* Chrome, Safari, Opera */

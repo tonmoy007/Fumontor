@@ -66,7 +66,7 @@ $.fn.chekemptyDiv=function(){
             if(length>1){
                 $(lists[i]).find('.order-card.notfound').hide();
             }
-            if(length==1){
+            if(length<=1){
 
                 $(lists[i]).find('.order-card.notfound').show();
             }
@@ -89,22 +89,42 @@ $.fn.incrimentTotal=function(prev,current){
 $.fn.OrderAppend=function(){
     var userId=$('#userID').attr('data-di'),
         ajaxUrl='cooks/getUnseenOrders/'+userId;
-    $.ajax({
+    setInterval(function(){
+        $.ajax({
         url:ajaxUrl,
         type:'POST',
         async:true,
         success:function(data){
 
             if(data!='false'){
-        setTimeout(function(){
-            $('#pendingOrders').prepend(data);
-            $(document).orderFunctions();
-        },0);
-            }else{
-                setTimeout(function(){
-                    $(document).OrderAppend();
-                },0);
+            appd=document.createElement('div');
+            appd.innerHTML=data;
+            ordercarddrop=$(appd).find('.order-card').find('.down-arrow');
+            ordercards=$(appd).find('.order-card');
+            for(var i=0;i<ordercarddrop.length;i++){
+        $(ordercarddrop[i]).on('click',function(){
+            $(this).closest('.order-card').toggleClass('is-selected');
+        });
+    }
+    for (var i = 0; i < ordercards.length; i++) {
+        var obtn=$(ordercards[i]).find('a.state-btn');
+        obtn.ordercard();
+         var dbtn=$(ordercards[i]).find('a.dlt-btn');
+         $(dbtn).on('click',function(){
+            $(this).closest('.order-card').fadeOut();
+         });
+
+    }
+    // console.log(ordercarddrop);
+    // console.log(ordercards);
+      $('#pendingOrders').append(appd);  
+      var currentn=parseInt($('.total').find('.badge.bg-pending').text());
+        currentn++;
+        $('.total').find('.badge.bg-pending').html(currentn+'');
+
+      $('.card-column-list-item-body').chekemptyDiv();
             }
         },
     });
+    },2000);
 };

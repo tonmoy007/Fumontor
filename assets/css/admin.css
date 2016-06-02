@@ -23,7 +23,7 @@ body::after {
 }
 
 a {
-  color: #6a1b99;
+  color: #029AAC;
   text-decoration: none;
 }
 
@@ -70,7 +70,7 @@ Main Page Content
       line-height: 3.5rem;
       padding: 1em 0;
     font-weight: 800;
-      background: #6a1b99;
+      background: #029AAC;
       color: white;
   }
   .cd-main-content::before {
@@ -151,7 +151,7 @@ Header
   display: inline-block;
   height: 3px;
   width: 24px;
-  background: #6a1b99;
+  background: #029AAC;
     border-radius: 3px;
 }
 .cd-nav-trigger span {
@@ -370,7 +370,7 @@ Top Navigation
 }
 @media only screen and (min-width: 1170px) {
   .cd-top-nav li:not(.has-children) a:hover {
-    color: #6a1b99;
+    color: #029AAC;
   }
 }
 
@@ -422,7 +422,7 @@ Sidebar
 .cd-side-nav .cd-label {
   text-transform: uppercase;
   font-weight: bold;
-  color: #6a1b99;
+  color: #029AAC;
   font-size: 1rem;
   letter-spacing: .1em;
 }
@@ -484,7 +484,7 @@ Sidebar
   transform: translateY(-50%);
   right: calc(5% + 16px + 0.4em);
   padding: 0.2em 0.4em;
-  background-color: #6a1b99;
+  background-color: #029AAC;
   border-radius: .25em;
   color: #ffffff;
   font-weight: bold;
@@ -496,7 +496,7 @@ Sidebar
   margin: 0 5%;
   padding: 1em 0;
     font-family: headFont;
-  background-color: #6a1b99;
+  background-color: #029AAC;
   border-radius: .25em;
   border: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -554,7 +554,7 @@ Sidebar
   }
   .cd-side-nav .active > a {
     /* current page */
-    box-shadow: inset 3px 0 0 #6a1b99;
+    box-shadow: inset 3px 0 0 #029AAC;
     background-color: #e0e0e0;
     
   }
@@ -596,7 +596,7 @@ Sidebar
   }
   .cd-side-nav > ul > li:not(.action-btn):hover > a {
     background-color: #e0e0e0;
-    color: #6a1b99;
+    color: #029AAC;
   }
   .cd-side-nav > ul > li > a {
     padding: 1em 1em 1em 42px;
@@ -701,7 +701,7 @@ Sidebar
     padding: 1em;
   }
   .no-touch .has-children ul a:hover {
-    color: #6a1b99;
+    color: #029AAC;
     background-color: #e0e0e0;
   }
   .has-children > a::after {
@@ -718,7 +718,7 @@ Sidebar
   }
     .cd-top-nav .has-children.selected > a{
         background-color: #e0e0e0;
-        color: #6a1b99;
+        color: #029AAC;
     }
   .cd-top-nav .has-children > a {
     height: 100%;

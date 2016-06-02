@@ -16,8 +16,11 @@ app.config(function($routeProvider) {
     }).when('/checkout',{
         templateUrl:'home/getTamplate/checkoutPage',
         controller:'checkoutCtrl'
-    }).otherwise({
+    }).when('/search/:location',{
         templateUrl:'home/getTamplate/home-products',
+        controller:'productPageCtrl'
+    }).otherwise({
+        templateUrl:'home/getTamplate/landing',
         
     });
 });
@@ -37,9 +40,12 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.cartTotal=0;
     $scope.places={};
     $scope.query={};
+    $scope.searchedFoodTypes=fuTypes;
     $scope.loading=true;
     $scope.menuItemsShow=false;
     $scope.notFound=false;
+    $scope.foodtype=[];
+    $scope.foodtype.name='meal'
     $scope.cities=[{name:'Dhaka'},{name:'Chittagong'}];  
     $scope.notiHide=true;
     $scope.filter.tagsList=tags;
@@ -47,10 +53,11 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.filter.offerList=offers;
     $scope.filter.orderTypes=orderTypes;
     $scope.filter.cusineFilters=cusineFilters
+    $scope.filter.location='';
     $scope.query.city=null;
     $scope.query.location=null;
     $scope.filter.menuOrderType='1';
-    $scope.filter.cusine='Bangla'
+    $scope.filter.cusine={value:''};
     $scope.filter.delivery_methods=deliveryMethods;
     var myQ=$scope.query;
     $scope.order={};
@@ -66,7 +73,6 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
 
         
         $scope.places=data.places;
-        $scope.menuItems=data.products;
         if(data.user!=undefined){
             $scope.loggedin=true;
             $scope.user=data.user;
@@ -75,12 +81,38 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
         $scope.cartTotal=data.cartTotal;
         $scope.cartTotalItems=parseInt(data.cartTotalItems);
         
-        log=[];
+        
         cartCatagoriseItem=[];
         // console.log(data.cartContents);
         
 
-        angular.forEach(data.cartContents,function(value,key){
+        $scope.prepareCart(data.cartContents);
+        //console.log($scope.cartItems);
+        $scope.cartSubTotal=data.cartSubTotal;
+        $scope.checkoutTotal=data.cartSubTotal;
+        // console.log($scope.cartItems);
+
+        ItemData=$scope.menuItems;
+        
+        //console.log(ItemData);
+        
+            
+        $scope.endLoading();
+                
+    });
+    $scope.setActive=function(name){
+        angular.forEach($scope.searchedFoodTypes,function(value,key){
+            if(value.value==name){
+                $scope.searchedFoodTypes[key].checked=true;
+            }else{
+
+                $scope.searchedFoodTypes[key].checked=false;  
+            }
+        });
+    }
+    $scope.prepareCart=function(data){
+        log=[];
+        angular.forEach(data,function(value,key){
             var options=JSON.parse(value.options);
             //console.log($scope.cartOrderType);
 
@@ -135,20 +167,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             
 
         },log);
-        //console.log($scope.cartItems);
-        $scope.cartSubTotal=data.cartSubTotal;
-        $scope.checkoutTotal=data.cartSubTotal;
-        // console.log($scope.cartItems);
-
-        ItemData=$scope.menuItems;
-        
-        //console.log(ItemData);
-        
-            
-        $scope.endLoading();
-                
-    });
-
+    }
     $scope.StartLoading=function(){
         $scope.menuItemsShow=false;
         $scope.loading=true;
@@ -240,14 +259,8 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
 
         $scope.gotop();
         $scope.searched=true;
-        if(form.$invalid){
-            return;
-        }
-
-        $scope.menuItems=ItemData.filter(function(data){
-            
-            return data.location===location.name;
-        });
+        
+        window.location='#/search/'+location.name;
     }
 
 
@@ -266,7 +279,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     });
 
     $scope.submitFilterQuery=function(data){
-        //console.log(data)
+        // console.log(data);
         $scope.StartLoading();
         $scope.gotop();
         if(data=='preorder'){
@@ -285,6 +298,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             method:'POST',
             data:$scope.filter
         }).success(function(response){
+            console.log(response);
             if(response!='false'){
                 $scope.menuItems=response;
                 $scope.endLoading();
@@ -513,6 +527,7 @@ app.controller('checkoutCtrl',function($scope,$http,$timeout,$window){
     $scope.$parent.searched=false;
     $scope.showCart=false;
     $scope.paymentSelected=false;
+    // console.log($scope);
     $scope.checkout=[
         {current:true,visited:false},
         {current:false,visited:false},
@@ -539,20 +554,27 @@ $scope.procedeNext=function(index){
         $scope.checkout[index+1].current=true;
         $scope.checkout[index].current=false;
     }else{
-        send={delivery_type:$scope.$parent.order,payment_type:$scope.payment,user:$scope.$parent.user}
+        // console.log(index);
+        send={
+            delivery_type:$scope.$parent.order,
+            payment_type:$scope.payment,
+            user:$scope.$parent.user
+        }
         $http({
             url:'users/submitCart',
             method:'POST',
             dataType:'JSON',
             data:send,
         }).success(function(response){
+            // console.log(response);
             if(response=='success'){
             $scope.$parent.showNoti('Order Is Successfully Submitted Thanks For Using Fumontor');
-
+            
             $timeout(function(){
+                $scope.$parent.clearCart();
                 window.location='#/'
             },1000);
-            $scope.cartItems=[];
+            
         }
         }).error(function(response) {
             /* Act on the event */
@@ -635,29 +657,62 @@ $scope.setPayment=function(data){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
    
 
 });
 
+app.controller('fuHeadCtrl',function($scope){
+    $scope.menuList=[{current:true},{current:false},{current:false},{current:false},{current:false}];
+    $scope.setCurrent=function(index){
+        angular.forEach($scope.menuList,function(value,key){
+            if(key==index){
+                if(index!=3)
+                $scope.menuList[key].current=true;
+                else
+                $scope.menuList[key].current=!$scope.menuList[key].current;
+            }else{
+                $scope.menuList[key].current=false;
+            }
+        });
+    }
+});
 
+app.controller('productPageCtrl',function($scope,$http,$routeParams){
+    $scope.$parent.searched=true;
+    $scope.$parent.filter.location=$routeParams.location;
+    $scope.$parent.submitFilterQuery('preorder');
 
+});
 
  // **********************************************************
  //                             Directives
  //************************************************************
+ 
+
+app.directive('fuHead',function(){
+    return{
+        restrict:'E',
+        replace:true,
+        templateUrl:'home/getTamplate/fuHead',
+        controller:'fuHeadCtrl',
+        link:function($scope,elem,attr){
+            transparency=0;
+            angular.element(document).scroll(function(event) {
+                /* Act on the event */
+                
+                if($(this).scrollTop()>70){
+                    elem.find('.head-sub').addClass('slideIn-top');
+                }else{
+                    elem.find('.head-sub').removeClass('slideIn-top');
+                }    
+            });
+                
+                
+        }
+    }
+});
+
+
 app.directive('productLoading', function () {
       return {
         restrict: 'E',
@@ -777,7 +832,7 @@ app.directive('offers',function(){
 app.directive('productPopup',function(){
     return{
         restrict:'EA',
-        replace:"true",
+        replace:true,
         templateUrl:'home/getTamplate/itemDescripPopup'
     }
 });
@@ -786,7 +841,7 @@ app.directive('catagoryBar',function(){
     return{
         restrict:'EA',
         replace:true,
-        templateUrl:'home/getTamplate/catagoryFilterbar'
+        templateUrl:'home/getTamplate/catagoryFilterBar'
     }
 });
 app.directive('notFoundMessage',function(){
@@ -845,7 +900,9 @@ app.directive('slider', function($timeout) {
     templateUrl: 'home/getTamplate/slider',
     link:function(scope,elem,attr){
         
-        $timeout(function(){slideme(3,elem.children('#lightSlider'));},1000);
+        elem.ready(function(){
+            slideme(3,elem.children('#lightSlider'));
+        });
         //console.log(elem.children('#lightSlider'));
     }
     
@@ -886,6 +943,7 @@ app.directive('checkoutConfirm',function(){
         templateUrl:'home/getTamplate/checkout-confirm'
     }
 });
+
 app.directive('invoice',function(){
     return{
         restrict:'AE',
@@ -1032,3 +1090,10 @@ var slideme=function(item,elem){
         onBeforePrevSlide: function (el) {}
     });
 };
+
+var fuTypes=[
+{value:'meal',checked:true},
+{value:'snakes',checked:false},
+{value:'biriyani',checked:false},
+{value:'cake',checked:false}
+]

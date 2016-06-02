@@ -44,10 +44,10 @@ function getProductJson($query){
         }else{
             $send[$i]['min_quantity']=1;
         }
-        if($send[$i]['stock_quantity']==0){
+        // if($send[$i]['stock_quantity']==0){
             
-            $send[$i]['todays_menu']=false;
-        }
+        //     $send[$i]['todays_menu']=false;
+        // }
         
         $preorderTime=explode(':',$send[$i]['preorder_process_time']);
         $orderTime=explode(':',$send[$i]['ordernow_time']);

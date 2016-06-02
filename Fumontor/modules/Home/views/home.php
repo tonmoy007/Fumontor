@@ -12,7 +12,7 @@
     
     <div class="main-div" >
     <product-loading></product-loading>
-        <div ng-view>
+        <div ng-view >
         
         </div>
     </div>
