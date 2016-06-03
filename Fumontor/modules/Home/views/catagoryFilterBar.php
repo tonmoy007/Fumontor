@@ -1,4 +1,4 @@
-<div class="catagory-bar cool-shadow" id="catagoryBar" ng-class='{searched:searched||hideCatagoryFilter}'>
+<div class="catagory-bar cool-shadow" id="catagoryBar" ng-class='{searched:searched||hideCatagoryFilter,"top-me":slideNav}'>
 <div class="logo-container">
             <div class="logo filter-logo">
                  Fumontor

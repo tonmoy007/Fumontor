@@ -1,14 +1,16 @@
 <div id="header" class="fu-head ">
  <header >
-       <div class="head">
-           
+       <div id="main-header" class="head " ng-class="{'bg-theme2':slideNav}">
+         <div class="small-logo ">
+             <img src="assets/img/home-logo-sm.png" class="img-responsive" alt="">
+           </div>  
         <div class="navigation navigation-main">
             <div id="nav-icon" ng-click="open=!open" ng-class="{open:open}">
               <span></span>
               <span></span>
               <span></span>
             </div>
-            <div class="container text-center">
+            <div class="container text-left">
             <div class="menu-container" id="showme" ng-class="{showme:open}">
                 <nav class="menu menu--prospero" id="navbar">
                     <ul class="menu__list">
@@ -36,11 +38,13 @@
                         
                         </ul>
                        </li>
-                        <li class="menu__item" ng-class="{'menumenu__item--current':menuList[4].current}"><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)&&setCurrent(4)"><i class="fa fa-cart-arrow-down"></i><div ng-show='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div><span>Cart</span></a></li>
+                        <li class="menu__item  fixed" ng-class="{'menumenu__item--current':menuList[4].current}"><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)&&setCurrent(4)"><i class="fa fa-cart-arrow-down"></i><div ng-show='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div><span>Cart</span></a></li>
                         
                     </ul>
                 </nav>
+
             </div>
+            <!-- <li class="menu__item pull-right" ng-class="{'menumenu__item--current':menuList[4].current}"><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)&&setCurrent(4)"><i class="fa fa-cart-arrow-down"></i><div ng-show='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div><span>Cart</span></a></li> -->
             </div>
         </div>
        

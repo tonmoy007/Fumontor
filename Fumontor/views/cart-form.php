@@ -1,5 +1,5 @@
 <div class="cart-form">
-  <div class="cart-form-head" style="padding: 20px">
+  <div class="cart-form-head text-center" style="padding: 20px">
     Total <span class="cool-shadow badge">{{cartTotalItems}}</span>  Items In the Cart 
     <div class="">
       <a href="" ng-if="cartTotalItems>0" ng-click="clearCart()" class="btn btn-danger btn-emboshed"><i class="fa fa-trash"></i> &nbsp; clear cart</a>
@@ -10,7 +10,7 @@
     <ul class="cd-cart-items" ng-repeat="(cid,kichenCartItem) in cartItems" >
     
           
-          <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="text-theme form-header" >{{kichenCartItem.kitchenName}} </a>
+          <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="text-theme form-header" ><span class="kit-icon"><i class="fa fa-cutlery"></i></span>{{kichenCartItem.kitchenName}} </a>
           
           <li class="cart-item" ng-repeat='(key,cartItem) in kichenCartItem' ng-if='!isString(cartItem)&& key!="subtotal"&&key!="min_order"&&key!="orderType"&&key!="ordertime"&&key!="pickup"&&key!="home_delivery"&&key!="delivery_charge"' >
 
@@ -44,7 +44,9 @@
 
     </div> <!-- cd-cart-total -->
 
-    <a href="#/checkout" ng-show="cartSubTotal>=200" ng-click="showCart=!showCart" class="  btn btn-danger btn-wide" >Proceed to Checkout</a>
+    <div class="text-center">
+      <a href="#/checkout" ng-show="cartSubTotal>=200" ng-click="showCart=!showCart" class="  btn btn-danger btn-wide" >Proceed to Checkout</a>
+    </div>
     <div class="alert alert-info" ng-if="cartSubTotal<200&&cartSubTotal>0">
       You have to buy items cost atleast <strong>200 tk</strong> 
     </div>

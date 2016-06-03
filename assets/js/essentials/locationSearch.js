@@ -7,7 +7,7 @@ angular.module('queryfilter',[]).filter("getqueryresults",function() { // regist
     };
  });
 
-var app=angular.module('homeApp',['ui.bootstrap','rzModule','queryfilter','ngRoute','ngAnimate']);
+var app=angular.module('homeApp',['ui.bootstrap','uiSwitch','rzModule','slickCarousel','queryfilter','ngRoute','ngAnimate']);
 var ItemData={};
 app.config(function($routeProvider) {
     $routeProvider.when('/kitchen/:id',{
@@ -34,7 +34,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.user=[];
     $scope.showCart=false;
     $scope.menuItems=[];
-    //console.log($scope.menuItems);
+    $scope.trendingKitchen=fKitchen;
     $scope.cartItems=[];
     $scope.cartSubTotal=0;
     $scope.cartTotal=0;
@@ -64,13 +64,64 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.orderDeliveryCharge=[];
     $scope.cartOrderType='';
     $scope.checkOutTotal=0;
-    
+    $scope.searchedOrderType=false;
+    $scope.slickConfig = {
+            dots:true,
+            enabled: true,
+            autoplay: true,
+            arrows:true,
+            draggable: true,  
+            autoplaySpeed: 4000,
+            method: {},
+            centerMood:true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            event: {
+                beforeChange: function (event, slick, currentSlide, nextSlide) {
+                },
+                afterChange: function (event, slick, currentSlide, nextSlide) {
+                }
+            },
+             responsive: [
+                        {
+                          breakpoint: 1024,
+                          settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                          }
+                        },
+                        {
+                          breakpoint: 600,
+                          settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                          }
+                        },
+                        {
+                          breakpoint: 480,
+                          settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                          }
+                        }
+                        // You can unslick at a given breakpoint now by adding:
+                        // settings: "unslick"
+                        // instead of a settings object
+                      ]
+        };
+    angular.element(document).ready(function(){
+            $scope.animated=true;
+        });
     $http({
         url:'home/getHomeData',
         method:'POST',
         dataType:'JSON'
     }).success(function(data){
-
+        $scope.trendingFood=data.trendingFood;
+        $scope.trendingKitchen=data.trendingKitchen;
+        
         
         $scope.places=data.places;
         if(data.user!=undefined){
@@ -99,7 +150,10 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             
         $scope.endLoading();
                 
-    });
+    }).error(function(response) {
+        /* Act on the event */
+        console.log(response);
+    });;
     $scope.setActive=function(name){
         angular.forEach($scope.searchedFoodTypes,function(value,key){
             if(value.value==name){
@@ -680,7 +734,8 @@ app.controller('fuHeadCtrl',function($scope){
 app.controller('productPageCtrl',function($scope,$http,$routeParams){
     $scope.$parent.searched=true;
     $scope.$parent.filter.location=$routeParams.location;
-    $scope.$parent.submitFilterQuery('preorder');
+    var orderType=($scope.$parent.searchedOrderType)?'preorder':'ordernow';
+    $scope.$parent.submitFilterQuery(orderType);
 
 });
 
@@ -699,11 +754,18 @@ app.directive('fuHead',function(){
             transparency=0;
             angular.element(document).scroll(function(event) {
                 /* Act on the event */
+                // a=0.0;
                 
-                if($(this).scrollTop()>70){
-                    elem.find('.head-sub').addClass('slideIn-top');
+                transparency+=0.5;
+                if($(this).scrollTop()>30){
+                    angular.element(document.getElementById('main-header')).addClass('fixed-top');
+                    angular.element(document.getElementById('catagoryBar')).addClass('moveUp');
+                    $scope.slideNav=true;
                 }else{
-                    elem.find('.head-sub').removeClass('slideIn-top');
+                    $scope.slideNav=false;
+                    
+                    angular.element(document.getElementById('catagoryBar')).removeClass('moveUp');
+                    angular.element(document.getElementById('main-header')).removeClass('fixed-top');
                 }    
             });
                 
@@ -900,8 +962,8 @@ app.directive('slider', function($timeout) {
     templateUrl: 'home/getTamplate/slider',
     link:function(scope,elem,attr){
         
-        elem.ready(function(){
-            slideme(3,elem.children('#lightSlider'));
+        angular.element(document).ready(function(){
+            slideme(4,elem.children('#lightSlider'));
         });
         //console.log(elem.children('#lightSlider'));
     }
@@ -1033,7 +1095,7 @@ var offers=[
 ];
 var orderTypes=[
 {name:'Pre-Order',value:'0',checked:false},
-{name:'Order Now',value:'1',checked:false}
+{name:'Instant Order',value:'1',checked:false}
 ];
 
 var slideme=function(item,elem){
@@ -1096,4 +1158,14 @@ var fuTypes=[
 {value:'snakes',checked:false},
 {value:'biriyani',checked:false},
 {value:'cake',checked:false}
+]
+var fKitchen=[
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
+{img:'assets/img/f8.jpg',href:'#/',title:'Fu Kithcen'},
 ]

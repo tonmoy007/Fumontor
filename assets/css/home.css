@@ -21,6 +21,7 @@
 	body {
         font-size: 14px;
 		line-height: 1;
+        background: #fff url(../img/background/1.png) repeat;
 	}
 
 	ol, ul {
@@ -43,7 +44,7 @@
 
 	body {
 		-webkit-text-size-adjust: none;
-        background: #E9EAED;
+        background-color: #E9EAED;
         padding-top: 85px;
         overflow-x: hidden;
         font-family: 'Oxygen',RobotoDraft,RobotoLight,Para,headFont,sans-serif,monospace;
@@ -270,14 +271,32 @@ strong{
         display: block;
     }
 }
-
+.space{
+    width: 100%;
+    margin-top: 50px;
+}
+.small-logo{
+    position: absolute;
+    width: 40px;
+    left: 5px;
+    top: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    transition: top .3s ease;
+}
+.fixed-top .small-logo{
+    top: 5px;
+}
+.small-logo img{
+    width: 100px;
+}
 .head{
    position: fixed;
     top: 0;
+    padding-left: 50px;
     left: 0;
     display: block;
     width: 100vw;
-    width: 100%;
     text-align: left;
     background: #E9EAED ;
     padding: 10px 10px;
@@ -292,11 +311,11 @@ strong{
     text-align: center;
     visibility: hidden;
     opacity: 0;
-    display: block;
+    display: none;
     z-index: 10000;
     margin-top: -100%;
     transition: all .2s ease;
-    background-color: rgba(255, 85, 85, 0.85);
+    background-color: rgba(2, 154, 172, 0.79);
 }
 .head-sub .menu{
     background-color: transparent;
@@ -308,7 +327,7 @@ strong{
 }
 @media(max-width:767px){
     .head{
-        background-color: #E9EAED;
+        width: calc(100vw - 10px); 
     }
     .head-sub{
         display: none;
@@ -1071,7 +1090,7 @@ section .container{
     text-align: center;
 }
 section h1{
-    font-family: AlwaysH;
+    font-family: logo;
     font-size: 2.4em;
     font-weight: bold;
     text-transform: uppercase;

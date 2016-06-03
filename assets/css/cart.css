@@ -68,7 +68,7 @@ xheader
 
 #main-nav, #cd-cart {
   position: fixed;
-  top: 65px;
+  top: 55px;
 border-bottom-left-radius: 3px;
     border-top-left-radius: 3px;
   height: calc(100vh - 65px);
@@ -98,8 +98,8 @@ border-bottom-left-radius: 3px;
 @media only screen and (min-width: 768px) {
   #main-nav, #cd-cart {
     width: 350px;
-    top: 2px;
-    height: calc(100vh - 4px);
+    top: 57px;
+    height: calc(100vh - 57px);
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -435,4 +435,7 @@ xkeyframes
 .cd-order-description small{
     padding: 0 20px;
     display: inline-block;
+}
+.kit-icon{
+    padding-right: 10px;
 }

@@ -16,6 +16,8 @@
         <link rel="shortcut icon" href="assets/img/favicon.png"> 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/flat-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/css/roboto.min.css">
@@ -23,7 +25,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/ns-style-attached.css">
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
         <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
-
+        <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 
         <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css">
         <script src="assets/js/home/jquery-2.1.1.js"></script>
@@ -37,6 +39,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
         <script src="assets/js/essentials/ui-bootstrap-tpls-0.9.0.js"></script>
         <script src="assets/js/home/rzslider.min.js"></script>
+        <script src="assets/js/essentials/switch.min.js"></script>
+        
+        <script  src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+        <script src="assets/js/essentials/angular-slick.min.js"></script>
         <script src="assets/js/essentials/locationSearch.js"></script>
 
         

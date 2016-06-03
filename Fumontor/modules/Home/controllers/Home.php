@@ -105,8 +105,23 @@ function getTamplate($page){
 }
 
 function getHomeData(){
+    $this->homemodel->selectProduct();
+    $this->db->limit(10);
+    $query=$this->db->get();
+    $data1=array();
+    $data2=array();
+    $this->db->select('user_id,kitchename,location,name,address');
+    $this->db->limit(10);
+    $this->db->from('cooks');
+    $query2=$this->db->get();
+    foreach($query2->result_array() as $row){
+        $data2[]=$row;
+    }
+    
     $data=array(
         'places'=>$this->homemodel->getPlaces(),
+        'trendingFood'=>$this->homemodel->getProductJson($query),
+        'trendingKitchen'=>$data2,
         'cartSubTotal'=>$this->cartmodel->getCartTotalAmount(),
         'cartTotal'=>$this->cartmodel->getTotalCartRow(),
         'cartTotalItems'=>$this->cartmodel->getCartTotal(),
