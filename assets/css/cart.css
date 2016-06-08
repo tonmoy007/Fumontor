@@ -68,10 +68,10 @@ xheader
 
 #main-nav, #cd-cart {
   position: fixed;
-  top: 55px;
-border-bottom-left-radius: 3px;
+  top: 10px;
+    border-bottom-left-radius: 3px;
     border-top-left-radius: 3px;
-  height: calc(100vh - 65px);
+  height: calc(100vh - 20px);
   width: 100%;
   /* header height */
   padding-top: 65px;
@@ -98,8 +98,8 @@ border-bottom-left-radius: 3px;
 @media only screen and (min-width: 768px) {
   #main-nav, #cd-cart {
     width: 350px;
-    top: 57px;
-    height: calc(100vh - 57px);
+    top: 6px;
+    height: calc(100vh - 12px);
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -181,7 +181,7 @@ border-bottom-left-radius: 3px;
   transition: right 0.3s;
 }
 #cd-cart.speed-in {
-  right: 0;
+  right: -9px;
 }
 #cd-cart > * {
   padding: 0 1em;

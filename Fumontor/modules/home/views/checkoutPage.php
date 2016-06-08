@@ -4,13 +4,13 @@
 <div class="main-div">
     <div class="container">
     <div class="checkout-container">
-    <div class="header" ng-if="!user.id">
+    <div class="header space" ng-if="!user.id">
         <label class="form-label">You have to login to make the order. use any of the following method to login</label>
         <a href="social/session/facebook?from=checkout" class=" btn-default"><i class="fa fa-facebook"></i>acebok Login</a>
         <a href="social/session/google?from=checkout" class="btn-default"><i class="fa fa-google"></i>oogle Login</a>
         
     </div>
-        <div class="" ng-if="user.id&&cartTotal>0">
+        <div class="" ng-if="user.id&&cartSubTotal>=200&&checkOutValid">
                 <h2 class="heading header logo" style="font-size: 2em">Checkout</h2>
 
             <small>Hi <strong>{{user.name}}</strong> !! You are about to checkout from <strong>fumontor</strong> please fullfill the following steps to place the order.</small>
@@ -39,8 +39,11 @@
             
         </div>
         </div>
-        <div class="" ng-if="cartTotal<=0">
-            You haven't added any item to the cart
+        <div ng-if="!checkOutValid&&cartTotal>0" class="alert alert-info space">
+            Sorry looks like you did't fullfil some kithcen's requrement !! Please visit the kitchen's Page, Link available in the cart's warning block.<a href="" ng-click="showCart=!showCart">See Cart</a>
+        </div>
+        <div class="space" ng-if="cartTotal<=0">
+            Your <strong>Cart</strong> is empty please add Items to the cart <a href="#/all-kitchen"><strong>View All Kitchen</strong></a>
         </div>
     </div>
 </div>

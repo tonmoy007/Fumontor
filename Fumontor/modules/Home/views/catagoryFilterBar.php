@@ -1,16 +1,16 @@
 <div class="catagory-bar cool-shadow" id="catagoryBar" ng-class='{searched:searched||hideCatagoryFilter,"top-me":slideNav}'>
 <div class="logo-container">
             <div class="logo filter-logo">
-                 Fumontor
+                 Fiter Your Menu
             </div>
             <div class="cart-dismiss">
-                <a href=""  class="dismiss-btn" ng-click="hideFilterBar()"></a>
+                <a href=""  class="text-theme2" ng-click="hideFilterBar()"><i class="fa fa-arrow-left"></i></a>
             </div>
         </div>
     <div class="catagory-bar-container">
         
         <div class="filter-header">
-            Fiter Your Menu
+            
         </div>
         <label class="filter-label text-theme">Catagories</label>
         <catagory></catagory>

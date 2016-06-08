@@ -1,36 +1,107 @@
 
 angular.module('queryfilter',[]).filter("getqueryresults",function() { // register new filter
      return function(item,result) { // filter arguments
-
+        console.log(item)
         return item;
         // implementation
     };
  });
 
-var app=angular.module('homeApp',['ui.bootstrap','uiSwitch','rzModule','slickCarousel','queryfilter','ngRoute','ngAnimate']);
+var app=angular.module('homeApp',['ui.bootstrap','uiSwitch','rzModule','slickCarousel','queryfilter','ngRoute']);
 var ItemData={};
 app.config(function($routeProvider) {
-    $routeProvider.when('/kitchen/:id',{
+    $routeProvider.when('/kitchen/:kitchen_id',{
         templateUrl:'home/getTamplate/kitchenPage',
         controller:'kitchenShowCtrl'
+    }).when('/kitchen/:kitchen_id/:productId',{
+        templateUrl:'home/getTamplate/kitchenPage',
+        controller:'productShowCtrl',
     }).when('/checkout',{
         templateUrl:'home/getTamplate/checkoutPage',
         controller:'checkoutCtrl'
-    }).when('/search/:location',{
+    }).when('/search/:location/:orderType',{
         templateUrl:'home/getTamplate/home-products',
         controller:'productPageCtrl'
+    }).when('/all-kitchen',{
+        templateUrl:'home/getTamplate/all-kitchen',
+        controller:'allKitchenCtrl'
     }).otherwise({
         templateUrl:'home/getTamplate/landing',
-        
+        controller:'landingCtrl'     
     });
 });
+app.controller('landingCtrl',function($scope,$http){
+    $scope.$parent.bodyClass='home-body';
+});
+app.controller('productShowCtrl',function($routeParams,$scope,$interval,$timeout,$http){
+    // console.log($routeParams);
+    // console.log($scope);
+    
+    $scope.kitchenShow=false;
+    $scope.loading=true;
+    $scope.closeModel=function(data){
+        var item=angular.element(document.getElementById(data));
+        item.children('.fu-modal-container').removeClass('is-visible');
+        item.removeClass('is-visible');
+        window.location='#/kitchen/'+$routeParams.kitchen_id;
+        $scope.kitchenShow=true;
+        $timeout(function(){$scope.todayLoaded=true;},1000);
+    }
+    busy=false;
+    var init=$interval(function(){
+        if(!$scope.$parent.menuItems.length&&!busy){
+            busy=true;
+            $http({
+                url:'home/getItemData/'+$routeParams.kitchen_id+'/'+$routeParams.productId
+            }).success(function(response){
+                
+                if(response!='false'){
+                    $scope.$parent.menuItems.push(response[0]);
+                    
+                    console.log(response);
+                $timeout(function(){
+                    $scope.loading=false;
+                    var pop=$interval(function(){
+                        if($('#'+$routeParams.productId).length){
 
-app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
+                        $scope.$parent.singleItemDisplay($routeParams.productId);
+                        $interval.cancel(pop);
+                        }
+                    });
+                    
+                   $interval.cancel(init);
+                    },0);
+                }else{
+                    $scope.loading=false;
+                    $scope.$parent.showNoti('Sorry the item is not available Go to <a href="#/"><strong>Fumontor Home Page</strong></a>');
+                    
+                }
+                
+
+            }).error(function(response) {
+                /* Act on the event */
+                console.log(response);
+            });;
+            
+        }else{
+            // console.log($scope);
+             $scope.kitchenShow=false;
+             $scope.todayLoaded=false;
+             $timeout(function(){
+                $scope.$parent.singleItemDisplay($routeParams.productId);
+                // $scope.kitchenShow=true;
+            },0);
+            $interval.cancel(init);
+            
+        }
+    });
+});
+app.controller('searchCtrl',function($scope,$http,$timeout,$document,$routeParams){
     $scope.loggedin=false;
     $scope.searched=false;
     $scope.fixedTop=false;
     $scope.count=0;
-    $scope.filter={};
+    $scope.lastKitchenId=$routeParams.kitchen_id;
     $scope.user=[];
     $scope.showCart=false;
     $scope.menuItems=[];
@@ -48,69 +119,18 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.foodtype.name='meal'
     $scope.cities=[{name:'Dhaka'},{name:'Chittagong'}];  
     $scope.notiHide=true;
-    $scope.filter.tagsList=tags;
-    $scope.filter.catagories=catagories;
-    $scope.filter.offerList=offers;
-    $scope.filter.orderTypes=orderTypes;
-    $scope.filter.cusineFilters=cusineFilters
-    $scope.filter.location='';
+    $scope.slickConfig =slickConfig;
     $scope.query.city=null;
     $scope.query.location=null;
-    $scope.filter.menuOrderType='1';
-    $scope.filter.cusine={value:''};
-    $scope.filter.delivery_methods=deliveryMethods;
+    $scope.bodyClass='home-body';
     var myQ=$scope.query;
     $scope.order={};
     $scope.orderDeliveryCharge=[];
     $scope.cartOrderType='';
     $scope.checkOutTotal=0;
     $scope.searchedOrderType=false;
-    $scope.slickConfig = {
-            dots:true,
-            enabled: true,
-            autoplay: true,
-            arrows:true,
-            draggable: true,  
-            autoplaySpeed: 4000,
-            method: {},
-            centerMood:true,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            event: {
-                beforeChange: function (event, slick, currentSlide, nextSlide) {
-                },
-                afterChange: function (event, slick, currentSlide, nextSlide) {
-                }
-            },
-             responsive: [
-                        {
-                          breakpoint: 1024,
-                          settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3,
-                            infinite: true,
-                            dots: true
-                          }
-                        },
-                        {
-                          breakpoint: 600,
-                          settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
-                          }
-                        },
-                        {
-                          breakpoint: 480,
-                          settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                          }
-                        }
-                        // You can unslick at a given breakpoint now by adding:
-                        // settings: "unslick"
-                        // instead of a settings object
-                      ]
-        };
+    $scope.todaysMenuItems=[];
+   
     angular.element(document).ready(function(){
             $scope.animated=true;
         });
@@ -121,6 +141,10 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     }).success(function(data){
         $scope.trendingFood=data.trendingFood;
         $scope.trendingKitchen=data.trendingKitchen;
+        $timeout(function(){
+            $scope.trendingKitchenShow=true;
+            $scope.trendingFoodShow=true;
+        },300);
         
         
         $scope.places=data.places;
@@ -143,8 +167,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
         $scope.checkoutTotal=data.cartSubTotal;
         // console.log($scope.cartItems);
 
-        ItemData=$scope.menuItems;
-        
+        // ItemData=$scope.menuItems;
         //console.log(ItemData);
         
             
@@ -167,7 +190,8 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.prepareCart=function(data){
         log=[];
         angular.forEach(data,function(value,key){
-            var options=JSON.parse(value.options);
+        
+        var options=JSON.parse(value.options);
             //console.log($scope.cartOrderType);
 
         if(!$scope.cartOrderType){
@@ -190,6 +214,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
                     cKey=true;
                     $scope.cartItems[ikey][key]=value;
                     $scope.cartItems[ikey]['subtotal']+=parseInt(value.subtotal);
+
                 }
             },log);
             
@@ -278,7 +303,33 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             return update;
             
     }
-
+    $scope.checkCartValidity=function(){
+        valid=true;
+        angular.forEach($scope.cartItems,function(value,key){
+           // console.log(value);
+            
+                if(value.min_order>value.subtotal){
+                    valid=false;
+                }
+            
+        });
+        if($scope.cartSubTotal<200){
+            valid=false;
+        }
+        return valid;
+    }
+    $scope.checkoutTriggered=function(){
+        
+        valid=$scope.checkCartValidity();
+        if(valid){
+            $scope.showCart=!$scope.showCart;
+            window.location="#/checkout";
+            
+        }else{
+            $scope.showNoti('Sorry looks like you did\'t fullfil some kithcen\'s requrement !! Please visit the <a href="javascript:void(0)" ng-click="showCart=true"><strong>kitchen Page</strong></a> in the cart warning block ');
+            
+        }
+    }
     $scope.isString=function(value){
         return typeof value==='string';
     }
@@ -292,12 +343,13 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     $scope.showNoti=function(data){
 
         $scope.notiMessage=data;
+        elem=angular.element(document.getElementById('notiMessage')).html(data);
         $scope.notiOpen();
-        $timeout(function(){$scope.notiClose();},3000);
+        $timeout(function(){$scope.notiClose();},5000);
       }
       $scope.notiClose=function(){
         $scope.notiVisibility='ns-hide';
-        $timeout(function(){$scope.notiHide=true;},330);
+        $timeout(function(){$scope.notiHide=true;},300);
       }
       $scope.notiOpen=function(){
         $scope.notiVisibility='ns-show';
@@ -313,70 +365,21 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
 
         $scope.gotop();
         $scope.searched=true;
-        
-        window.location='#/search/'+location.name;
+        // console.log(city);
+        var orderType=(city)?'ordernow':'preorder';
+        window.location='#/search/'+location.name+'/'+orderType;
     }
 
-
-
-    $scope.filter.PriceRangeSlider = {
-          min: 0,
-          max: 1000,
-          options: {
-            floor: 0,
-            ceil: 1000,
-          }
-        };
-
-    $scope.$on("slideEnded", function() {
-     $scope.submitFilterQuery($scope.filter);
-    });
-
-    $scope.submitFilterQuery=function(data){
-        // console.log(data);
-        $scope.StartLoading();
-        $scope.gotop();
-        if(data=='preorder'){
-            $scope.filter.orderTypes[0].checked=true;
-            $scope.filter.orderTypes[1].checked=false;
-            
-        }else if(data=='ordernow'){
-            
-            $scope.filter.orderTypes[1].checked=true;
-            $scope.filter.orderTypes[0].checked=false;
-        }
-        
-        $http({
-            url:'home/getFilterData',
-            dataType:'JSON',
-            method:'POST',
-            data:$scope.filter
-        }).success(function(response){
-            console.log(response);
-            if(response!='false'){
-                $scope.menuItems=response;
-                $scope.endLoading();
-            }else{
-                $scope.menuItems={};
-                $scope.NotFoundMessage='No Item Found ';
-                $scope.endLoading();  
-            }
-        });
-        
-    }
-    $scope.hideFilterBar=function(){
-        $scope.searched=false;
-    }
 
     $scope.addToCart=function(data){
-        //console.log(data);
+        // console.log(data);
         //console.log(data);
         if($scope.cartOrderType!=''){
             if(data.todays_menu&&$scope.cartOrderType!='todays_menu'){
-                $scope.showNoti('rejected');
+                $scope.showNoti('Sorry we can not process <strong>Pre Order</strong> and <strong>Instant Order</strong> at a time try other <strong>Pre Order</strong> items or clear the cart');
                 return;
             }else if(!data.todays_menu&&$scope.cartOrderType!='preorder'){
-                $scope.showNoti('rejected');
+                $scope.showNoti('Sorry we can not process <strong>Pre Order</strong> and <strong>Instant Order</strong> at a time try other <strong>Instant Order</strong> items or clear the cart');
                 return;
             }
         }else{
@@ -455,7 +458,7 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
             $scope.cartSubTotal=0;
             $scope.cartTotal=0;
             $scope.cartOrderType='';
-            $scope.showNoti('All Cart Items Deleted');
+            // $scope.showNoti('All Cart Items Deleted');
             }
         });
     }
@@ -520,12 +523,9 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     }
 
 
-    $scope.closeModel=function(data){
-        var item=angular.element(document.getElementById(data));
-        item.children('.fu-modal-container').removeClass('is-visible');
-        item.removeClass('is-visible');
-    }
+    
     $scope.singleItemDisplay=function(data){
+        console.log(data);
         var item=angular.element(document.getElementById(data));
         item.addClass('is-visible');
         item.children('.fu-modal-container').addClass('is-visible');
@@ -537,42 +537,76 @@ app.controller('searchCtrl',function($scope,$http,$timeout,$document,$animate){
     
 });
 
-
+// ((((((((((((((((((((((((((((((((((Kitchen Page Functions))))))))))))))))))))))))))))))))))
 
  app.controller('kitchenShowCtrl',function($scope,$http,$timeout,$routeParams){
     
-    $scope.loading=true;
-    $scope.kitchenData=[];
-    $scope.kitchenProducts=[];
-    $scope.cookid=$routeParams.id;
-    $scope.todaysMenuItems=[];
+    
     //console.log($scope.cookid);
-  
+    // pid=($routeParams.kitchen_id.split('/'));
 
+    // console.log($scope.$parent.lastKitchenId);
+    // console.log($routeParams.kitchen_id);
+$scope.$parent.bodyClass='kitchen-body';
+
+if($scope.$parent.lastKitchenId!=$routeParams.kitchen_id){
+    
+    $scope.loading=true;
+    // $scope.kitchenProducts=[];
+    $scope.cookid=$routeParams.kitchen_id;
     $http({
         url:'home/getKitchenPageData/'+$scope.cookid,
     }).success(function(response){
+        // console.log(response);
        created=response.kitchenInfo[0].createdon.split(' ');
-       
+       //console.log(response.id);
+       $scope.$parent.lastKitchenId=$routeParams.kitchen_id;
+       // console.log($scope.$parent.lastKitchenId);
        date=created[0].split('-');
        //console.log(created);
        time=created[1].split(':');
        var mydate = new Date(date[0],date[1],date[2],time[0],time[1],time[2]);
         response.kitchenInfo[0].createdon=mydate.valueOf();
-        $scope.kitchenData=response.kitchenInfo[0];
-        $scope.menuItems=response.products;
-        $scope.loading=false;
+        $scope.$parent.kitchenData=response.kitchenInfo[0];
+        $scope.$parent.menuItems=response.products;
+         $scope.loading=false;
         $scope.kitchenShow=true;
-        $scope.todaysMenuItems=response.products;
+        if(response.products){
+            $scope.$parent.todaysMenuItems=response.products.filter(function(data){
+                    
+                    return data.todays_menu===true;
+                });
+        }else{
+           $scope.$parent.todaysMenuItems=[];
+           $scope.$parent.menuItems=[]; 
+        }
         $scope.found=true;
+        
+        $scope.todayLoaded=true;
+
+       
     });
+}else{
+    $scope.kitchenShow=true;
+    $scope.todayLoaded=true;
+    // $scope.$parent.singleItemDisplay($routeParams.productId);
+    // if($routeParams.productId){
+    //     $timeout(function(){$scope.$parent.singleItemDisplay($routeParams.productId);},0);
+    // }
+}
 
 
  });
 
 
 app.controller('checkoutCtrl',function($scope,$http,$timeout,$window){
-   
+    
+    if($scope.$parent.checkCartValidity()){
+        $scope.checkOutValid=true;
+    }else{
+        $scope.checkOutValid=false;
+    }
+    $scope.$parent.bodyClass='checkout-body';
     $scope.payment={};
     $scope.transactionCharge=null;
     $scope.deliveryCharge=0;
@@ -603,6 +637,7 @@ $scope.showProcess=function(index){
        }
 }
 $scope.procedeNext=function(index){
+    
     if(index<$scope.checkout.length-1){
         $scope.checkout[index].visited=true;
         $scope.checkout[index+1].current=true;
@@ -622,7 +657,7 @@ $scope.procedeNext=function(index){
         }).success(function(response){
             // console.log(response);
             if(response=='success'){
-            $scope.$parent.showNoti('Order Is Successfully Submitted Thanks For Using Fumontor');
+            $scope.$parent.showNoti('Your Order Is Successfully Submitted Thanks For Using <strong>Fumontor</strong>');
             
             $timeout(function(){
                 $scope.$parent.clearCart();
@@ -656,7 +691,7 @@ $scope.checkoutNext=function(form,index){
         //console.log($scope.$parent.checkoutTotal);
         $scope.deliveryCharge=0;
         angular.forEach($scope.cartItems,function(value,key){
-            console.log(value.delivery_charge);
+            //console.log(value.delivery_charge);
             charge=parseInt(value.delivery_charge);;
             if($scope.$parent.order[value.cooksId]){
                     charge=0;
@@ -715,7 +750,11 @@ $scope.setPayment=function(data){
 
 });
 
+// `((((((((((((((((((((((((Header Controller))))))))))))))))))))))))
+
+
 app.controller('fuHeadCtrl',function($scope){
+
     $scope.menuList=[{current:true},{current:false},{current:false},{current:false},{current:false}];
     $scope.setCurrent=function(index){
         angular.forEach($scope.menuList,function(value,key){
@@ -731,14 +770,148 @@ app.controller('fuHeadCtrl',function($scope){
     }
 });
 
+// ((((((((((((((((((((((((((((((((((((((Product Page Controller))))))))))))))))))))))))))))))))))))))
+
 app.controller('productPageCtrl',function($scope,$http,$routeParams){
+
+    $scope.$parent.bodyClass='product-body';
+    $scope.filter={};
+    $scope.filter.tagsList=tags;
+    $scope.filter.catagories=catagories;
+    $scope.filter.offerList=offers;
+    $scope.filter.orderTypes=orderTypes;
+    $scope.filter.cusineFilters=cusineFilters
+    $scope.filter.location='';
+    $scope.filteredmenuItems=[];
+    $scope.filter.menuOrderType='1';
+    $scope.filter.cusine={value:''};
+    $scope.filter.delivery_methods=deliveryMethods;
     $scope.$parent.searched=true;
-    $scope.$parent.filter.location=$routeParams.location;
-    var orderType=($scope.$parent.searchedOrderType)?'preorder':'ordernow';
-    $scope.$parent.submitFilterQuery(orderType);
+    $scope.filter.location=$routeParams.location;
+    orderType=$routeParams.orderType;
+    //console.log(orderType);
+    
+    $scope.closeModel=function(data){
+        var item=angular.element(document.getElementById(data));
+        item.children('.fu-modal-container').removeClass('is-visible');
+        item.removeClass('is-visible');
+    }
+
+    $scope.filter.PriceRangeSlider = {
+          min: 0,
+          max: 1000,
+          options: {
+            floor: 0,
+            ceil: 1000,
+          }
+        };
+
+    $scope.$on("slideEnded", function() {
+     $scope.submitFilterQuery($scope.filter);
+    });
+
+    $scope.submitFilterQuery=function(data){
+        // console.log(data);
+        $scope.$parent.StartLoading();
+        $scope.$parent.gotop();
+        if(data=='preorder'){
+            $scope.filter.orderTypes[0].checked=true;
+            $scope.filter.orderTypes[1].checked=false;
+            
+        }else if(data=='ordernow'){
+            
+            $scope.filter.orderTypes[1].checked=true;
+            $scope.filter.orderTypes[0].checked=false;
+        }
+        // console.log($scope.searchedOrderType)
+        
+        $http({
+            url:'home/getFilterData',
+            dataType:'JSON',
+            method:'POST',
+            data:$scope.filter
+        }).success(function(response){
+            // console.log(response);
+            if(response!='false'){
+                
+                $scope.$parent.NotFoundMessage='';
+                $scope.filterdmenuItems=response;
+
+                $scope.endLoading();
+            }else{
+                $scope.filterdmenuItems=[];
+                $scope.$parent.NotFoundMessage='No Item Found ';
+                $scope.$parent.endLoading();  
+            }
+        }).error(function(response){
+            console.log(response);
+        });
+        
+    }
+    $scope.hideFilterBar=function(){
+        $scope.$parent.searched=!$scope.$parent.searched;
+    }
+    $scope.submitFilterQuery(orderType);
 
 });
 
+// ((((((((((((((((((((((((((((((((((((((((All Kithcen Page Ctrl))))))))))))))))))))))))))))))))))))))))
+
+app.controller('allKitchenCtrl',function($scope,$http){
+    $scope.loading=true;
+    $scope.allKitchens=[];
+    $scope.$parent.bodyClass="allKitchens-body"
+    start=0;end=4;
+    $http({
+        url:'home/getAllKitchen/'+start+'/'+end,
+    }).success(function(response){
+        // console.log(response);
+        $scope.allKitchens=response;
+        $scope.kitchensLoaded=true;
+        $scope.loading=false;
+    }).error(function(response) {
+        /* Act on the event */
+        console.log(response)
+    });
+
+        // console.log(angular.element($('body')));
+    $scope.checkScroll=angular.element($('body')).scroll(function(event) {
+        /* Act on the event */
+
+                    
+         if($(this).scrollTop()>windowHeight){
+                    angular.element(document.getElementById('go-top')).addClass('visible');
+                }else{
+
+                    angular.element(document.getElementById('go-top')).removeClass('visible');
+                }
+    });
+    $scope.loadmore=function(){
+        
+        
+        start=$scope.allKitchens.length;
+        end=$scope.allKitchens.length+2;
+       
+        $http({
+            url:'home/getAllKitchen/'+start+'/'+end
+        }).success(function(response){
+            // console.log(response);
+            if(response.length){
+                angular.forEach(response,function(value,key){
+                    $scope.allKitchens.push(value);
+                });
+            }
+            else{
+                $scope.endedLoading=true;
+            }
+        $scope.kitchensLoaded=true;
+        $scope.loading=false;
+        }).error(function(response) {
+            /* Act on the event */
+            console.log(response);
+        });
+    }
+});
  // **********************************************************
  //                             Directives
  //************************************************************
@@ -752,21 +925,32 @@ app.directive('fuHead',function(){
         controller:'fuHeadCtrl',
         link:function($scope,elem,attr){
             transparency=0;
+            windowHeight=$(window).height()/4;
             angular.element(document).scroll(function(event) {
                 /* Act on the event */
                 // a=0.0;
                 
                 transparency+=0.5;
                 if($(this).scrollTop()>30){
-                    angular.element(document.getElementById('main-header')).addClass('fixed-top');
+                    if($(this).scrollTop()>windowHeight){
+                    
+                    angular.element(document.getElementById('go-top')).addClass('visible');
+                    }else{
+
+                        angular.element(document.getElementById('go-top')).removeClass('visible');
+                    }
                     angular.element(document.getElementById('catagoryBar')).addClass('moveUp');
+                    angular.element(document.getElementById('main-header')).addClass('fixed-top');
+                    angular.element(document.getElementById('filter-icon')).addClass('top-me');
                     $scope.slideNav=true;
                 }else{
                     $scope.slideNav=false;
-                    
                     angular.element(document.getElementById('catagoryBar')).removeClass('moveUp');
                     angular.element(document.getElementById('main-header')).removeClass('fixed-top');
-                }    
+                    angular.element(document.getElementById('filter-icon')).removeClass('top-me');
+                }
+
+
             });
                 
                 
@@ -794,18 +978,32 @@ app.directive('productLoading', function () {
  app.directive('menuItem',function($http,$timeout){
     return {
         restrict:'E',
-        replace:true,
         templateUrl:'home/getTamplate/menuItemCard',
+        scope:{
+            items:'=',
+            href1:'='
+        },
         link:function(scope,elem,attr){
+            // console.log(scope);
+            scope.addToCart=function(data){
+                scope.$parent.$parent.addToCart(data);
+            }
             
-                scope.$watch('menuItems',function(val){
+            scope.singleItemDisplay=function(data){
+                // console.log(data);
+                var item=angular.element(document.getElementById(data));
+                item.addClass('is-visible');
+                item.children('.fu-modal-container').addClass('is-visible');
+            }
+
+                // scope.$watch('menuItems',function(val){
                     
-                    if(!val.length){
-                        scope.notFound=true
-                    }else{
-                        scope.NotFound=false;
-                    }
-                });
+                //     if(!val.length){
+                //         scope.notFound=true
+                //     }else{
+                //         scope.NotFound=false;
+                //     }
+                // });
             
         }
     }
@@ -910,7 +1108,7 @@ app.directive('notFoundMessage',function(){
     return{
         restrict:'EA',
         replace:true,
-        template:'<div class="text-theme" ng-hide="menuItems.length"'+
+        template:'<div class="text-theme" ng-hide="items.length"'+
         ' class="sorryMessage">{{NotFoundMessage}}</div>'
     }
 });
@@ -941,7 +1139,10 @@ app.directive('fuNotification',function(){
     return {
         restrict:'E',
         replace:true,
-        template:'<div class="ns-box ns-attached ns-effect-flip ns-type-error {{notiVisibility}}"><div class="ns-box-inner">{{notiMessage}}</div><span ng-click="notiClose()" class="ns-close"></span></div>',
+        template:'<div class="ns-box ns-bar ns-effect-slidetop ns-type-notice '+
+        '{{notiVisibility}}"><div class="ns-box-inner"><span class="fa fa-bullhorn">'+
+        '</span><p id="notiMessage"></p></div><span class="ns-close" '+
+        'ng-click="notiClose()"></span></div>',
         link:function(scope,elem,attr){
             elem.hide();
             scope.$watch('notiHide',function(value){
@@ -962,9 +1163,7 @@ app.directive('slider', function($timeout) {
     templateUrl: 'home/getTamplate/slider',
     link:function(scope,elem,attr){
         
-        angular.element(document).ready(function(){
-            slideme(4,elem.children('#lightSlider'));
-        });
+        
         //console.log(elem.children('#lightSlider'));
     }
     
@@ -1051,7 +1250,15 @@ app.factory('isPhoneAvailable', function($q, $http) {
   }
 });
 
+// ***************** Filters **********************
 
+app.filter('todaysMenuFilter',function(){
+    return function(data){
+        returnedData=[];
+        console.log(data);
+        return returnedData;
+    }
+})
 // ***************** Static Variables ***********************
 
 
@@ -1097,7 +1304,52 @@ var orderTypes=[
 {name:'Pre-Order',value:'0',checked:false},
 {name:'Instant Order',value:'1',checked:false}
 ];
-
+var slickConfig=  {
+            dots:true,
+            enabled: true,
+            autoplay: true,
+            arrows:true,
+            draggable: true,  
+            autoplaySpeed: 4000,
+            method: {},
+            centerMood:true,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            event: {
+                beforeChange: function (event, slick, currentSlide, nextSlide) {
+                },
+                afterChange: function (event, slick, currentSlide, nextSlide) {
+                }
+            },
+             responsive: [
+                        {
+                          breakpoint: 1024,
+                          settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            infinite: true,
+                            dots: true
+                          }
+                        },
+                        {
+                          breakpoint: 600,
+                          settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                          }
+                        },
+                        {
+                          breakpoint: 480,
+                          settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                          }
+                        }
+                        // You can unslick at a given breakpoint now by adding:
+                        // settings: "unslick"
+                        // instead of a settings object
+                      ]
+        };
 var slideme=function(item,elem){
     $(elem).lightSlider({
         item: item,

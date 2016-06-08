@@ -16,13 +16,13 @@
         <link rel="shortcut icon" href="assets/img/favicon.png"> 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/flat-ui.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/css/roboto.min.css">
         <link href="assets/css/home.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="assets/css/ns-style-attached.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/ns-style-bar.css">
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
         <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
         <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
@@ -48,7 +48,7 @@
         
     </head>
     <!-- END HEAD -->
-    <body ng-app="homeApp" ng-controller="searchCtrl">
+    <body ng-app="homeApp" ng-controller="searchCtrl as mCtrl" class="{{bodyClass}}">
         
    
         <!-- <search-bar></search-bar> -->

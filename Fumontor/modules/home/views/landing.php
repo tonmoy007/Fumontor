@@ -1,6 +1,6 @@
 <div class="landing">
 <section class="land-section">
-    <video autobuffer autoloop loop autoplay="true" poster="assets/img/fu-logo.png" class="background-video">
+    <video autobuffer autoloop loop autoplay="true" poster="assets/img/fu-logo.jpg" class="background-video">
         <source src="assets/video/how.mp4" type="video/mp4" media="">
         <source src="assets/video/how.ogg" type="video/ogg" media="">
         <source src="assets/video/how.webm" type="video/webm" media="">
@@ -11,18 +11,18 @@
     <div class="container">
         <div class="brand-container">
             <div class="brand-logo">
-                <div class="logo text-white">
+                <div class="logo pulse text-white" ng-if="animated" ng-class="{animated:animated}">
                     <img src="assets/img/home-logo.png" class="img-responsive" alt="Fumontor">
                 </div>
             </div>
             
             <div class="brand-subtitle">
                 <div class="text-white">
-                    a yummy relationship
+                    <!-- a yummy relationship -->
                 </div>
             </div>
             <div class="brand-search">
-                <div class="slideInLeft bounce text-white" ng-if="animated" ng-class="{animated:animated}">
+                <div class="zoomInUp search-title" ng-if="animated" ng-class="{animated:animated}">
                     কি খাবেন??
                 </div>
                 <search-bar></search-bar>
@@ -33,7 +33,7 @@
         </div>
     </div>
 </section>
-    <section>
+    <section class="how-it-works">
         <div class="container">
             <h1 class="section-head text-theme2 section-title">
                 How It Works
@@ -43,7 +43,7 @@
                     <img class="img-responsive" src="assets/img/how-cooks.gif" alt="How it Works as cook">
                 </div>
                 <div class="col-md-8">
-                    <div class=" text-center form-heading text-theme2">
+                    <div class=" text-center form-heading ">
                         You Know Cooking??
                     </div>
                     <div class="row">
@@ -83,10 +83,10 @@
         </div>
     </section>
     <section>
-        <h1 class="section-head text-theme2">Trending Kithcens</h1>
-        <div class="container">
-            <div class="kitchen-slider">
-                <slick settings='slickConfig' id="carousel" >
+        <h1 class="section-head  text-theme2">Trending Kithcens</h1>
+        <div class="container" ng-show="trendingKitchenShow">
+            <div class="kitchen-slider" >
+                <slick settings='slickConfig' ng-if="trendingKitchenShow" id="carousel" >
                     <div class="slide cool-shadow" ng-repeat="(key,slide) in trendingKitchen">
                     
                       <div class="slide-container">
@@ -95,8 +95,8 @@
                               <img ng-src="assets/img/f6.jpg" class=" top img-responsive">
                           </div>
                           <div class="description">
-                              <h2 ng-if="slide.kitchename!=''" class="form-head text-theme2">{{slide.kitchename}}</h2>
-                            <h2 ng-if="slide.kitchename==''" class="form-head text-theme2">Fumontor Kitchen</h2>
+                              <h2 ng-if="slide.kitchename!=''" class="slider-title text-theme2">{{slide.kitchename}}</h2>
+                            <h2 ng-if="slide.kitchename==''" class="slider-title text-theme2">Fumontor Kitchen</h2>
                               <label for="">by - {{slide.name}}</label>
                               <label for="">Location : {{slide.location}}</label>
                               
@@ -112,22 +112,26 @@
                 </slick>
             </div>    
         </div>
+        <div class="text-center">
+            <a href="#/all-kitchen" class="btn btn-danger btn-emboshed btn-wide">See   All</a>
+        </div>
     </section>
-    <section>
+    <section class="how-it-works">
         <h1 class="section-head text-theme2">Trending Food</h1>
-        <div class="container">
-            <div class="kitchen-slider">
-                <slick settings='slickConfig' id="carousel" >
+        <div class="container" ng-show="trendingFoodShow">
+            <div class="kitchen-slider" >
+                <slick settings='slickConfig' id="carousel" ng-if="trendingFoodShow" >
                     <div class="slide cool-shadow" ng-repeat="(key,slide) in trendingFood">
                     
                       <div class="slide-container">
                           <div class="slider-img">
                               <img ng-src="assets/uploads/{{slide.cooksID}}/{{slide.id}}/{{slide.feature_img}}" class=" top img-responsive">
                           </div>
-                          <div class="slider-overlay"> <a href="{{slide.href}}"><i class="fa fa-search"></i></a></div>
+                          <div class="slider-overlay"> <a href="#/kitchen/{{slide.cooksID}}/{{slide.id}}"><i class="fa fa-search"></i></a></div>
                           <div class="description">
-                              <h2 class="desc-head form-head text-theme2">{{slide.title}}</h2>
-               
+                              <h2 class="desc-head slider-title text-theme2">{{slide.title}}</h2>
+                            <span class="text-info">Price : <strong class="text-theme2">{{slide.price}}tk</strong></span>
+                            <span class="sub-title text-info">By <strong><a href="#/kitchen/{{slide.cooksID}}">{{slide.kitchename}}</a></strong></span>
                           </div>
                            <div class="">
                                 <div ng-if="slide.stock_quantity>0" class="cd-customization home-grid-action active">

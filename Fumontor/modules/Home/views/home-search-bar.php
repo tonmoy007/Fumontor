@@ -14,7 +14,7 @@
         </div> -->
             <div class="form" >
                 <div class="">
-                    <form name="Location" method="get" accept-charset="utf-8" ng-submit="submitQuery(query.city,query.location,Location)">
+                    <form name="Location" method="get" accept-charset="utf-8" ng-submit="submitQuery(searchedOrderType,query.location,Location)">
                         
                         <div class="findCatagory">
                             <div class="row">
@@ -51,7 +51,7 @@
                                 <li class="form-list big"><input required="true" type="text"  placeholder="Area/Location(Only In Dhaka)" typeahead="c as c.name for c in places | filter:$viewValue | limitTo:10" typeahead-min-length='1' typeahead-on-select='onSelectPart($item, $model, $label)' ng-model="query.location" typeahead-template-url="home/getTamplate/searchTemplate" class="form-control" ></li>
                            
 
-                                <li class="form-list"><button type="submit" class="btn btn-danger btn-emboshed btn-wide">Find ME FOOD </button></li>
+                                <li class="form-list"><button type="submit" class="btn btn-danger btn-emboshed ">Find ME FOOD </button></li>
 
                                 
                         </ul>

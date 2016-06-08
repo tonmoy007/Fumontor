@@ -45,7 +45,7 @@
     </div> <!-- cd-cart-total -->
 
     <div class="text-center">
-      <a href="#/checkout" ng-show="cartSubTotal>=200" ng-click="showCart=!showCart" class="  btn btn-danger btn-wide" >Proceed to Checkout</a>
+      <a href="" ng-show="cartSubTotal>=200" ng-click="checkoutTriggered()" class="  btn btn-danger btn-wide" >Proceed to Checkout</a>
     </div>
     <div class="alert alert-info" ng-if="cartSubTotal<200&&cartSubTotal>0">
       You have to buy items cost atleast <strong>200 tk</strong> 

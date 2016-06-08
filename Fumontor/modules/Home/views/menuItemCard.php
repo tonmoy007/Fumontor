@@ -1,13 +1,14 @@
-<div class="menuItem" ng-repeat="(key,item) in menuItems | getqueryresults:query">
+<div class="menuItem" ng-repeat="(key,item) in items ">
 
-<div class="col-md-2  grid fadeIn animated">
+<div class="col-md-2  grid ">
     <div class="grid-lg">
         <div class="grid-img">
         <div class="grid-side-banner" ng-class="{now:item.todays_menu}">
             <label ng-show='!item.todays_menu' class="  banner-label">Pre Order</label>
             <label ng-show="item.todays_menu" class=" banner-label">Instant Order</label>
         </div>
-            <a href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-search"></i></a>
+            <a ng-if="href1" href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-search"></i></a>
+            <a ng-if="!href1" href="#kitchen/{{item.cooksID}}/{{item.id}}"  class="img-overlay block-link"><i class="fa fa-search"></i></a>
             
             <img ng-if="item.feature_img" ng-show="item.feature_img" ng-src="assets/uploads/{{item.cooksID}}/{{item.id}}/{{item.feature_img}}" title="{{item.title}}" alt="{{item.title}}">
             

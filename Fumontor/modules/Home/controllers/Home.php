@@ -198,6 +198,7 @@ function getFilterData(){
 }
 
 function getKitchenPageData($id){
+
     $data['kitchenInfo']=$this->common->getWhere('cooks','user_id',$id);
     $this->homemodel->selectProduct();
     $this->db->where('cooksID',$id);
@@ -208,9 +209,49 @@ function getKitchenPageData($id){
     echo json_encode($data);
 }
 
+function getAllKitchen($limitStart=0,$limitEnd=10){
+    $this->db->select('user_id,kitchename,address,location,min_order,pickup,home_delivery,service_areas,delivery_charge,kitchen_sub_title,createdon');
+    if($limitStart==0){$this->db->limit($limitEnd);}
+    else{$this->db->limit($limitStart,$limitEnd);}
+    $this->db->from('cooks');
+    $query=$this->db->get();
+    $data=array();
+    $i=0;
+    foreach($query->result_array() as $row){
+        
+        $service_areas=explode(',',$row['service_areas']);
+        $row['service_areas']=$service_areas;
+        $date=date_create($row['createdon']);
+        $row['createdon']=date_format($date,"l F Y ");;
+        if(strcmp($row['pickup'],'true')==0){
+            $row['pickup']=true;
+        }else{
+            $row['pickup']=false;
+        }
+        if(strcmp($row['home_delivery'],'true')==0){
+            $row['home_delivery']=true;
+        }else{
+            $row['home_delivery']=false;
+        }
+        $this->db->select('phone');
+        $this->db->from('users');
+        $this->db->where('id',$row['user_id']);
+        $query=$this->db->get();
+        foreach($query->result_array() as $phone){
+            $row['phone']=$phone['phone'];
+        }
+        $data[$i]=$row;
+        $i++;
+    }
+    echo json_encode($data);
+}
 
-
-
+function getItemData($kitchen_id,$product_id){
+    $this->homemodel->selectProduct();
+    $this->db->where('menuitem.id',$product_id);
+    $query=$this->db->get();
+    echo json_encode($this->homemodel->getProductJson($query));
+}
 
 
 
