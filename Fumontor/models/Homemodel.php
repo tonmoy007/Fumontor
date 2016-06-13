@@ -180,8 +180,41 @@ function selectProduct(){
     $this->db->order_by('menuitem.created','desc');
     
 }
+function getUserPhone($id){
+    $this->db->select('phone');
+    $this->db->from('users');
+    $this->db->where('id',$id);
+    $query=$this->db->get();
+    $rphone='';
+    foreach($query->result_array() as $phone){
+        $rphone=$phone['phone'];
+    }
+    return $rphone;
+}
+function getTotalKithcenItem($id){
+    $this->db->select('*');
+    $this->db->from('menuitem');
+    $this->db->where('cooksID',$id);
+    $count=$this->db->count_all_results();
+    if($count>0){
+      return $count;  
+    }else{
+        return 0 ;
+    }
+}
+function getTotalTdaysMenu($id){
+    $this->db->select('id');
+    $data=array('cooksID'=>$id,'todays_menu'=>'1');
+    $this->db->where($data);
+    $this->db->from('menuitem');
+    $count=$this->db->count_all_results();
+    if($count>0){
+        return $count;
+    }else{
+        return 0;
+    }
 
-
+}
 
 
 

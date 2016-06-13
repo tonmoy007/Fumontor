@@ -1,14 +1,22 @@
-<link rel="stylesheet" href="assets/css/home/checkout.css">
+
 
 <product-loading></product-loading>
-<div class="main-div">
+<div class="main-div" ng-show="checkoutShow">
+<link rel="stylesheet" href="assets/css/home/checkout.css">
     <div class="container">
     <div class="checkout-container">
-    <div class="header space" ng-if="!user.id">
-        <label class="form-label">You have to login to make the order. use any of the following method to login</label>
-        <a href="social/session/facebook?from=checkout" class=" btn-default"><i class="fa fa-facebook"></i>acebok Login</a>
-        <a href="social/session/google?from=checkout" class="btn-default"><i class="fa fa-google"></i>oogle Login</a>
+    <div class="header" ng-if="!user.id">
+        <div class="loginBox">
+            <div class="login-container cool-shadow ">
+                <label class="form-label">You have to login to make the order. use any of the following method to login</label>
+                <a href="social/session/facebook?from=checkout" class="loginBtn loginBtn--facebook slideInRight animated" >Login with Facebook</a>
+                <div class="clearfix">
+                    
+                </div>
+                <a href="social/session/google?from=checkout" class="loginBtn loginBtn--google slideInLeft animated" >Login with Google</a>
         
+            </div>
+        </div>
     </div>
         <div class="" ng-if="user.id&&cartSubTotal>=200&&checkOutValid">
                 <h2 class="heading header logo" style="font-size: 2em">Checkout</h2>
@@ -39,10 +47,10 @@
             
         </div>
         </div>
-        <div ng-if="!checkOutValid&&cartTotal>0" class="alert alert-info space">
-            Sorry looks like you did't fullfil some kithcen's requrement !! Please visit the kitchen's Page, Link available in the cart's warning block.<a href="" ng-click="showCart=!showCart">See Cart</a>
+        <div ng-if="!checkOutValid&&cartTotal>0" class="alert alert-info cool-shadow text-theme2 bg-white space">
+            Sorry looks like you did't fullfil some kithcen's requrement !! Please visit the kitchen's Page, Link available in the cart's warning block.<a href="" ng-click="toggleCart()"><strong>See Cart</strong></a>
         </div>
-        <div class="space" ng-if="cartTotal<=0">
+        <div class="space bg-white alert cool-shadow text-theme2" ng-if="cartTotal<=0">
             Your <strong>Cart</strong> is empty please add Items to the cart <a href="#/all-kitchen"><strong>View All Kitchen</strong></a>
         </div>
     </div>

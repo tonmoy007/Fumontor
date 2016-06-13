@@ -2,11 +2,11 @@
   <div class="cart-form-head text-center" style="padding: 20px">
     Total <span class="cool-shadow badge">{{cartTotalItems}}</span>  Items In the Cart 
     <div class="">
-      <a href="" ng-if="cartTotalItems>0" ng-click="clearCart()" class="btn btn-danger btn-emboshed"><i class="fa fa-trash"></i> &nbsp; clear cart</a>
+      <a href="" ng-if="cartTotalItems>0" ng-click="clearCart()" class="btn btn-danger cool-shadow btn-emboshed"><i class="fa fa-trash"></i> &nbsp; clear cart</a>
     </div>
   </div>
       
-<div ng-show="!cartItems.length&&false" class=" cart-empty alert alert-info "> No items in the cart </div>
+<div ng-show="!cartItems.length&&false" class=" cart-empty alert bg-white cool-border text-theme2 alert-info "> No items in the cart </div>
     <ul class="cd-cart-items" ng-repeat="(cid,kichenCartItem) in cartItems" >
     
           
@@ -29,7 +29,7 @@
             </div>
 
           </li>
-          <div class="alert alert-info" ng-if="kichenCartItem.subtotal<kichenCartItem.min_order">
+          <div class="alert alert-danger cool-shadow" ng-if="kichenCartItem.subtotal<kichenCartItem.min_order">
             This kitchen doesn't take orders if it is not eqal to or more than <strong>{{kichenCartItem.min_order}}</strong> tk so please fullfil the order by perchasing more from <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="link" >{{kichenCartItem.kitchenName}} </a>
           </div>
           <div class="cd-cart-total sub" ng-if="kichenCartItem.subtotal>0">
@@ -47,7 +47,7 @@
     <div class="text-center">
       <a href="" ng-show="cartSubTotal>=200" ng-click="checkoutTriggered()" class="  btn btn-danger btn-wide" >Proceed to Checkout</a>
     </div>
-    <div class="alert alert-info" ng-if="cartSubTotal<200&&cartSubTotal>0">
+    <div class="alert alert-danger cool-shadow" ng-if="cartSubTotal<200&&cartSubTotal>0">
       You have to buy items cost atleast <strong>200 tk</strong> 
     </div>
     <!-- <a href="auth/login" ng-if='!user&&cartSubTotal>=200' class=" checkout btn btn-danger btn-wide">Login to checkout</a> -->

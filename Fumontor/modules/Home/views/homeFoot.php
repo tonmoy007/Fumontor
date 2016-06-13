@@ -1,14 +1,85 @@
 
-
+<link rel="stylesheet" href="assets/css/foot.css">
 <!-- Start FOOTER -->
 <div class="page-footer">
-    <div class="page-footer-inner footerInLineCss">
-        2016 &copy; <a href="http://binarycraft.org"><strong>Binary Craft</strong></a>&nbsp; . All Rights Reserved.
+<div class="container">
+    <div class="row ">
+        <div class="row wow slideInUp">
+        <div class="col-md-4 address">
+            <div class="row">
+                <div class="col-md-12 text-left">
+                <span class="small-title  ">Address</span>
+                    <address>
+                        <span><i class="chat-box fa fa-home"></i> <strong>Address :</strong> H:47,R:15, Nikunja-2 Dhaka –1212</span>
+                        <span><i class="chat-box fa fa-envelope-o"></i> <strong>E-mail :</strong>info@fumontor.com</span>
+                        <span><i class="chat-box fa fa-phone"></i> <strong>Telephone :</strong>+8801684536534</span>
+                        <span><i class="chat-box fa fa-fax"></i> <strong>Fax :</strong> 88-2-8819921</span> 
+                         
+                    </address>
+                </div>
+                <!-- <div class="col-md-6">
+                    <div class="map-container">
+                        <div class="map">
+                            <div id="googleMap" style="width:100%;height:200px;"></div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-md-4 contact text-center">
+            <span class="small-title">Ask A Question</span>
+            <div class="row">
+                <form class="contact-form cool-shadow">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="" value="" placeholder="Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" name="" class="form-control" value="" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <textarea name="" rows="2" class="form-control" placeholder="Message"></textarea>
+                    </div>
+                    <div class="center ">
+                        <input type="submit" class="btn btn-danger cool-shadow btn-emboshed btn-wide" name="" value="SEND">
+                    </div>
+                    <span class="question fa fa-question-circle cool-shadow"></span>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span class="small-title text-left">Links</span>
+            <ul class="foot-links">
+                <li class=""><a   href="">Home</a></li>
+                <li class=""><a   href="">About Us</a></li>
+                <li class=""><a   href="">Contact</a></li>
+                <li class=""><a   href="">Terms & Conditions</a></li>
+                <li class=""><a   href="">How it works</a></li>
+                <li class=""><a   href="">FAQ</a></li>
+                <li class=""><a   href="">Signin</a></li>
+            </ul>
+        </div>
     </div>
-    
-        <span class="cd-top">
-        </span>
- 
+            
+        </div>
+</div>    
+</div>
+<div class="footer-container " >
+    <div class="container">
+        <div class="footer-links ">
+            <ul>
+                <li class="wow slideInLeft" data-wow-duration=".1s" data-wow-delay=".1s"><a class="cool-shadow" href=""><i class="fa fa-facebook"></i></a></li>
+                <li class="wow slideInLeft" data-wow-duration=".3s" data-wow-delay=".1s"><a class="cool-shadow" href=""><i class="fa fa-linkedin"></i></a></li>
+                <li class="wow slideInLeft" data-wow-duration=".6s" data-wow-delay=".1s"><a class="cool-shadow" href=""><i class="fa fa-twitter"></i></a></li>
+                <li class="wow slideInLeft" data-wow-duration=".9s" data-wow-delay=".1s"><a class="cool-shadow" href=""><i class="fa fa-google-plus"></i></a></li>
+            </ul>
+        </div>
+        <div class="alert center">&copy;2016 <a href=" "><strong>fumontor</strong></a>&nbsp; powered by <a href="http://binarycraft.org"><strong>Binary Craft</strong></a></div>
+    </div>
+</div>  
+
+    <div class="go-top bounceIn animated" id="go-top">
+        <a href="" ng-click="gotop()"><i class="fa fa-chevron-up"></i></a>
+    </div>
 
 <!-- End FOOTER -->
 <!-- Start Javasceipt -->

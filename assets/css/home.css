@@ -189,13 +189,13 @@ strong{
 }
  
 ::-webkit-scrollbar-track {
+    background: #fff;
+    border-left: 1px solid #279aac;
 }
  
 ::-webkit-scrollbar-thumb {
   background-color: #029AAC;
   outline: 1px solid #aaa;
-    border-radius: 5px;
-    
     height: 60px;
 }
 .ptop-wrapper{
@@ -275,7 +275,9 @@ strong{
 }
 .space{
     width: 100%;
-    margin-top: 50px;
+}
+.all-kitchen .space{
+    margin-top: 10px;
 }
 .small-logo{
     position: absolute;
@@ -542,6 +544,7 @@ strong{
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .menu__link i{
+    min-width: 10px;
     padding: 0 5px;
     text-shadow: 0 0 2px #878787;
 }
@@ -551,7 +554,9 @@ strong{
 }
 @media(min-width:764px){
     .menu__link span{
-        display: none;
+        font-family: RobotoLight;
+        font-size: 1em;
+        padding: 0 5px;
     }
 }
 .menu__link:hover,
@@ -618,14 +623,38 @@ strong{
 .menu--prospero .menu__link {
 	position: relative;
 	display: block;
-	margin: 0 1.5em;
+	margin: 0 .4em;
 	padding: 0.75em 0;
 	text-align: center;
 	color: #ea6868;
 	-webkit-transition: color 0.3s;
 	transition: color 0.3s;
 }
-
+.menu__list.right{
+    position: fixed;
+    right: 20px;
+    top: 0;
+}
+@media(max-width:767px){
+    .menu__list.right{
+        right: 60px;
+    }
+    .menu__list.right a{
+        display: inline-block;
+        font-family: RobotoDraft;
+        margin-right: 10px;
+        padding: 0;
+        text-align: right;
+    }
+    .menu__list.right .menu__item{
+        display: inline-block;
+        width: auto;
+        margin-top: 0;
+    }
+    .menu__list.right .menu__link span{
+        display: none;
+    }
+}
 .menu--prospero .menu__link:hover,
 .menu--prospero .menu__link:focus {
 	color: #fd6868;

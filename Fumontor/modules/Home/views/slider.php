@@ -1,4 +1,4 @@
-            <slick settings='slickConfig' class="todays-menu-slider" id="carousel" ng-show="todayLoaded" >
+            <slick settings='slickConfig' class="todays-menu-slider" id="carousel" ng-if="todayLoaded" >
                 
                     <div class="slide todays-menu cool-shadow" ng-repeat="slide in todaysMenuItems">
                         <div class="slide-container">

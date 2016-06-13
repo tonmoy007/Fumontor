@@ -29,25 +29,25 @@
                 </div>
             </div>
             
-            <div class="todays-menu-slider how-it-works">
+            <div class="todays-menu-slider ">
                 <div class="slider-container" >
-                <div class="slider-title text-theme">
+                <div class="menu-title bg-white cool-shadow text-theme">
                     <strong>Todays Menu</strong>
                 </div>
-                    <slider ng-show="todayLoaded" ng-if="todaysMenuItems.length" ></slider>
-                    <div class="alert alert-info" ng-if="!todaysMenuItems.length">
+                    <slider  ng-if="todayLoaded" ng-show="todaysMenuItems.length"></slider>
+                    <div class="alert alert-info bg-white text-theme2 cool-shadow" ng-if="!todaysMenuItems.length">
                         No Items in today's menu !!
                     </div>
                 </div>
             </div>
 
-            <div class="kitchen-menu bg-light cool-shadow">
-            <div class="menu-title text-theme ">
+            <div class="kitchen-menu ">
+            <div class="menu-title bg-white cool-shadow text-theme ">
                 <strong>Menu Items</strong>
             </div>
                 <div class="kitchen-menu-container">
                     <menu-item items="menuItems" ng-if="menuItems.length"></menu-item>
-                    <div class="alert alert-info" ng-if="!menuItems.length">
+                    <div class="alert alert-info bg-white text-theme2 cool-shadow" ng-if="!menuItems.length">
                         No Menu Items added yet !!
                     </div>
                 </div>

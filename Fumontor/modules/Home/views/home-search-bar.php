@@ -1,7 +1,7 @@
 <div class="top-head">
 <link rel=stylesheet href="assets/css/home/switch.css">
 
-    <div class="search-form-container cool-shadow" id="searchForm"  >
+    <div class="search-form-container flipInX animated cool-shadow" id="searchForm"  >
         <div class="form-overlay" >
         <!-- <right-navigation></right-navigation>
         <catagory-bar></catagory-bar>
@@ -51,7 +51,7 @@
                                 <li class="form-list big"><input required="true" type="text"  placeholder="Area/Location(Only In Dhaka)" typeahead="c as c.name for c in places | filter:$viewValue | limitTo:10" typeahead-min-length='1' typeahead-on-select='onSelectPart($item, $model, $label)' ng-model="query.location" typeahead-template-url="home/getTamplate/searchTemplate" class="form-control" ></li>
                            
 
-                                <li class="form-list"><button type="submit" class="btn btn-danger btn-emboshed ">Find ME FOOD </button></li>
+                                <li class="form-list"><button type="submit" class="btn cool-shadow btn-danger btn-emboshed ">Find ME FOOD </button></li>
 
                                 
                         </ul>

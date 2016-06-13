@@ -26,10 +26,10 @@
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
         <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
         <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
-
+        <link rel="stylesheet" href="assets/css/kitchen-filter.css"> 
         <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css">
         <script src="assets/js/home/jquery-2.1.1.js"></script>
-        <script src="assets/js/modernizr.js"></script>
+        <script src="assets/js/essentials/disable-scroll.js"></script>
         <script src="assets/js/modernizr.js"></script>
        <link type="text/css" rel="stylesheet" href="assets/css/lightslider.min.css" />
 
@@ -40,7 +40,7 @@
         <script src="assets/js/essentials/ui-bootstrap-tpls-0.9.0.js"></script>
         <script src="assets/js/home/rzslider.min.js"></script>
         <script src="assets/js/essentials/switch.min.js"></script>
-        
+        <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
         <script  src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
         <script src="assets/js/essentials/angular-slick.min.js"></script>
         <script src="assets/js/essentials/locationSearch.js"></script>

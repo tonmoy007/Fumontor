@@ -46,14 +46,13 @@
 }
 .slider-title strong,.menu-title{
     font-size: 1.5em;
-    font-family: Lindy;
+    font-family: RobotoDraft;
+    font-weight: bold;
+    line-height: 2em;
+    vertical-align: middle;
     text-shadow:  1px 0 2px rgba(0,0,0,.3);
     padding:0 10px;
     display: inline-block;
     width:100%;
-}
-.menu-title strong{
-    margin-bottom: 10px;
-    font-size: .9em;
-    display: inline-block;
+    margin: 20px 0;
 }

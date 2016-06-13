@@ -120,7 +120,7 @@ class Social extends CI_Controller {
                                     // $uid =$user_info->id;
                                     if(!IS_AJAX){
                                        if(strcmp($page,'checkout')==0){
-                                        redirect('#/checkout');
+                                        redirect('#/checkout','refresh');
                                         
                                     }else redirect("",'refresh');
                                     
@@ -142,7 +142,7 @@ class Social extends CI_Controller {
                                     }
                                      if(!IS_AJAX){
                                         if(strcmp($page,'checkout')==0){
-                                        redirect('#/checkout');
+                                        redirect('#/checkout','refresh');
                                         
                                     }else redirect("",'refresh');
 
@@ -168,7 +168,7 @@ class Social extends CI_Controller {
                                     // $uid =$user_info->id;
                                     if(!IS_AJAX){
                                     if(strcmp($page,'checkout')==0){
-                                        redirect('#/checkout');
+                                        redirect('#/checkout','refresh');
                                         
                                     }else redirect("",'refresh');
 

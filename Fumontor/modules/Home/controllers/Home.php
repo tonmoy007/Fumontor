@@ -65,7 +65,6 @@ public function signin($user){
 function latLong(){
 
     $ip_addr = $_SERVER['REMOTE_ADDR'];
-    $ip_addr='220.158.204.106';
     $geoplugin = unserialize( file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip_addr) );
 
     if ( is_numeric($geoplugin['geoplugin_latitude']) && is_numeric($geoplugin['geoplugin_longitude']) ) {
@@ -209,18 +208,26 @@ function getKitchenPageData($id){
     echo json_encode($data);
 }
 
-function getAllKitchen($limitStart=0,$limitEnd=10){
-    $this->db->select('user_id,kitchename,address,location,min_order,pickup,home_delivery,service_areas,delivery_charge,kitchen_sub_title,createdon');
-    if($limitStart==0){$this->db->limit($limitEnd);}
-    else{$this->db->limit($limitStart,$limitEnd);}
+function getAllKitchen($limitStart=0,$limitEnd=6,$location=null){
+    
+    $this->db->select('*');
+    if($location!=null){
+        $this->db->like('service_areas',$location.'','both');
+        $this->db->or_like('location',$location,'both');
+
+    }
+        $this->db->limit($limitEnd,$limitStart);
+    
+    
+
     $this->db->from('cooks');
     $query=$this->db->get();
     $data=array();
     $i=0;
     foreach($query->result_array() as $row){
         
-        $service_areas=explode(',',$row['service_areas']);
-        $row['service_areas']=$service_areas;
+        // $service_areas=explode(',',$row['service_areas']);
+        // $row['service_areas']=$service_areas;
         $date=date_create($row['createdon']);
         $row['createdon']=date_format($date,"l F Y ");;
         if(strcmp($row['pickup'],'true')==0){
@@ -233,13 +240,9 @@ function getAllKitchen($limitStart=0,$limitEnd=10){
         }else{
             $row['home_delivery']=false;
         }
-        $this->db->select('phone');
-        $this->db->from('users');
-        $this->db->where('id',$row['user_id']);
-        $query=$this->db->get();
-        foreach($query->result_array() as $phone){
-            $row['phone']=$phone['phone'];
-        }
+        $row['phone']=$this->homemodel->getUserPhone($row['user_id']);
+        $row['total_items']=$this->homemodel->getTotalKithcenItem($row['user_id']);
+        $row['total_todays_menu']=$this->homemodel->getTotalTdaysMenu($row['user_id']);
         $data[$i]=$row;
         $i++;
     }

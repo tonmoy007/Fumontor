@@ -1,6 +1,6 @@
 <div class="menuItem" ng-repeat="(key,item) in items ">
 
-<div class="col-md-2  grid ">
+<div class="col-md-2 fadeIn animated grid ">
     <div class="grid-lg">
         <div class="grid-img">
         <div class="grid-side-banner" ng-class="{now:item.todays_menu}">

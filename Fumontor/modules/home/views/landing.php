@@ -1,6 +1,6 @@
 <div class="landing">
 <section class="land-section">
-    <video autobuffer autoloop loop autoplay="true" poster="assets/img/fu-logo.jpg" class="background-video">
+    <video autobuffer  loop autoplay="true" poster="assets/img/fu-logo.jpg" class="background-video">
         <source src="assets/video/how.mp4" type="video/mp4" media="">
         <source src="assets/video/how.ogg" type="video/ogg" media="">
         <source src="assets/video/how.webm" type="video/webm" media="">
@@ -28,7 +28,7 @@
                 <search-bar></search-bar>
             </div>
             <div class="brand-action">
-                <a href="" class="btn bg-red btn-emboshed btn-wide"> Get Started</a>
+                <a href="" class="btn bg-red btn-emboshed cool-shadow btn-wide"> Get Started</a>
             </div>
         </div>
     </div>
@@ -39,8 +39,8 @@
                 How It Works
             </h1>
             <div class="row how how-cooks">
-                <div class="col-md-4">
-                    <img class="img-responsive" src="assets/img/how-cooks.gif" alt="How it Works as cook">
+                <div class="col-md-4 how-img">
+                    <img class="img-responsive  text-center " src="assets/img/cook.png" alt="How it Works as cook">
                 </div>
                 <div class="col-md-8">
                     <div class=" text-center form-heading ">
@@ -75,8 +75,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <img class="img-responsive" src="assets/img/how-cooks.gif" alt="How it Works as cook">
+                <div class="col-md-4 how-img">
+                    <img class="img-responsive text-center " src="assets/img/cutlery.png" alt="How it Works as cook">
                 </div>
             </div>
             </div>    
@@ -113,7 +113,7 @@
             </div>    
         </div>
         <div class="text-center">
-            <a href="#/all-kitchen" class="btn btn-danger btn-emboshed btn-wide">See   All</a>
+            <a href="#/all-kitchen" class="btn btn-danger btn-emboshed cool-shadow btn-wide">See   All</a>
         </div>
     </section>
     <section class="how-it-works">
