@@ -14,20 +14,16 @@
             <img ng-show="!item.feature_img" src="assets/uploads/default/thumb.jpg" title="khichuri" alt="khichuri">
             
             <li ng-show="user" class="dropdown grid-option">
-                <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
-                <ul class="dropdown-menu ">
-                    <li><a href="javascript:void(0)" ng-click="deleteItem(item.id,key)"><i class="fa fa-trash"></i>&nbsp; Delete</a></li>
-                    <li><a href="javascript:void(0)">Make available</a></li>
-                    <li><a href="javascript:void(0)">option3</a></li>
-                </ul>
+                <a href=""  ng-click="deleteItemPopup(item.id,key,item.title)" class="dropdown-toggle bg-red cool-shadow" ><i class="fa fa-trash-o"></i></a>
+                
             </li>
         </div>
         <div class="grid-description">
             <div class="description-body">
                 <a href="javascript:void(0)" class="main-url cool-shadow "><h4>{{item.title}}</h4></a>
-                <label class="secendery-url">by 
+                <!-- <label class="secendery-url">by 
                     <a href="cooks?id={{item.cooksID}}" class=" small">  {{item.kitchename}} </a>
-                </label>
+                </label> -->
                 
                 
                 <label for="" class="hidden cID">{{item.cooksID}}</label>
@@ -38,7 +34,7 @@
                 
                 <div class="rating-div">
                     <div class="rating-stars tiny-star">
-                        <div class="current-rating" style="width:69%"></div>
+                        <div class="current-rating" style="{{item.reviews[0].totalmark/item.reviews.length*20}}"></div>
                     </div>
                 </div>
                 <span class="rate">৳ <label class="price">{{item.price}}</label></span>

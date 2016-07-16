@@ -47,7 +47,7 @@
 
 
         <script src="assets/js/essentials/angular.min.js"></script>
-        
+       
         <script src="assets/js/essentials/ui-bootstrap-tpls-0.9.0.js"></script>
     </head>
 <body>
@@ -56,18 +56,7 @@
     $user=$this->ion_auth->user()->row();
 ?>
     <header class="cd-main-header">
-        <a href="<?php if(!$this->ion_auth->logged_in()){
-            echo '';
-
-            }else{
-                if($this->ion_auth->is_admin()){
-                    echo 'admin';
-                }elseif($this->ion_auth->is_cook()){
-                    echo 'cooks';
-                }else{
-                    echo 'user';
-                }
-                }?>" class="cd-logo"><img src="assets/img/fu-logo.png"></a>
+        <a href="#/" class="cd-logo"><img src="assets/img/home-logo-black.png"></a>
         
         
 

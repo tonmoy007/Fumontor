@@ -17,7 +17,6 @@
         <link href="assets/css/font-awesome.min.css" rel="stylesheet"><link rel="stylesheet" href="assets/css/reset.css">
         <link href="assets/css/flat-ui.css" rel="stylesheet">
         
-        <link rel="stylesheet" href="assets/css/admin.css"> 
         <link href="assets/css/roboto.min.css" rel="stylesheet">
         <link href="assets/css/home.css" rel="stylesheet">
         
@@ -25,32 +24,39 @@
 
         <script src="assets/js/home/jquery-2.1.1.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/home/clipboard.min.js"></script>
-        <script src="assets/js/home/scrollspy.js"></script>
+        <script src="assets/js/essentials/angular.min.js"></script>
 
       
     </head>
     <!-- BEGIN BODY -->
-    <body class="login-body">
-       <div id="fullpage" class="fullpage-container ">
+    <body class="login-body" ng-app="">
+       <div id="fullpage"  class="fullpage-container ">
             <div class="login-container cool-border">
             
-              <a href="" class="">
+              <a href=" " class="">
                 <div class="logo">
-                  <img class="img-responsive" src="assets/img/fu-logo.png" alt="fumontor logo">
+                  <img class="img-responsive" src="assets/img/home-logo-black.png" alt="fumontor logo">
                 </div>
               </a>
-              <p class="sub-heading text-center"><?php echo "Please Login using email/Phone number and password";?></p>
+              
+                <p class=" register-link">
+                         
 
+                      
+                      <a href="social/session/facebook?from=<?php echo $from;?>" id="" class="cool-shadow  loginBtn--facebook loginBtn host-btn ">Signin with facebook</a>
+                     
+                </p>
+                <label class="or"></label>
               <div id="infoMessage" class="login-info"><?php echo $message;?></div>
 
-              <?php echo form_open("auth/login",array("class"=>"loginForm"));?>
+              <?php echo form_open("auth/login/".$from,array("class"=>"loginForm"));?>
 
                
                
 
                 
-            <div class="form-group ">
+          <div class="login-form-input">
+              <div class="form-group ">
                 
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -73,32 +79,39 @@
               
               </div>
 
-                     <div class="form-group">
-                        <label class="checkbox " for="remember">
+                    <div class="text-center">
+                      <div class="form-group">
+                        <label class="checkbox" for="remember">
+                        <span class="icons"><span class="first-icon 
+            fui-checkbox-unchecked"></span><span class="second-icon
+             fui-checkbox-checked"></span></span>
                           <input type="checkbox" name="remember" value="1" id="remember" data-toggle="checkbox"> 
                           Remember me </label>
                     </div>
                       <a href="index.php/auth/forgot_password" class="text-theme forgot">forgot password ? </a>
+                    </div>
+            </div>
                            
                                  
-                        <div class="center">
-                            <input type="submit" class=" btn btn-danger btn-embossed btn-wide" name="submit" value="Login">
+                        <div class="center login-form-submit">
+                            <input type="submit" class=" loginBtn loginBtn--email host-btn bg-theme cool-shadow " name="submit" value="Signin with email/phone">
+                            <span class="icon mail-icon"></span>
                         </div>
+                        
                        <div class="clearfix"></div>
               <?php echo form_close();?>
 
               <div class="login-footer">
                 
-                <p class=" register-link">
-                           do not have an account? &nbsp;
-                        <a href="index.php/auth/create_user" id="register-link" class="btn btn-raised btn-sm ">Register</a>
+                
 
-                      <label>Other Login Options :&nbsp;&nbsp;</label><a href="social/session/facebook" id="register-link" class="btn btn-raised btn-fb btn-sm "><i class="fa fa-facebook"></i> </a>
-                      <a href="social/session/google" id="register-link" class="btn btn-raised btn-google btn-sm "><i class="fa fa-google"></i> </a>
-                      <a href="social/session/linkedin" id="register-link" class="btn btn-raised btn-google btn-sm "><i class="fa fa-linkedin"></i> </a>
-                     
-                </p>
-                <?php $this->view('temp/homeFooter')?>
+                <div class="alert text-center">  
+                not a fumontor user? &nbsp;
+                        <a href="auth/signup" id="register-link" class="text-theme "><strong>Signup</strong></a>
+                </div>
+                 <div class="page-footer-inner ">
+                  &copy; 2016  <a href="http://fumontor.com"><strong>Fumontor</strong></a>&nbsp; All Rights Reserved.
+                </div>
               </div>
               
               
@@ -109,7 +122,8 @@
 
        </div>
 
-
+<script src="assets/js/flat-ui.min.js"></script>
+<script src="assets/js/home/flatui-checkbox.js"></script>
 
     </body>
     <!-- END BODY -->

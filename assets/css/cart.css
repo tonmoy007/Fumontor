@@ -226,7 +226,7 @@ xheader
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
-    width: calc(60% - 8px);
+    width: calc(60% - 10px);
 }
 #cd-cart .cd-cart-total {
     padding: 1em 32px 1em 10px;
@@ -389,6 +389,11 @@ xheader
 }
 #dismiss-cart:hover,#dismiss-cart:focus{
     background-color: rgba(200,200,200,.8);
+}
+#dismiss-cart.right-arrow{
+    background: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 /* -------------------------------- 
 

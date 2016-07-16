@@ -120,7 +120,7 @@ class Common extends CI_Model
         $human = unix_to_human($now);
         echo '  '.$human;
 }
-    function AllInnerjoin2($table1,$table2,$col1,$col2){
+function AllInnerjoin2($table1,$table2,$col1,$col2){
             
             $data = array();
 
@@ -149,6 +149,40 @@ public function updateUserImage($email,$data){
 
 
  
+
+public function redirectMe($page){
+    if(!IS_AJAX){
+        if(strcmp($page,'checkout')==0){
+            redirect('#/checkout','refresh');
+            
+        }elseif(strcmp($page,'recipes')==0){
+            redirect('recipes/#/','refresh');
+        }elseif(strcmp($page,'myrecipe')==0){
+            redirect('recipes/#/myrecipe','refresh');
+        } elseif(strcmp($page,'login')==0){
+            redirect('','refresh');
+        }else{
+            redirect($page,'refresh');
+        }
+        
+        }else{
+            echo 'success';
+        } 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  }

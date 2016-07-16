@@ -5,7 +5,9 @@
 
 <link rel="stylesheet" type="text/css" href="assets/css/tabstyles.css" />
 <link href="assets/css/profile.css" rel="stylesheet">
+
 <script src="assets/js/essentials/ngTimepicker.min.js"></script>
+
 <script type="text/javascript" src="assets/js/notificationFx.js"></script>
 
         <?php

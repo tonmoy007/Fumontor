@@ -65,7 +65,7 @@
                           <div class="review-head">
                               <div class="review-info">
                                   <span class="author-name" >
-                                      <a href=""><?php echo $Name;?></a>
+                                      <a href="">Saddam Hossain Tonmoy</a>
                                   </span>
                                   <span class="review-date">December 9, 2015</span>
                                   <a class="reviews-permalink" href="" title=" Link to this review "></a>

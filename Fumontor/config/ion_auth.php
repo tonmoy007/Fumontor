@@ -141,7 +141,7 @@ $config['email_config'] = array(
  | Default: auth/
  */
 $config['email_templates'] = 'auth/email/';
-
+$config['email_support']='support.tpl.php';
 /*
  | -------------------------------------------------------------------------
  | Activate Account Email Template

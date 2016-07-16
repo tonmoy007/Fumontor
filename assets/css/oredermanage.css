@@ -16,6 +16,10 @@ Horizontal card big
     margin-bottom: 1em;
     border-radius: .12em;
 }
+.horizontal-card.big{
+    font-size: 1em;
+    
+}
 .card-title{
     font-weight: bold;
     margin: 10px 0;
@@ -120,6 +124,7 @@ span.pending,span.recived,span.delivered,span.ondelivery{
     border: 1px solid;
     border-color:  #e9eaed #e9eaed #d1d1d1;
     border-radius: .20em;
+    font-size: 100%;
 }
 .order-card>*{
     display: inline-block;
@@ -211,6 +216,27 @@ span.pending,span.recived,span.delivered,span.ondelivery{
     top: 0;
     
 }
+.bg-unseen{
+    background-color: #110930;
+    
+}
+.text-unseen{
+    color: #383618;
+}
+.big .order-sender-name span{
+    font-size: 14px;
+    margin-right: 6px;
+    margin-left: -7px;
+}
+.order-card .order-payment{
+    font-size: .7em;
+}
+ .order-details .quantity, .order-details .title,.order-details .price{
+    text-align: left;
+     width: 20%;
+     line-height: 40px;
+     vertical-align: middle;
+}
 .down-arrow{
   display: inline-block;
   font-family: FontAwesome;
@@ -233,6 +259,18 @@ span.pending,span.recived,span.delivered,span.ondelivery{
     border-bottom-left-radius: 100%;
     font-size: .7em;
     cursor: pointer;
+}
+.big .down-arrow{
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    border-radius: 0;
+    text-align: center;
+    line-height: 40px;
+    padding-right: 0;
+}
+.big .order-status{
+    font-size: 12px;
 }
 .order-card.is-selected .down-arrow:before{
     content: "\f106";

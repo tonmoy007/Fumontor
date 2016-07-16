@@ -3,25 +3,17 @@
 <product-loading></product-loading>
 <div class="main-div" ng-show="checkoutShow">
 <link rel="stylesheet" href="assets/css/home/checkout.css">
+
+<link rel="stylesheet" href="assets/css/login.css">
     <div class="container">
     <div class="checkout-container">
-    <div class="header" ng-if="!user.id">
-        <div class="loginBox">
-            <div class="login-container cool-shadow ">
-                <label class="form-label">You have to login to make the order. use any of the following method to login</label>
-                <a href="social/session/facebook?from=checkout" class="loginBtn loginBtn--facebook slideInRight animated" >Login with Facebook</a>
-                <div class="clearfix">
-                    
-                </div>
-                <a href="social/session/google?from=checkout" class="loginBtn loginBtn--google slideInLeft animated" >Login with Google</a>
-        
-            </div>
-        </div>
+    <div class="" ng-if="!user.id">
+        <login></login>
     </div>
         <div class="" ng-if="user.id&&cartSubTotal>=200&&checkOutValid">
-                <h2 class="heading header logo" style="font-size: 2em">Checkout</h2>
+                <h1 class="section-head  text-theme2" style="font-size: 2em">Checkout</h1>
 
-            <small>Hi <strong>{{user.name}}</strong> !! You are about to checkout from <strong>fumontor</strong> please fullfill the following steps to place the order.</small>
+            <div class="alert">Hi <strong class="text-theme">{{user.name}}</strong> !! You are about to checkout from <strong class="text-theme">fumontor</strong> please fullfill the following steps to place the order.</div>
                 
         <div class="row checkout-div">
         <nav>

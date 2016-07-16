@@ -1,10 +1,10 @@
 <div class="navbar navbar-right" ng-class="{'searched':searched}">
                 <ul class=" right-nav">
-                    <li ng-if="!loggedin"><a href="" title="Signin/register" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-in"></i></a>
+                    <li ng-if="!loggedin"><a href="javascript:void(0)" ng-click="open=!open" title="Signin/register" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-in"></i></a>
                         <ul class="dropdown-menu cool-shadow">
                             <li><a href="auth/login">Signin</a></li>
-                            <li><a href="cooks/registerCook">Register As Cook</a></li>
-                            <li><a href="">Register As Foodie</a></li>
+                            <li><a href="/auth/signup/#/cook">Register As Cook</a></li>
+                            <li><a href="auth/signup/#/foodie">Register As Foodie</a></li>
                             
                         
                         </ul>

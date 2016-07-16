@@ -170,6 +170,12 @@
                     
                 });
             }
+            $scope.deleteItemPopup=function(id,key,title){
+                var r=confirm('Are you sure you want to delete '+title+'  ??');
+                if(r==true){
+                    $scope.deleteItem(id,key);
+                }
+            }
 
 
    });

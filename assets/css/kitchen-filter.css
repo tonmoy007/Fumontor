@@ -1,14 +1,19 @@
 .kitchen-filter{
     position: absolute;
     width: 240px;
-    margin-left: -260px;
+    margin-left: -20000px;
     height:calc(100vh - 100px);
     overflow: hidden;
     z-index: -1;
     border-radius: 3px;
     z-index: 2;
 }
-kitchen-filter{
+@media(min-width:990px){
+    .kitchen-filter{
+        margin-left: -260px;
+    }
+}
+search-filter{
     display: inline-block;
     position: absolute;
     width: 100%;
@@ -31,12 +36,15 @@ kitchen-filter{
     height: 100%;
     padding: 10px;
 }
-
+search-filter.food-search{
+    margin-top: 0;
+    top: 20px;
+}
 .kitchen-filter-container .filter-logo{
     font-size: .9em;
     width: 100%;
     text-align: left;
-    margin: 20px 0;
+    margin: 20px 0 10px;
     line-height: 1.2em;
     vertical-align: middle;
 }

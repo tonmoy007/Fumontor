@@ -858,7 +858,16 @@ function getpage($pageName){
 
 
 
-
+function serviceAreas($parse=null){
+    $this->db->select('name');
+    $this->db->from('service_areas');
+    $query=$this->db->get();
+    $send = array();
+    foreach($query->result_array() as $row){
+        $send[]=array('text'=>$row['name']);
+    }
+    echo json_encode($send);
+}
 
 
 

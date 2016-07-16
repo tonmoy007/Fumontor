@@ -2,7 +2,7 @@
     <span class="form-heading">Choose Your Billing Method</span>
     <form name="billingForm" ng-submit="checkoutNext(billingForm,2)" novalidate="true">
         <div class="form-group col-md-6 col-md-offset-3">
-            <label class="form-label">Choose One</label>
+            <label class="space"></label>
             <div class="text-left">
                 <label class="radio" ng-init="payment['cashPayment']=false" ng-class="{checked:payment['cashPayment']}"  ng-click="setPayment('cashPayment')"
                     for="ordertype">
@@ -21,7 +21,7 @@
         </div>
 <!-- {{billingForm}} -->
         <div class="form-bottom">
-            <input type="submit" ng-disabled="!paymentSelected"  value="next" class="btn btn-danger btn-emboshed btn-wide" />
+            <input type="submit" ng-disabled="!paymentSelected"  value="next" class="btn cool-shadow btn-danger btn-emboshed btn-wide" />
         </div>
     </form>
 </div>

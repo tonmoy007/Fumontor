@@ -2,8 +2,8 @@
 
 <!-- Start FOOTER -->
 <div class="page-footer">
-    <div class="page-footer-inner footerInLineCss">
-        2015 &copy; <a href="http://binarycraft.org"><strong>Binary Craft</strong></a>&nbsp; . All Rights Reserved.
+    <div class="page-footer-inner ">
+      &copy; 2016  <a href="http://fumontor.com"><strong>Fumontor</strong></a>&nbsp; All Rights Reserved.
     </div>
     
         <span class="cd-top">

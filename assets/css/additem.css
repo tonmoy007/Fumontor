@@ -212,3 +212,6 @@ tags-input .tags{
 .description{
     text-align: left;
 }
+.model-column.description .product{
+    border-bottom: 1px solid #ddd;
+}

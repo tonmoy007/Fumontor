@@ -10,7 +10,7 @@ class Auth extends CI_Controller {
 		$this->load->helper(array('url','language'));
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
+		$this->load->model('common');
 		$this->lang->load('auth');
 
 	}
@@ -46,7 +46,7 @@ class Auth extends CI_Controller {
 	}
 
 	//log the user in
-	function login()
+	function login($from='login')
 	{
 		$this->data['title'] = "Login";
 		
@@ -61,7 +61,7 @@ class Auth extends CI_Controller {
 			//check to see if the user is logging in
 			//check for "remember me"
 			$remember = (bool) $this->input->post('remember');
-
+			// echo $from;
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{
 				//if the login is successful
@@ -70,10 +70,17 @@ class Auth extends CI_Controller {
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				if($this->ion_auth->is_admin()){
 					redirect('admin', 'refresh');	
-				}if($this->ion_auth->is_cook()){
+				}elseif($this->ion_auth->is_cook()){
 					redirect('cooks','refresh');
 				}else{
-					redirect('user','refresh');
+
+					if($from=='checkout'){
+						redirect('#/checkout','refresh');
+					}else if($from=='recipes'){
+						redirect('recipes/#/','refresh');
+					}else{
+						redirect('','refresh');
+					}
 				}
 				
 			}
@@ -83,6 +90,7 @@ class Auth extends CI_Controller {
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 				$data['message']=$this->ion_auth->errors();
+				$data['from']=$from;
 				$this->load->view('auth/login',$data);//use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
@@ -101,7 +109,7 @@ class Auth extends CI_Controller {
 				'id' => 'password',
 				'type' => 'password',
 			);
-
+			$this->data['from']=$from;
 			$this->_render_page('auth/login', $this->data);
 		}
 	}
@@ -187,13 +195,13 @@ class Auth extends CI_Controller {
 			}
 		}
 	}
-	function loginfacebook()
-	{	
-		$user=$this->facebook_ion_auth->login();
-	      if(!$user){
-	      	redirect("index.php/auth/login");
-	      }
-	}
+	// function loginfacebook()
+	// {	
+	// 	$user=$this->facebook_ion_auth->login();
+	//       if(!$user){
+	//       	redirect("index.php/auth/login");
+	//       }
+	// }
 
 	//forgot password
 	function forgot_password()
@@ -434,100 +442,100 @@ class Auth extends CI_Controller {
 	}
 
 	//create a new user
-	function create_user()
-	{
-		$this->data['title'] = "Create User";
+	// function create_user()
+	// {
+	// 	$this->data['title'] = "Create User";
 
 
-		$tables = $this->config->item('tables','ion_auth');
+	// 	$tables = $this->config->item('tables','ion_auth');
 
-		if ($this->input->post('submit', TRUE)) {
-			//validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
-		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
-		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
-		$this->form_validation->set_rules('username', $this->lang->line('create_user_validation_username_label'), 'required|is_unique['.$tables['users'].'.username]');
-		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label','required|is_unique['.$tables['users'].'.phone]'), '');
-		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), '');
-		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+	// 	if ($this->input->post('submit', TRUE)) {
+	// 		//validate form input
+	// 	$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
+	// 	$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
+	// 	$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
+	// 	$this->form_validation->set_rules('username', $this->lang->line('create_user_validation_username_label'), 'required|is_unique['.$tables['users'].'.username]');
+	// 	$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label','required|is_unique['.$tables['users'].'.phone]'), '');
+	// 	$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), '');
+	// 	$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+	// 	$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
-		if ($this->form_validation->run() == true)
-		{
-			$username = strtolower($this->input->post('username')) ;
-			$email    = strtolower($this->input->post('email'));
-			$password = $this->input->post('password');
+	// 	if ($this->form_validation->run() == true)
+	// 	{
+	// 		$username = strtolower($this->input->post('username')) ;
+	// 		$email    = strtolower($this->input->post('email'));
+	// 		$password = $this->input->post('password');
 
-			$additional_data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name'  => $this->input->post('last_name'),
-				'company'    => $this->input->post('company'),
-				'phone'      => $this->input->post('phone'),
-			);
-		}
-		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
-		{
-			//check to see if we are creating the user
-			//redirect them back to the admin page
-			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			$this->ion_auth->login($username,$password);
-			redirect("cooks", 'refresh');
-		}
-		else
-		{
-			//display the create user form
-			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+	// 		$additional_data = array(
+	// 			'first_name' => $this->input->post('first_name'),
+	// 			'last_name'  => $this->input->post('last_name'),
+	// 			'company'    => $this->input->post('company'),
+	// 			'phone'      => $this->input->post('phone'),
+	// 		);
+	// 	}
+	// 	if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
+	// 	{
+	// 		//check to see if we are creating the user
+	// 		//redirect them back to the admin page
+	// 		$this->session->set_flashdata('message', $this->ion_auth->messages());
+	// 		$this->ion_auth->login($username,$password);
+	// 		redirect("cooks", 'refresh');
+	// 	}
+	// 	else
+	// 	{
+	// 		//display the create user form
+	// 		//set the flash data error message if there is one
+	// 		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['first_name'] = array(
-				'name'  => 'first_name',
-				'id'    => 'first_name',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('first_name'),
-			);
-			$this->data['last_name'] = array(
-				'name'  => 'last_name',
-				'id'    => 'last_name',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('last_name'),
-			);
-			$this->data['email'] = array(
-				'name'  => 'email',
-				'id'    => 'email',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('email'),
-			);
-			$this->data['company'] = array(
-				'name'  => 'company',
-				'id'    => 'company',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('company'),
-			);
-			$this->data['phone'] = array(
-				'name'  => 'phone',
-				'id'    => 'phone',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('phone'),
-			);
-			$this->data['password'] = array(
-				'name'  => 'password',
-				'id'    => 'password',
-				'type'  => 'password',
-				'value' => $this->form_validation->set_value('password'),
-			);
-			$this->data['password_confirm'] = array(
-				'name'  => 'password_confirm',
-				'id'    => 'password_confirm',
-				'type'  => 'password',
-				'value' => $this->form_validation->set_value('password_confirm'),
-			);
+	// 		$this->data['first_name'] = array(
+	// 			'name'  => 'first_name',
+	// 			'id'    => 'first_name',
+	// 			'type'  => 'text',
+	// 			'value' => $this->form_validation->set_value('first_name'),
+	// 		);
+	// 		$this->data['last_name'] = array(
+	// 			'name'  => 'last_name',
+	// 			'id'    => 'last_name',
+	// 			'type'  => 'text',
+	// 			'value' => $this->form_validation->set_value('last_name'),
+	// 		);
+	// 		$this->data['email'] = array(
+	// 			'name'  => 'email',
+	// 			'id'    => 'email',
+	// 			'type'  => 'text',
+	// 			'value' => $this->form_validation->set_value('email'),
+	// 		);
+	// 		$this->data['company'] = array(
+	// 			'name'  => 'company',
+	// 			'id'    => 'company',
+	// 			'type'  => 'text',
+	// 			'value' => $this->form_validation->set_value('company'),
+	// 		);
+	// 		$this->data['phone'] = array(
+	// 			'name'  => 'phone',
+	// 			'id'    => 'phone',
+	// 			'type'  => 'text',
+	// 			'value' => $this->form_validation->set_value('phone'),
+	// 		);
+	// 		$this->data['password'] = array(
+	// 			'name'  => 'password',
+	// 			'id'    => 'password',
+	// 			'type'  => 'password',
+	// 			'value' => $this->form_validation->set_value('password'),
+	// 		);
+	// 		$this->data['password_confirm'] = array(
+	// 			'name'  => 'password_confirm',
+	// 			'id'    => 'password_confirm',
+	// 			'type'  => 'password',
+	// 			'value' => $this->form_validation->set_value('password_confirm'),
+	// 		);
 
-			$this->_render_page('auth/create_user', $this->data);
-			}
-		}else{
-			$this->load->view('auth/create_user');
-		}
-	}
+	// 		$this->_render_page('auth/create_user', $this->data);
+	// 		}
+	// 	}else{
+	// 		$this->load->view('auth/create_user');
+	// 	}
+	// }
 
 	//edit a user
 	function edit_user($id)
@@ -821,6 +829,40 @@ class Auth extends CI_Controller {
 		$view_html = $this->load->view($view, $this->viewdata, $render);
 
 		if (!$render) return $view_html;
+	}
+	function signup(){
+		$location=$this->input->get('from');
+		if($this->input->post('submit',true)){
+			$name =$this->input->post('name');
+			$email =$this->input->post('email');
+			$phone =$this->input->post('phone');
+			$password= $this->input->post('password');
+			$names=$this->common->split_name($name);
+			$username=$names['first_name'];
+			$additional_data = array(
+                'first_name' =>$names['first_name'],
+                'last_name' =>$names['last_name'] ,
+                'phone' => $this->db->escape_like_str($phone),
+                'name'=>$name
+            );
+            $group_ids = array('group_id' => 2);
+            if($this->ion_auth->register($username, $password, $email, $additional_data, $group_ids)){
+            	$this->ion_auth->login($email,$password,1);
+            	if($location){
+            		redirect($location,'refresh');
+            	}else{
+            		redirect('','refresh');
+            	}
+            }
+		}else{
+			$data=array();
+			if($location){
+				$data['from']=($location)?$location:'login';
+			}
+			$this->load->view('auth/signup');
+		}
+
+
 	}
 
 }

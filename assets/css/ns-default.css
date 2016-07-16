@@ -7,7 +7,7 @@
 	line-height: 1.4;
 	z-index: 10000000000;
 	pointer-events: none;
-	color: #029AAC;
+	color: #3bbad0;
 	font-size: 90%;
     border-radius: 3px;
 	font-family: 'Oxygen', 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -63,7 +63,7 @@
 	height: 60%;
 	top: 50%;
 	left: 50%;
-	background: #029AAC;
+	background: #3bbad0;
 }
 
 .ns-close:hover::before,

@@ -62,6 +62,7 @@ class OAuth2_Provider_Linkedin extends OAuth2_Provider {
         'name' => $user['firstName'] . ' ' . $user['lastName'],
         'description' => $user['headline'],
         'email' => $user_email,
+        'access_token' => $token->access_token,
         'urls' => array(
             'LinkedIn' => $user['siteStandardProfileRequest']['url']
         ),

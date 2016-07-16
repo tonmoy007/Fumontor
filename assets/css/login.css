@@ -3,14 +3,14 @@
     display: inline-block;
     position: relative;
     padding: 10px 20px;
-    width: 100%;
-    max-width: 360px;
+    width: calc(100% - 20px);
+    max-width: 390px;
     height: auto;
-    border-radius: 2%;
+    border-radius: 5px;
     text-align: left;
     vertical-align: middle;
     background-color: #fff;
-    
+    margin: 10px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     
 }
@@ -40,14 +40,23 @@
     text-align: center;
     color: #616161;
     margin-top: 20px;
+    width: 100%;
     
 }
-#register-link{
-    margin: 5px 0 10px;
+.host-btn{
+    margin: 15px 0;
+    width: 100%;
+    padding-left: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 -1px 4px rgba(0,0,0,.3);
 }
-#register-link:hover{
-    color: #1c05a2
+.host-btn:before{
+    background-color: rgba(255,255,255,.2);
+    width: 60px;
+    height: 100%;
 }
+
 .login-footer .register-link .btn{
     border: 1px solid #ccc!important;
     background-color: #eee!important;
@@ -128,4 +137,80 @@
     display: inline-block;
     width: 100%;
     text-align: center;
+}
+.or{
+   position: relative;
+    display: inline-block;
+    width: 100%;
+    background: #998999;
+    font-family: logo;
+    height: 2px;
+    z-index: 2;
+    margin:  20px 0;
+}
+.or:after{
+    content: 'Or';
+    font-family: logo;
+    position: absolute;
+    display: block;
+    width: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 1px 2px 4px #ddd;
+    z-index: 0;
+    background: #fff;
+    top: -25px;
+    border-radius: 50%;
+    left: calc(50% - 20px);
+    text-align: center;
+}
+.form-error-message.nameError{
+    visibility: visible;
+    opacity: 1;
+}
+.bg-red:disabled{
+    background-color: #cc7777;
+}
+.foodie-icon:before,.cook-icon:before{
+    background: url(../img/user.svg) center no-repeat;
+}
+.signup-form{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin-top: -100%;
+/*
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    -oz-transform: scale(0);
+    -ms-transform: scale(0);
+*/
+    transition: all .3s  ;
+     -webkit-transition: all .3s  ;
+    -moz-transition: all .3s  ;
+    -o-transition: all .3s  ;
+    -ms-transition: all .3s  ;
+}
+.signup-form.is-visible{
+    visibility: visible;
+    height: 100%;
+    opacity: 1;
+    margin-top: 0;
+/*
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    -oz-transform: scale(1);
+    -ms-transform: scale(1);
+*/
 }

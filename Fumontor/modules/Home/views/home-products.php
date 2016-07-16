@@ -4,8 +4,8 @@
     
     <div class="product-or-kitchen">
         <div class="pro-or-kit-container">
-            <a href="#/search/{{filter.location}}/{{orderType}}" class="btn btn-danger btn-emboshed not-active">Products</a>
-            <a href="#/all-kitchen/{{location}}" class="btn btn-emboshed btn-default ">Kithcens</a>
+            <a href="#/search/{{filter.location}}/{{orderType}}" class="btn cool-shadow btn-danger btn-emboshed not-active">Products</a>
+            <a href="#/all-kitchen/{{location}}" class="btn btn-emboshed cool-shadow btn-default ">Kithcens</a>
         </div>
     </div>
         <div class="product-show-div"   ng-class="{'searched':searched}" >

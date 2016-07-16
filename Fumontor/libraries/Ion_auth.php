@@ -525,4 +525,31 @@ class Ion_auth
 		return $check_all;
 	}
 
+function sendMail($name,$email,$message){
+	$data=array(
+		'name'=>$name,
+		'email'=>$email,
+		'message'=>$message
+		);
+	$body=$this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_support', 'ion_auth'), $data, true);
+
+	$this->email->clear();
+	$this->email->from($email);
+	$this->email->to('fokiratonmoy@gmail.com');
+	$this->email->subject('Fumontor Support');
+	$this->email->message($body);
+	if($this->email->send()){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+
+
+
+
+
+
+
 }

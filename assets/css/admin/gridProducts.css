@@ -137,7 +137,7 @@
     height: 100%;
     width: 100%;
     z-index: 3;
-    background-color:rgba(106, 27, 153, 0.3);
+    background-color:rgba(59, 180, 202, 0.48);
 }
 .grid-side-banner{
     position: absolute;
@@ -145,11 +145,12 @@
     top: 20px;
     font-size:.7em;
     padding: 5px;
+    color: #fff;
     font-weight: bold;
-    font-family: 'Oxygen';
-    background: rgba(222,222,222,.7);
+    font-family: 'Open Sans';
+    background: rgba(59, 180, 202, 0.78);
     display: inline-block;
-    z-index: 1;
+    z-index: 6;
 }
 .grid-side-banner.now{
     background: rgba(131, 216, 142, 0.7);
@@ -231,10 +232,14 @@
 }
 .description-body .main-url{
     position: absolute;
-    margin-top: -50px;
+    margin-top: -39px;
     padding: 5px 0;
-    width: calc(100% - 10px);
-    background: rgba(233,234,220,.7);
+    width: 100%;
+    z-index: 8;
+    color: #fff;
+    font-size: 1.1em;
+    left: 0px;
+    background: rgba(59, 180, 202, 0.78);;
 }
 .description-body > a > h4{
     margin: 0;
@@ -279,7 +284,7 @@
     
 }
 .description-foot{
-    padding:2px 5px 35px 5px;
+    padding:2px 5px 40px 5px;
 }
 .description-foot span.rate{
     display: inline-block;
@@ -307,6 +312,11 @@
     text-align: center;
     min-width: 120px;
 }
+
+.cd-customization.full .quantity{
+    width: auto;
+    text-align: left;
+}
 .quantity>*{
     width: 26px;
     margin: 0;
@@ -320,16 +330,17 @@
 }
  .quantity .quantity-amount {
     overflow: hidden;
-    width: 40px;
+    width: 50px;
     display: inline-block;
     position: relative;
     font-size: 14px;
     height: 40px;
     line-height: 40px;
     font-weight: bold;
+     text-align: center;
     color: #ff8800;
      vertical-align: middle;
-    background-color: rgba(221, 221, 221, 0.52);
+    background-color: rgba(221, 221, 221, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.03);
     
 }
@@ -579,7 +590,7 @@ Product Customization
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-    width: 54px;
+    width: 40px;
     font-size: 22px;
     line-height: 40px;
     vertical-align: middle;
@@ -670,4 +681,48 @@ Product Customization
 }
 .cd-customization.details{
     position: relative;
+}
+.full.add-to-cart{
+    float: none;
+}
+.plus-minus{
+    display: inline-block;
+    height: 38px;
+    vertical-align: top;
+}
+.cd-customization .add-to-cart:not(.full){
+    color: #3bbad0;
+    background-color: #fff;
+    border-radius: 50%;
+    outline: none;
+}
+.cd-customization .add-to-cart:not(.full):active{
+    outline: none;
+    border: 1px solid #ddd;
+}
+.cd-customization .quantity{
+    text-align: left;
+    padding-left: 5px;
+}
+.cd-customization .add-to-cart:not(.big):hover{
+    background: #f3f0fd;
+}
+.cd-customization .btn-tiny{
+    display: inline-block;
+    background: #f3f0fd;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    font-size: 10px;
+    color: #666;
+    line-height: 20px;
+    cursor: pointer;
+}
+.card.quantity{
+    visibility: hidden;
+    opacity: 0;
+}
+.grid-lg:hover .cd-customization .card.quantity{
+    visibility: visible;
+    opacity: 1;
 }

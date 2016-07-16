@@ -41,7 +41,7 @@ class Uploadmodel extends CI_Model
   
 
 
-function upload_img($productID) {
+function upload_img($productID,$path=null,$name='feature_img') {
 
 
 //         $name = $_FILES['file']['name'];
@@ -55,7 +55,12 @@ function upload_img($productID) {
         
         
     if(!empty($productID)){
+        
+        if($path==null){
             $path = $this->getPath_img_upload_folder().'/'.$productID.'/';
+        }else{
+            $path = $path.'/'.$productID.'/';
+        }
         
 
         if(!is_dir($path)) //create the folder if it's not already exists
@@ -70,15 +75,15 @@ function upload_img($productID) {
   
         $config['allowed_types'] = 'gif|jpg|png|JPG|GIF|PNG';
         
-        $config['max_size'] = '800000';
+        $config['max_size'] = '8000000';
         $config['encrypt_name'] = TRUE;
 
        //Load the upload library
         $this->load->library('upload', $config);
 
-        if($this->do_upload('feature_img')){
+        if($this->do_upload($name)){
             $data = $this->upload->data();
-            if(!empty($productID)){
+            if(!empty($productID)&&$path==null){
 
                 $this->db->where('id', $productID);
                 $this->db->update('menuitem',  array('feature_img' => $this->db->escape_like_str($data['file_name']) ));
@@ -91,8 +96,8 @@ function upload_img($productID) {
             $config['source_image'] = $path.''.$data['file_name'];
             $config['create_thumb'] = FALSE;
             $config['maintain_ratio'] = TRUE;
-            $config['width'] = 193;
-            $config['height'] = 94;
+            $config['width'] = 220;
+            $config['height'] = 180;
             
             $this->load->library('image_lib', $config);
             $this->image_lib->resize();
@@ -118,11 +123,11 @@ function upload_img($productID) {
 
 
 
-}
+    }
 }
 //Function for the upload : return true/false
 public function do_upload($str) {
-
+    // echo $str;
         if (!$this->upload->do_upload($str)) {
 
             return false;
@@ -172,7 +177,11 @@ public function getDelete_img_url() {
 public function setDelete_img_url($delete_img_url) {
         $this->delete_img_url = $delete_img_url;
     }
-
+public function getallFiles($path){
+    $this->load->helper('file');
+    $files=get_filenames($path);
+    return $files;
+}
 
 
 

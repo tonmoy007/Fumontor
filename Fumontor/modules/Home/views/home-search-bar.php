@@ -14,7 +14,7 @@
         </div> -->
             <div class="form" >
                 <div class="">
-                    <form name="Location" method="get" accept-charset="utf-8" ng-submit="submitQuery(searchedOrderType,query.location,Location)">
+                    <form name="Location" method="get" accept-charset="utf-8" ng-submit="submitQuery(searchedOrderType,homequery.location,Location)">
                         
                         <div class="findCatagory">
                             <div class="row">
@@ -48,14 +48,21 @@
                                     
                                 </select></li> -->
                                            
-                                <li class="form-list big"><input required="true" type="text"  placeholder="Area/Location(Only In Dhaka)" typeahead="c as c.name for c in places | filter:$viewValue | limitTo:10" typeahead-min-length='1' typeahead-on-select='onSelectPart($item, $model, $label)' ng-model="query.location" typeahead-template-url="home/getTamplate/searchTemplate" class="form-control" ></li>
-                           
+                                <li class="form-list big">
+                                <input id="searchLocation"  type="text"  placeholder="Area/Location(Only In Dhaka)" uib-typeahead="c as c.name for c in places | filter:$viewValue:emptyOrMatch "  typeahead-no-results="noresult"  ng-model="homequery.location" typeahead-template-url="home/getTamplate/searchTemplate" class="form-control" autocomplete="off" typeahead-focus typeahead-show-hint="true" typeahead-min-length="0"  >
 
-                                <li class="form-list"><button type="submit" class="btn cool-shadow btn-danger btn-emboshed ">Find ME FOOD </button></li>
+                                <ul class="dropdown-menu" ng-if="noresult&&homequery.location">
+                                    <li><a href="">Service not available there now please choose from the list</a></li>
+                                </ul>
+                                </li>
+                                
+
+                                <li class="form-list"><button type="submit" class="btn cool-shadow btn-danger  ">Find ME FOOD </button></li>
 
                                 
                         </ul>
                         </div>
+
                     </form>
                 </div>
                 

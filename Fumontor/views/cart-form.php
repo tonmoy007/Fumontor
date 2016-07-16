@@ -10,7 +10,7 @@
     <ul class="cd-cart-items" ng-repeat="(cid,kichenCartItem) in cartItems" >
     
           
-          <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="text-theme form-header" ><span class="kit-icon"><i class="fa fa-cutlery"></i></span>{{kichenCartItem.kitchenName}} </a>
+          <a href="#/kitchen/{{kichenCartItem.cooksId}}" ng-click="toggleCart()" class="text-theme form-header" ><span class="kit-icon"><i class="fa fa-cutlery"></i></span>{{kichenCartItem.kitchenName}} </a>
           
           <li class="cart-item" ng-repeat='(key,cartItem) in kichenCartItem' ng-if='!isString(cartItem)&& key!="subtotal"&&key!="min_order"&&key!="orderType"&&key!="ordertime"&&key!="pickup"&&key!="home_delivery"&&key!="delivery_charge"' >
 
@@ -30,7 +30,7 @@
 
           </li>
           <div class="alert alert-danger cool-shadow" ng-if="kichenCartItem.subtotal<kichenCartItem.min_order">
-            This kitchen doesn't take orders if it is not eqal to or more than <strong>{{kichenCartItem.min_order}}</strong> tk so please fullfil the order by perchasing more from <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="link" >{{kichenCartItem.kitchenName}} </a>
+            This kitchen doesn't take orders if it is not eqal to or more than <strong>{{kichenCartItem.min_order}}</strong> tk so please fullfil the order by perchasing more from <a href="#/kitchen/{{kichenCartItem.cooksId}}" class="link"  ng-click="toggleCart()" >{{kichenCartItem.kitchenName}} </a>
           </div>
           <div class="cd-cart-total sub" ng-if="kichenCartItem.subtotal>0">
           <p>Subtotal <span>৳ <label class="total"> {{kichenCartItem.subtotal}}</label></span></p>

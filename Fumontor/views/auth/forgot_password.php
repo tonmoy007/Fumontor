@@ -11,16 +11,15 @@
         <meta content="" name="author"/>
         <base href="<?php echo $this->config->base_url(); ?>">
   <!--Base tag end-->
+        <link rel="shortcut icon" href="assets/img/favicon.png">
         
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         
+        <link href="assets/css/roboto.min.css" rel="stylesheet">
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-        <link href="assets/css/material.min.css" rel="stylesheet">
-        <link href="assets/css/material-fullpalette.min.css" rel="stylesheet">
-        <link href="assets/css/roboto.min.css" rel="stylesheet">
-        
-        <link href="assets/css/ripples.min.css" rel="stylesheet">
+        <link href="assets/css/flat-ui.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/home.css">
         <link href="assets/css/login.css" rel="stylesheet">
 
         <script src="assets/js/jquery.js"></script>
@@ -29,12 +28,16 @@
       
     </head>
     <!-- BEGIN BODY -->
-    <body class="login">
+    <body class="login-body">
        <div id="fullpage" class="fullpage-container">
             <div class="login-container">
 
-            <h1><?php echo lang('forgot_password_heading');?></h1>
-            <p><?php echo sprintf(lang('forgot_password_subheading'), $identity_label);?></p>
+            <a href="" class="">
+                <div class="logo">
+                  <img class="img-responsive" src="assets/img/home-logo-black.png" alt="fumontor logo">
+                </div>
+              </a>
+            <p class="alert"><?php echo sprintf(lang('forgot_password_subheading'), $identity_label);?></p>
 
             <div id="infoMessage"><?php echo $message;?></div>
 
@@ -52,16 +55,19 @@
               
               </div>
 
-                   <input type="submit" class="pull-right btn btn-raised btn-primary" name="submit" value="Reset">
+                  <div class="center form-bottom no-bottom">
+                       <input type="submit" class="btn btn-danger btn-wide cool-shadow" name="submit" value="Reset">
+                  </div>
 
             <?php echo form_close();?>
            <!-- END COPYRIGHT -->
+            <div class="page-footer-inner ">
+      &copy; 2016  <a href="http://fumontor.com"><strong>Fumontor</strong></a>&nbsp; All Rights Reserved.
+    </div>
             </div>
 
        </div>
     <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/ripples.min.js"></script>
-    <script src="assets/js/material.min.js"></script>
     
     </body>
     <!-- END BODY -->

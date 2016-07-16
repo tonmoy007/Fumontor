@@ -1,3 +1,3 @@
 <a>
-  <i class="fa fa-location-arrow"></i>&nbsp;&nbsp;<span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+  <i class="fa fa-location-arrow"></i>&nbsp;&nbsp;<span  ng-bind-html="match.label | uibTypeaheadHighlight:query" ></span>
 </a>

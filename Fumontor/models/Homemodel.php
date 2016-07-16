@@ -10,6 +10,7 @@ class Homemodel extends CI_Model {
         $this->load->helper('url');
         $this->load->database();
         $this->load->dbforge();
+        $this->load->library('ion_auth');
 
         }
 function getProductJson($query){
@@ -20,6 +21,12 @@ function getProductJson($query){
     foreach($query->result_array() as $row){
         
         $send[]=$row;
+        $send[$i]['reviews']=$this->getAllReviews($row['id']);
+        if($this->ion_auth->logged_in()){
+            $user=$this->ion_auth->user()->row();
+            $myreview=$this->getMyReview($user->id,$row['id']);
+            $send[$i]['myreview']=$myreview;
+        }
         $catagories=explode(',',$send[$i]['catagories']);
         $send[$i]['catagoryList']=$catagories;
         $send[$i]['quantity']=1;
@@ -28,7 +35,9 @@ function getProductJson($query){
         }else{
             $send[$i]['todays_menu']=false;
         }
-
+        if(!file_exists('assets/uploads/'.$send[$i]['cooksID'].'/'.$send[$i]['id'].'/'.$send[$i]['feature_img'])){
+            $send[$i]['feature_img']='';
+        }
         if(strcmp($send[$i]['home_delivery'],'true')==0){
             $send[$i]['home_delivery']=true;
         }else{
@@ -104,8 +113,8 @@ function getAllProducts(){
     return $this->getProductJson($query);
 }
 function getPlaces(){
-    $this->db->select('name');
-    $this->db->from('places');
+    $this->db->select('name,nearby_areas');
+    $this->db->from('service_areas');
     $this->db->order_by('name','asc');
     $query=$this->db->get();
     $data=array();
@@ -215,18 +224,244 @@ function getTotalTdaysMenu($id){
     }
 
 }
+function getKitchenInfo($id){
+    $this->db->select('*');
+    $this->db->from('cooks');
+    $this->db->where('user_id',$id);
+    $query=$this->db->get();
+    return $this->getKitchenJson($query);
+}
+function getKitchenJson($query){
+    $data=array();
+    $i=0;
+    foreach($query->result_array() as $row){
+        
+        // $service_areas=explode(',',$row['service_areas']);
+        // $row['service_areas']=$service_areas;
+        $date=date_create($row['createdon']);
+        $row['createdon']=date_format($date,"l F Y ");;
+        if(strcmp($row['pickup'],'true')==0){
+            $row['pickup']=true;
+        }else{
+            $row['pickup']=false;
+        }
+        if(strcmp($row['home_delivery'],'true')==0){
+            $row['home_delivery']=true;
+        }else{
+            $row['home_delivery']=false;
+        }
+        $service_areas=explode(',',$row['service_areas']);
+        $row['service_areas']=$service_areas;
+        $row['phone']=$this->homemodel->getUserPhone($row['user_id']);
+        $row['total_items']=$this->homemodel->getTotalKithcenItem($row['user_id']);
+        $row['total_todays_menu']=$this->homemodel->getTotalTdaysMenu($row['user_id']);
+        $data[$i]=$row;
+        $i++;
+    }
+    return $data;
+}
+
+
+
+function getAllReviews($productId,$lim=10,$limStart=0){
+    $this->db->select('*');
+    $this->db->where('product_id',$productId);
+    $this->db->limit($lim,$limStart);
+    $this->db->from('reviews');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+        $data=array();
+        $totalmark=0;
+        foreach($query->result_array() as $row){
+            $data[]=$row;
+            $totalmark+=$row['mark'];
+        }
+        $data[0]['totalmark']=$totalmark;
+        $this->db->reset_query();
+        $this->db->where('product_id',$productId);
+        $data[0]['total_review']=$this->db->count_all_results('reviews');
+        return $data;
+    }else{
+        return false;
+    }
+
+}
+
+
+function getMyReview($userId,$productId){
+    $this->db->select('*');
+    $this->db->where(array('user_id'=>$userId,'product_id'=>$productId));
+    $this->db->from('reviews');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+        $data=array();
+        foreach($query->result_array() as $row){
+            $data[]=$row;
+
+        }
+        return $data;
+    }else{
+        return false;
+    }
+}
+
+function getUserInfo($id=null){
+    if($id==null){
+        if($this->ion_auth->logged_in()){
+            $user=$this->ion_auth->user()->row();
+            $send=array(
+                'id'=>$user->id,
+                'username'=>$user->username,
+                'email'=>$user->email,
+                'phone'=>$user->phone,
+                'image'=>$user->image,
+                'first_name'=>$user->first_name,
+                'last_name'=>$user->last_name,
+                'name'=>$user->name,
+                'address'=>$user->address,
+                'location'=>$user->location,
+                'access_token'=>$user->access_token
+                );
+            return $send;
+
+        }else{
+            return false;
+        }
+    }else{
+        $send=array();
+        $this->db->select('name,address,location,phone,image,first_name,last_name,email');
+        $this->db->from('users');
+        $this->db->where('id',$id);
+        $query=$this->db->get();
+        foreach($query->result_array() as $row){
+            $send=$row;
+        }
+        return $send;
+    }
+}
+
+function selectRecipies($thumb=true){
+    if(!$thumb){
+        $this->db->select('recipes.id,recipes.title,recipes.user_id,recipes.prepare_time,recipes.person,recipes.cusine,recipes.cost,recipes.ingredients,recipes.directions,recipes.image,recipes.tags,recipes.published,users.name,users.phone,users.email');
+    }else{
+        $this->db->select('recipes.id,recipes.title,recipes.user_id,recipes.image,recipes.published,users.name');
+    }
+    $this->db->from('recipes');
+    $this->db->join('users','users.id=recipes.user_id','inner');
+    $this->db->order_by('recipes.published','desc');
+}
+
+function getRecipesJson($query,$thumb=true){
+    $send=array();
+    $i=0;
+    foreach($query->result_array() as $recipe){
+        $send[]=$recipe;
+        $path='assets/recipes/'.$send[$i]['id'].'/'.$send[$i]['image'];
+        // echo $path;
+        if(!file_exists($path)){
+                $send[$i]['image']=''; 
+                // print_r($send[$i]);
+                
+            }
+
+        if(!$thumb){
+
+            $send[$i]['ingredients']=json_decode($recipe['ingredients']);
+            $send[$i]['directions']=json_decode($recipe['directions']);
+            $send[$i]['all_images']=$this->getFileNames('assets/recipes/'.$recipe['id']);
+           
+        }
+         $i++;
+    }
+    return $send;
+}
+
+function getFileNames($path){
+
+    $this->load->helper('file');
+    $files=get_dir_file_info($path);
+    if($files)
+    return $files;
+    else{
+        return false;
+    }
+
+
+}
+
+
+
+function getOrders($id,$index=0){
+
+    $this->db->select('orders.id,orders.cooksid,orders.ordertype,orders.orderstatus,orders.time,orders.delivery_type,orders.payment_method,orders.delivery_time,orders.submit_time,cooks.kitchename,cooks.address,cooks.location');
+    $this->db->from('orders');
+    $this->db->join('cooks','orders.cooksid=cooks.user_id','inner');
+    $this->db->where('orders.user_id',$id);
+    $this->db->order_by('orders.time','desc');
+    $this->db->limit(5,$index);
+    $query=$this->db->get();
+    
+    echo json_encode($this->getOrdersJson($query));
+
+}
+
+function getOrdersJson($query){
+    $response=array();
+    $i=0;
+    foreach($query->result_array() as $row){
+
+        $response[$i]=$row;
+        $response[$i]['cooks_info']=$this->getUserInfo($row['cooksid']);
+        $response[$i]['orderedProducts']=$this->getOrderedProducts($row['id']);
+        $i++;
+    }
+    return $response;
+}
+
+function getOrderedProducts($orderid){
+
+    $response=array();
+    $this->db->select('*');
+    $this->db->where(array('orderid'=>$orderid,'checkout'=>'true'));
+    $this->db->from('cart');
+    $query=$this->db->get();
+    $i=0;
+    $total=0;
+    if($query->num_rows()>0){
+        foreach($query->result_array() as $row){
+            $response[]=$row;
+            $response[$i]['options']=json_decode(json_decode($row['options']));
+            $total+=$row['subtotal'];
+            $i++;
+        }
+        $response[0]['total']=$total;
+    }
+    return $response;
+}
 
 
 
 
 
 
+function getTrandingKitchens(){
 
-
-
-
-
-
+    $data2=array();
+    $this->db->select('user_id,kitchename,location,name,address');
+    $this->db->limit(10);
+    $this->db->from('cooks');
+    $query2=$this->db->get();
+    foreach($query2->result_array() as $row){
+        $data2[]=$row;
+    }
+    return $data2;
+}
+function getTrandingFoods(){
+    $this->homemodel->selectProduct();
+    $this->db->limit(10);
+    $query=$this->db->get();
+    return $this->homemodel->getProductJson($query);
+}
 
 
 

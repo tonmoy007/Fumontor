@@ -275,5 +275,5 @@ $.validator.addMethod("nonzero", function(value, element)
 
 
 function redirectToProfile(){
-    window.location="index.php/cooks";
+    window.location="cooks";
 }

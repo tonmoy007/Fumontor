@@ -88,21 +88,28 @@ function insertTempData(){
     }
 
     function ajaxRegAsCook(){
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+    $data=$this->input->post();
+    
+      
 
-        if(IS_AJAX){
-            $kitchenName=$this->input->post('kitchenName');
-            $name=$this->input->post('username');
-            $number=$this->input->post('phone', TRUE);
+       
+            $kitchenName=$request->kitchenName;
+            $name=$request->name;
+            $number=$request->phone;
             $nArray=$this->common->split_name($name);
             $userName=$nArray['first_name'];
-            $email=$this->input->post('email');
-            $password=$this->input->post('userpassword');
+            $email=($request->email)?$request->email:'';
+            $password=$request->password;
             $additional_data = array(
                 'first_name' =>$this->db->escape_like_str( $nArray['first_name']),
                 'last_name' =>$this->db->escape_like_str($nArray['last_name']) ,
-                'phone' => $this->db->escape_like_str($this->input->post('phone', TRUE))
+                'phone' => $this->db->escape_like_str($request->phone)
             );
+
             $group_ids = array('group_id' => 3);
+            
             if($this->ion_auth->register($userName, $password, $email, $additional_data, $group_ids)){
                 $this->load->model('user');
                 $this->user->changeTempUserStatus($number);
@@ -111,14 +118,14 @@ function insertTempData(){
                     'name'=>$name,
                     'user_id'=>$userid,
                     'kitchename'=>$kitchenName,
-                    'location'=>$this->input->post('location'),
-                    'address'=>$this->input->post('address')
+                    'location'=>$request->location,
+                    'address'=>$request->address
 
                     );
                 if($this->db->insert('cooks',$cooks_info)){
                      $result["0"]=array(
                     'message'=>'Successfully Submitted ! redirecting you to the dashbord',
-                    'status'=>'true',
+                    'status'=>true,
                     'errors'=>'false',
                     'ntype'=>'notice',
                     'redirect'=>'cooks'
@@ -130,7 +137,7 @@ function insertTempData(){
                     }else{
                         $result["0"]=array(
                     'message'=>'Some error occurs',
-                    'status'=>'false',
+                    'status'=>false,
                     'errors'=>'false',
                     'ntype'=>'error',
                     'redirect'=>''
@@ -139,7 +146,7 @@ function insertTempData(){
                     echo json_encode($result); 
                     }
                 }
-            }
+            
         }
   
 
@@ -205,11 +212,51 @@ function phoneCheck($phone){
     }else{
         return false;
     }
+    }else{
+    $this->db->select('*');
+    $this->db->from('users');
+
+    $this->db->where('phone',$phone);
+    $query = $this->db->get();
+    $data=array();
+    
+    if($query->num_rows() != 0){
+        echo 'success';
+    }else{
+        return false;
+    }
+
     }
 }
 
+function emailCheck($email=null){
+    if($email!=null){
+        $this->db->select('*');
+        $this->db->from('users');
 
-
+        $this->db->where('email',$email);
+        $query = $this->db->get();
+        $data=array();
+        
+        if($query->num_rows() != 0){
+            echo 'success';
+        }else{
+            return false;
+        }
+    }
+}
+function sendMail(){
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+    // $data=$this->input->post();
+    // print_r($request);
+    $success=$this->ion_auth->sendMail($request->name,$request->email,$request->message);
+        if($success){
+            echo 'true';
+        }else{
+            echo 'false';
+        }
+}
 
 
 

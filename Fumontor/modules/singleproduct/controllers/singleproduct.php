@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class singleproduct extends MX_Controller {
+class Singleproduct extends MX_Controller {
 
     /**
      * This controller is using for controlling singleProduct 

@@ -6,10 +6,41 @@
     padding: 10px;
     margin-bottom: 10px;
 }
+.kitchen-body{
+    background: #ededed;
+}
 .kitchen-subtitle{
     margin-bottom: 10px;
 }
-
+.kitchen-body{
+    color: #333;
+    font-family: 'Open Sans';
+}
+.kitchen-name{
+    font-size: 40px;
+    color: #5d5d5d;
+    text-transform: capitalize;
+}
+.kitchen-logo{
+    padding-left: 0;
+}
+.kitchen.service-areas{
+    width: 100%;
+    margin: 10px 0;
+}
+.kitchen.service-areas li{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+.share-links{
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+}
+.share-links li{
+    display: inline-block;
+}
 /*
 .slide.ng-hide-add,
 .slide.ng-hide-remove {
@@ -45,14 +76,18 @@
     width: 100%;
 }
 .slider-title strong,.menu-title{
-    font-size: 1.5em;
-    font-family: RobotoDraft;
-    font-weight: bold;
-    line-height: 2em;
+    font-size: 35px;
+    font-family:'Open Sans';
+    line-height: 30px;
+    padding: 0;
     vertical-align: middle;
-    text-shadow:  1px 0 2px rgba(0,0,0,.3);
-    padding:0 10px;
+    color: #666;
+    padding: 10px 0;
     display: inline-block;
     width:100%;
-    margin: 20px 0;
+    margin: 10px 0;
+}
+.menu-title small{
+    font-size: .5em;
+    color: #888;
 }

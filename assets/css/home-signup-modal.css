@@ -90,7 +90,7 @@
 }
 .home-signip-modal-header{
     color: #ffffff;
-    background: #6a1b99;
+    background: #3bbad0;
     font-size: 1.2em;
     font-family: Oxygen;
 }
@@ -109,7 +109,7 @@
     max-width: 480px;
 }
 .modal-strong{
-    color: #6a1b99;
+    color: #3bbad0;
     font-weight: bold;
 }
 .required-mark{

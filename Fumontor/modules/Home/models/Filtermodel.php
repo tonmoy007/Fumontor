@@ -18,19 +18,19 @@ function selectCatagory($data){
     $i=0;
     foreach ($data as $row) {
         # code...
-        
+       
         if($row->checked){
             
             if($i==0){
+
                 $this->db->like('menuitem.catagories',$row->catagory,'both');
-             
-            }else{
-                $this->db->or_like('menuitem.catagories',$row->catagory,'both');
-             
+                    }else{
+
+                     $this->db->or_like('menuitem.catagories',$row->catagory,'both');
+                    
+                }
+                $i++;
             }
-              
-            $i++;
-        }
         
     }
 }
@@ -43,7 +43,10 @@ function selectCusine($data){
 }
 function selectLocation($data){
     // echo $data;
-    $this->db->where('location',$data);
+    $this->db->where("CONCAT(`cooks`.`location`,`cooks`.`service_areas` ) LIKE '%".$data."%'",NULL,false);
+    
+
+
 }
 function selectOrderType($data){
 
@@ -65,8 +68,9 @@ function selectDeliveryMethod($data){
         $this->db->where('cooks.home_delivery',"true");
     }
 }
-function getFilteredProducts($data){
+function getFilteredProducts($data,$limit=0){
     // print_r($data);return;
+    
     $this->homemodel->selectProduct();
     $this->selectLocation($data->location);
     $this->selectCatagory($data->catagories);
@@ -74,8 +78,9 @@ function getFilteredProducts($data){
         $this->selectCusine($data->cusine);
     }
     $this->selectOrderType($data->orderTypes);
-    $this->applyPriceFilter($data->PriceRangeSlider);
     $this->selectDeliveryMethod($data->delivery_methods);
+    $this->applyPriceFilter($data->PriceRangeSlider);
+    $this->db->limit(8,$limit);
     $query=$this->db->get();
     return $this->homemodel->getProductJson($query);
     
@@ -83,7 +88,27 @@ function getFilteredProducts($data){
 
 
 
+function searchFood($query){
+    $this->homemodel->selectProduct();
+    $this->db->where("CONCAT(`menuitem`.`title`, `menuitem`.`catagories`,`menuitem`.`cusines`,`cooks`.`kitchename`,`cooks`.`location`,`cooks`.`service_areas` ) LIKE '%".$query."%'", NULL, FALSE);
+    $retquery=$this->db->get();
+    $response=array(
+        'total'=>$retquery->num_rows(),
+        'items'=>$this->homemodel->getProductJson($retquery),
+        'success'=>true,
+        );
+    echo json_encode($response);
+}
 
+function searchKitchen($query){
+    $this->db->select('name,kitchename,user_id,service_areas,address,location,pickup,home_delivery,createdon');
+    $this->db->from('cooks');
+    $this->db->where("CONCAT(`name`,`kitchename`,`address`,`location`) LIKE '%".$this->db->escape_like_str($query)."%'",null,FALSE);
+    $query=$this->db->get();
+    $data['total']=$query->num_rows();
+    $data['kitchens']=$this->homemodel->getKitchenJson($query);
+    echo json_encode($data);
+}
 
 
 

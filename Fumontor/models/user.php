@@ -13,6 +13,7 @@ class User extends CI_Model
         $this->load->helper('url');
         $this->load->database();
         $this->load->dbforge();
+        $this->load->library('ion_auth');
         }
 function changeTempUserStatus($number){
         $data=array(
@@ -41,7 +42,7 @@ function placeOrder($userid,$cooksid,$orderType,$deliveryType,$paymentMethod){
             $update=array('user_id'=>$userid,'cooksid'=>$cooksid,'checkout'=>'false');
             $this->db->where($update);
             if($this->db->update('cart',$data2)){
-                return true;
+                return $orderid;
 
             }else{
                 return false;
@@ -53,11 +54,16 @@ function placeOrder($userid,$cooksid,$orderType,$deliveryType,$paymentMethod){
     }
 
 function makeOrders($userid,$deliveryType,$paymentMethod){
+    
+    if(!$this->ion_auth->logged_in()){
+        echo 'failed';
+        return;
+    }
     $data=array();
     $flag=false;
     $delivery='';
 
-    $query=$this->db->query('select * from cart where user_id='.$userid.' and checkout=false group by cooksid');
+    $query=$this->db->query('select * from cart where user_id='.$userid.' and checkout=\'false\' group by cooksid');
     
     foreach($query->result_array() as $row){
         $options=json_decode(json_decode($row['options']));
@@ -78,25 +84,24 @@ function makeOrders($userid,$deliveryType,$paymentMethod){
         // print_r($delivery);
         // print_r($paymentMethod.'');
         // return;
-
-        if($this->placeOrder($userid,$row['cooksid'],$options->orderType,$delivery,$paymentMethod)){
+       $orderId=$this->placeOrder($userid,$row['cooksid'],$options->orderType,$delivery,$paymentMethod);
+        if($orderId){
             $flag= true;
+            $data[]=$orderId;
         }else{
             $flag=false;
         }
 
     }
-    if($flag){
-            echo 'success';
-        }else{
-            echo 'failed';
-        }
+        if($flag){
+
+                // print_r($data);
+                echo 'success';
+            }else{
+                echo 'failed';
+            }
     
 }
-
-
-
-
 
 
 

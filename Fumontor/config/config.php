@@ -360,3 +360,14 @@ $config['proxy_ips'] = '';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+
+$config['facebook']['app_id']='171939936496340';
+
+$config['facebook']['app_secret']='3d31ca1bb2f6b40ce34ace5ec283b2ed';
+
+$config['google']['app_id']='889351609137-jo5ev9e8dgd91esqghsiap8t9dfffrur.apps.googleusercontent.com';
+
+$config['google']['app_secret']='UauheU6M2rYvBddU-PLBycRR';
+
+$config['linkedin']['app_id']='75yj56pgtwgexp';
+$config['linkedin']['app_secret']='7PmMB8Rq2CODae6k';

@@ -23,7 +23,7 @@
                             
                         </div>
                         <div class="form-bottom">
-                            <input type="submit" ng-disabled="addressForm.$invalid" value="next" class="btn btn-danger btn-emboshed btn-wide" />
+                            <input type="submit" ng-disabled="addressForm.$invalid" value="next" class="btn btn-danger btn-emboshed cool-shadow btn-wide" />
                         </div>
                 
                     </form>

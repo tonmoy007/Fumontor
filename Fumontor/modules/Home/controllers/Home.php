@@ -30,7 +30,7 @@ class Home extends MX_Controller {
             if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()&&!empty($data))
                      {
                            
-                        $this->load->view('auth/create_user',$data);
+                        $this->load->view('auth/signup',$data);
                         
                      }else{
 
@@ -70,31 +70,31 @@ function latLong(){
     if ( is_numeric($geoplugin['geoplugin_latitude']) && is_numeric($geoplugin['geoplugin_longitude']) ) {
         $lat = $geoplugin['geoplugin_latitude'];
         $long = $geoplugin['geoplugin_longitude'];
-        echo 'latitude::'.$lat.'\t';
-        echo 'Longitude::'.$long.'\n';
+       $response=array('latitude'=>$lat,'longitude'=>$long);
+       echo json_encode($response);
     }
 
 }
 
 
-public function insertPlaces(){
+// public function insertPlaces(){
 
-$user=$this->ion_auth->user()->row();
+// $user=$this->ion_auth->user()->row();
     
-    // $postdata = file_get_contents("php://input");
-    // $request = json_decode($postdata);
-    // $places='';
-    // $i=0;
-    // foreach($request as $place){
-    //     $data=array('name'=>$place);
-    //     if($i>640){
-    //         $this->db->insert('places',$data);
-    //     }
-    //     $i++;
-    // }
-    // echo count($i);
+//     // $postdata = file_get_contents("php://input");
+//     // $request = json_decode($postdata);
+//     // $places='';
+//     // $i=0;
+//     // foreach($request as $place){
+//     //     $data=array('name'=>$place);
+//     //     if($i>640){
+//     //         $this->db->insert('places',$data);
+//     //     }
+//     //     $i++;
+//     // }
+//     // echo count($i);
 
-}
+// }
 
 function getTamplate($page){
 
@@ -104,30 +104,21 @@ function getTamplate($page){
 }
 
 function getHomeData(){
-    $this->homemodel->selectProduct();
-    $this->db->limit(10);
-    $query=$this->db->get();
+    
     $data1=array();
-    $data2=array();
-    $this->db->select('user_id,kitchename,location,name,address');
-    $this->db->limit(10);
-    $this->db->from('cooks');
-    $query2=$this->db->get();
-    foreach($query2->result_array() as $row){
-        $data2[]=$row;
-    }
+   
     
     $data=array(
         'places'=>$this->homemodel->getPlaces(),
-        'trendingFood'=>$this->homemodel->getProductJson($query),
-        'trendingKitchen'=>$data2,
+        'trendingFood'=>$this->homemodel->getTrandingFoods(),
+        'trendingKitchen'=>$this->homemodel->getTrandingKitchens(),
         'cartSubTotal'=>$this->cartmodel->getCartTotalAmount(),
         'cartTotal'=>$this->cartmodel->getTotalCartRow(),
         'cartTotalItems'=>$this->cartmodel->getCartTotal(),
         'cartContents'=>$this->cartmodel->getCartContent()
         );
-    if($this->ion_auth->logged_in()){
-        $user=$this->ion_auth->user()->row();
+    $user=$this->homemodel->getUserInfo();
+    if($user){
         $data['user']=$user;
     }
     echo json_encode($data);
@@ -188,9 +179,10 @@ function getFilterData(){
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
     
+    
     $data=$this->filtermodel->getFilteredProducts($request);
         if($data){
-            echo json_encode($data);
+            echo json_encode(array('data'=>$data));
         }else{
             echo "false";
         }
@@ -198,7 +190,8 @@ function getFilterData(){
 
 function getKitchenPageData($id){
 
-    $data['kitchenInfo']=$this->common->getWhere('cooks','user_id',$id);
+
+    $data['kitchenInfo']=$this->homemodel->getKitchenInfo($id);
     $this->homemodel->selectProduct();
     $this->db->where('cooksID',$id);
     $query=$this->db->get();
@@ -209,44 +202,43 @@ function getKitchenPageData($id){
 }
 
 function getAllKitchen($limitStart=0,$limitEnd=6,$location=null){
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
     
+        // print_r($request);
+   
     $this->db->select('*');
     if($location!=null){
         $this->db->like('service_areas',$location.'','both');
         $this->db->or_like('location',$location,'both');
 
+    }else{
+        $type=array();
+        foreach($request->deliveryTypes as $row=>$data){
+           // print_r($data);
+                if($data->checked==1){
+                $type[$data->value]='true';
+            }
+        }
+        if($type){
+            $this->db->where($type);
+        }
     }
+
         $this->db->limit($limitEnd,$limitStart);
     
     
 
     $this->db->from('cooks');
     $query=$this->db->get();
-    $data=array();
-    $i=0;
-    foreach($query->result_array() as $row){
-        
-        // $service_areas=explode(',',$row['service_areas']);
-        // $row['service_areas']=$service_areas;
-        $date=date_create($row['createdon']);
-        $row['createdon']=date_format($date,"l F Y ");;
-        if(strcmp($row['pickup'],'true')==0){
-            $row['pickup']=true;
-        }else{
-            $row['pickup']=false;
-        }
-        if(strcmp($row['home_delivery'],'true')==0){
-            $row['home_delivery']=true;
-        }else{
-            $row['home_delivery']=false;
-        }
-        $row['phone']=$this->homemodel->getUserPhone($row['user_id']);
-        $row['total_items']=$this->homemodel->getTotalKithcenItem($row['user_id']);
-        $row['total_todays_menu']=$this->homemodel->getTotalTdaysMenu($row['user_id']);
-        $data[$i]=$row;
-        $i++;
+    if($query->num_rows()>0){
+        $data=$this->homemodel->getKitchenJson($query);
+    
+        echo json_encode($data);
     }
-    echo json_encode($data);
+    else{
+        echo 'false';
+    }
 }
 
 function getItemData($kitchen_id,$product_id){
@@ -255,6 +247,128 @@ function getItemData($kitchen_id,$product_id){
     $query=$this->db->get();
     echo json_encode($this->homemodel->getProductJson($query));
 }
+
+
+function search($querytype,$query){
+
+    if($querytype=='food'){
+       return $this->filtermodel->searchFood($query);
+    }else if($querytype=='kitchen'){
+        
+        return $this->filtermodel->searchKitchen($query);
+    }else{
+        echo 'false';
+    }
+}
+
+function addReview(){
+    $postdata=file_get_contents("php://input");
+    $review=json_decode($postdata);
+    // print_r($review);
+    if($this->ion_auth->logged_in()){
+
+        $user=$this->ion_auth->user()->row();
+        if($this->homemodel->getMyReview($user->id,$review->product_id)){
+            echo 'failed';
+            return;
+        }
+        $data = file_get_contents($review->image);
+        $fileName = $user->id.'.jpg';
+        $file = fopen('assets/reviews/'.$fileName, 'w+');
+        fputs($file, $data);
+        fclose($file);
+        $reviewSend=array(
+            'name'=>$user->name,
+            'user_id'=>$user->id,
+            'product_id'=>$review->product_id,
+            'text'=>$review->text,
+            'mark'=>$review->mark,
+            'time'=>time()
+            );
+        if($this->db->insert('reviews',$reviewSend)){
+            echo 'success';
+        }else{
+            echo 'failed';
+        }
+    }
+    
+}
+function editReview(){
+
+
+    if($this->ion_auth->logged_in()){
+        $user=$this->ion_auth->user()->row();
+        $postdata=file_get_contents('php://input');
+        $review=json_decode($postdata);
+        $data = file_get_contents($review->image);
+        $fileName = $user->id.'.jpg';
+        $file = fopen('assets/reviews/'.$fileName, 'w+');
+        fputs($file, $data);
+        fclose($file);
+        $reviewSend=array(
+            'name'=>$user->name,
+            'text'=>$review->text,
+            'mark'=>$review->mark,
+            );
+        $where=array('product_id'=>$review->product_id,'user_id'=>$user->id);
+        $this->db->where($where);
+        if($this->db->update('reviews',$reviewSend)){
+            echo json_encode($this->homemodel->getAllReviews($review->product_id));
+        }else{
+            echo 'failed';
+        }
+
+    }
+}
+
+function deleteReview($productId){
+    if($this->ion_auth->logged_in()){
+        $user=$this->ion_auth->user()->row();
+        $array=array('product_id'=>$productId,'user_id'=>$user->id);
+        $this->db->where($array);
+        if($this->db->delete('reviews')){
+            echo json_encode($this->homemodel->getAllReviews($productId));
+        }else{
+            echo 'failed';
+        }
+    }
+}
+function getUserInfo(){
+    $user=$this->homemodel->getUserInfo();
+    if($user){
+        echo json_encode($user);
+    }else{
+        echo 'false';
+    }
+}
+
+
+function getMyOrders(){
+    if($this->ion_auth->logged_in()){
+        $user=$this->ion_auth->user()->row();
+
+        $this->homemodel->getOrders($user->id);
+    }else{
+        echo 'not logged in';
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

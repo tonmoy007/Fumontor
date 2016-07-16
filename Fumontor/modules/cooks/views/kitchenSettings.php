@@ -70,7 +70,9 @@
                     <form name="serviceAreaForm" ng-show="serviceArea_show" method="get" accept-charset="utf-8" novalidate="true" ng-submit="submitKitchen(serviceAreaForm,'service_areas',kitn.serviceList)">
                         <div class="form-group">
                         <label class="form-label">Service Areas</label>
-                            <tags-input ng-model="kitn.serviceList" placeholder="add a service area" ></tags-input>
+                            <tags-input ng-model="kitn.serviceList" min-length="5" add-from-autocomplete-only="true" placeholder="add a service area" >
+                                <auto-complete min-length="0" load-on-empty="true" load-on-down-arrow="true" source="fetchAreas($query)" load-on-focus="true"></auto-complete>
+                            </tags-input>
                             <input type="submit" name="" value="Change" class="btn btn-default">
                         </div>   
                         </form>
@@ -130,21 +132,21 @@
                         <form name="KitchenStartForm" ng-show="kitche_start_form_show" method="get" accept-charset="utf-8" ng-submit="submitKitchen(KitchenStartForm,'kitchen_start_time',kitn.kitchen_start_time)">
                             <div class="form-group">
                                 <label for="KitcheStartime" class="form-label">Kitchen Start time</label>
-                                <ng-timepicker init-time="{{kitn.kitchen_start_time}}" ng-model="kitn.kitchen_start_time" ></ng-timepicker>
+                                <ng-timepicker init-time="{{kitn.kitchen_start_time}}" show-meridian="false" ng-model="kitn.kitchen_start_time" ></ng-timepicker>
 
                                 
                             </div>
                             <div class="form-group">
                                 <label for="KitcheEndtime" class="form-label">Kitchen End time</label>
-                                <ng-timepicker init-time="{{kitn.kitchen_end_time}}" ng-model="kitn.kitchen_end_time" ></ng-timepicker>
+                                <ng-timepicker init-time="{{kitn.kitchen_end_time}}" ng-model="kitn.kitchen_end_time" show-meridian="false"></ng-timepicker>
 
                                 
                             </div>
-                            <button type="submit" ng-click="submitKitchen(KitchenStartForm,'kitchen_end_time',kitn.kitchen_end_time)" class="btn btn-default"><i class="fa fa-save"></i>&nbsp;Submit</button>
+                            <button type="submit" ng-click="submitKitchen(KitchenStartForm,'kitchen_end_time',kitn.kitchen_end_time)" class="btn btn-default"><i class="fa fa-save"></i>&nbsp;&nbsp;Submit</button>
                                                
                         </form>
-                        <span class="option-title" ng-show="kitn.kitchen_start_time&&kitn.kitchen_end_time">Kitchen Scedule</span>
-                        <span class="option-value" ng-show="kitn.kitchen_start_time&&kitn.kitchen_end_time">{{kitn.kitchen_start_time}} -  {{kitn.kitchen_end_time}} </span>
+                        <span class="option-title" ng-show="kitn.kitchen_start_time&&kitn.kitchen_end_time">Kitchen Schedule</span>
+                        <span class="option-value" ng-show="kitn.kitchen_start_time&&kitn.kitchen_end_time">{{kitn.kitchen_start_time| secondsToDateTime | date:'HH:mm:ss'}} -  {{kitn.kitchen_end_time| secondsToDateTime | date:'HH:mm:ss'}} </span>
                         <a class="cool-shadow"  ng-class="{'active':kitche_start_form_show}"href="javascript:void(0)" title="edit" ng-click="formShowing(KitchenStartForm,true)"><i class="fa fa-pencil" ng-hide="kitche_start_form_show"></i><i class="fa fa-times" ng-show="kitche_start_form_show"></i></a>
                     </li>
                     

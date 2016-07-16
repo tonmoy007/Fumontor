@@ -32,18 +32,7 @@
     <body class="" id="fullbody">
    <header >
        <div class="head">
-           <a href="<?php if(!$this->ion_auth->logged_in()){
-            echo '';
-
-            }else{
-                if($this->ion_auth->is_admin()){
-                    echo 'admin';
-                }elseif($this->ion_auth->is_cook()){
-                    echo 'cooks';
-                }else{
-                    echo 'user';
-                }
-                }?>"><div class="logo">Fumontor</div>
+           <a href="/#/"><div class="logo">Fumontor</div>
            </a>
         <div class="navigation">
             <div id="nav-icon">

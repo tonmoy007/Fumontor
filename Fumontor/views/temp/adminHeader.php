@@ -46,18 +46,7 @@
     </head>
 <body>
     <header class="cd-main-header">
-        <a href="<?php if(!$this->ion_auth->logged_in()){
-            echo '';
-
-            }else{
-                if($this->ion_auth->is_admin()){
-                    echo 'admin';
-                }elseif($this->ion_auth->is_cook()){
-                    echo 'cooks';
-                }else{
-                    echo 'user';
-                }
-                }?>" class="cd-logo"><img src="assets/img/fu-logo.png"></a>
+        <a href="#/" class="cd-logo"><img class="img-responsive" src="assets/img/home-logo-black.png"></a>
         
 
         <a href="#0" class="cd-nav-trigger">Menu<span></span></a>

@@ -12,7 +12,7 @@
     margin-right: 8px;
     background: rgba(233, 234, 237, 0.9);
     cursor: pointer;
-    z-index: 10001;
+    z-index: 1000;
     overflow: hidden;
     overflow-y: scroll;
     opacity: 0;
@@ -155,4 +155,49 @@
 }
 .form-group .error{
     display: none;
+}
+.model-inner{
+    width: 100%;
+    position: relative;
+    background: #dcdcdc;
+    height: auto;
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    padding-top: 0;
+    transition: all .5s linear;
+    -webkit-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+    -oz-transition: all .5s linear;
+    -ms-transition: all .5s linear;
+    -o-transition: all .5s linear;
+}
+.model-inner.is-visible{
+    max-height:600px;
+    padding-top: 20px;
+}
+.model-inner .modal-container .fu-modal-body{
+    text-align: center;
+}
+.small-pad{
+    padding: 0;
+}
+.share-buttons-block{
+    line-height: 2em;
+    vertical-align: middle;
+}
+.fu-modal-footer{
+    line-height: 16px;
+    vertical-align: middle;
+    font-size: 12px;
+    margin: 10px;
+}
+.fu-modal .details-container{
+    margin: 0 ;
+}
+.product.description{
+    text-indent: 5px;
+}
+.product.cooksName{
+    padding-right: 30px;
 }

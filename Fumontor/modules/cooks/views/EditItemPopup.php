@@ -84,7 +84,7 @@
 
                         <form class="item-edit-form cool-border" name="cusineEditForm" ng-show="cusineEditFormShow" ng-submit="changeItem(item.id,'cusines',item.cusines)">
                             <div class="form-group">
-                            <label for="" class="control-label">Cusine</label>
+                            <label for="" class="control-label">Cuisine</label>
                             <select class="form-control" required="true" ng-model="item.cusines" name="cusine" id="cusine" >
                                     <option value="">Select Cusine</option>
                                     <option value="Bangla">Bangla</option>
@@ -98,9 +98,9 @@
                             </div>
                         </form>
 
-                        <strong>Cusine</strong><br>
+                        
                         <div class="product-data">
-                            {{item.cusines}} 
+                           <strong>Cuisine</strong> {{item.cusines}} 
                         </div>
                         <a href="" class="item-edit-trigger" ng-click="cusineEditFormShow=!cusineEditFormShow" title="edit"><i ng-if="!cusineEditFormShow" class="fa fa-pencil"></i> <i ng-if="cusineEditFormShow" class="fa fa-times"></i></a>
                     </div>
@@ -130,7 +130,7 @@
                             </div>
                         </form>
                         <div class="product-data">
-                        <label><strong>Catagories</strong></label>
+                        <label><strong>Categories</strong></label>
                         <div class="clearfix"></div>
                         
                             <label class="badge bg-theme catagory" ng-repeat="catagory in item.catagoryList">{{catagory.text}}</label>
@@ -156,7 +156,7 @@
                         </div>
                         <a href="" class="item-edit-trigger" ng-click="descriptionEditFormShow=!descriptionEditFormShow" title="edit"><i ng-if="!descriptionEditFormShow" class="fa fa-pencil"></i> <i ng-if="descriptionEditFormShow" class="fa fa-times"></i></a>
                     </div>
-                <div class="menutype">
+                <div class="menutype product-data product">
                     <label class="badge bg-theme" ng-show='!item.todays_menu' class=" tag banner-label">Not Added in today's menu</label>
                     <label class="badge bg-theme" ng-show="item.todays_menu" class="tag banner-label">Added to today's menu </label>
                 </div>

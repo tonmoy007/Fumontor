@@ -1,4 +1,4 @@
-<div class="catagory-bar cool-shadow" id="catagoryBar" ng-class='{searched:searched||hideCatagoryFilter,"top-me":slideNav}'>
+<div class="catagory-bar cool-shadow bg-trans-gray" id="catagoryBar" ng-class='{searched:searched||hideCatagoryFilter,"top-me":slideNav}'>
 <div class="logo-container">
             <div class="logo filter-logo">
                  Fiter Your Menu
@@ -14,9 +14,8 @@
         </div>
         <label class="filter-label text-theme">Catagories</label>
         <catagory></catagory>
-        <label class="filter-label text-theme">Offers</label>
         <offers></offers>
-        <label class="filter-label text-theme">Cusine</label>
+        <label class="filter-label text-theme">Cuisine</label>
         <select name="cusine" ng-model="filter.cusine" ng-change="submitFilterQuery('cusine')" class="form-control" ng-options="cusineFilter.value for cusineFilter in filter.cusineFilters" ng-init="filter.cusine=filter.cusineFilter[0].value">
         <option value="">--Select--</option>        
         </select>

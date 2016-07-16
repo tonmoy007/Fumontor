@@ -578,6 +578,7 @@ meta-info .content, .meta-info .category, .meta-info .dev-link {
 .meta-info .dev-link{
     display: block;
 }
+
 .share-buttons-block{
     padding: 12px 32px;
     position: absolute;

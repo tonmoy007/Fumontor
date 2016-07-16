@@ -93,7 +93,7 @@ Header
 -------------------------------- */
 .cd-main-header {
   position: absolute; 
-  z-index: 10000;
+  z-index: 1000;
   top: 0;
   left: 0;
   height: 65px;

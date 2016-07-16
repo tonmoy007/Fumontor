@@ -8,7 +8,7 @@
 
 
 
-app.controller('settingsCtrl',function($scope,$http) {
+app.controller('settingsCtrl',function($scope,$http,$q) {
       
     
     $scope.loading=true;
@@ -32,7 +32,6 @@ app.controller('settingsCtrl',function($scope,$http) {
       $scope.users = [];
       // Getting the list of users through ajax call.
       $http({
-        async:true,
         url: 'cooks/getProfileInfo/'+userId,
         method: "POST",
       }).success(function (data) {
@@ -208,7 +207,10 @@ app.controller('settingsCtrl',function($scope,$http) {
             $scope.formShowing(form,true);
           });
     };
-
+    $scope.fetchAreas=function(query){
+      return $http.get('cooks/serviceAreas/'+query);
+    }
+    
 
     });
 
@@ -379,3 +381,16 @@ app.factory('isPhoneAvailable', function($q, $http) {
 
 
 
+app.filter('secondsToDateTime', [function() {
+    return function(seconds) {
+        console.log(seconds);
+        send='';
+        hr_min=seconds.split(':');
+        if(parseInt(hr_min[0])>12){
+          send+=hr_min[0]-12+':'+hr_min[1]+' pm';
+        }else{
+          send+=hr_min[0]+':'+hr_min[1]+' am'
+        }
+        return send;
+    };
+}])
