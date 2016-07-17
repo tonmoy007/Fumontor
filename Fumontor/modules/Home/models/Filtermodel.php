@@ -14,28 +14,34 @@ class Filtermodel extends CI_Model {
         }
 
 
-function selectCatagory($data){
+function selectCatagory($data,$search=null){
     $i=0;
     foreach ($data as $row) {
         # code...
        
         if($row->checked){
-            
-            if($i==0){
+            if($search=='ec'){
+                 $this->db->or_like('menuitem.catagories',$row->catagory,'both');
 
-                $this->db->like('menuitem.catagories',$row->catagory,'both');
-                    }else{
+            }else{
 
-                     $this->db->or_like('menuitem.catagories',$row->catagory,'both');
-                    
+                if($i==0){
+
+                    $this->db->like('menuitem.catagories',$row->catagory,'both');
+                        }else{
+
+                         $this->db->or_like('menuitem.catagories',$row->catagory,'both');
+                        
+                    }
+                    $i++;
                 }
-                $i++;
             }
+
         
     }
 }
-function selectCusine($data){
-        // print_r($data);
+function selectCusine($data,$search=null){
+        
         if(strcmp($data->value,'')!=0){
             $this->db->where('menuitem.cusines',$data->value);
         }
@@ -68,7 +74,7 @@ function selectDeliveryMethod($data){
         $this->db->where('cooks.home_delivery',"true");
     }
 }
-function getFilteredProducts($data,$limit=0){
+function getFilteredProducts($data,$index=0){
     // print_r($data);return;
     
     $this->homemodel->selectProduct();
@@ -80,7 +86,7 @@ function getFilteredProducts($data,$limit=0){
     $this->selectOrderType($data->orderTypes);
     $this->selectDeliveryMethod($data->delivery_methods);
     $this->applyPriceFilter($data->PriceRangeSlider);
-    $this->db->limit(8,$limit);
+    $this->db->limit(8,$index);
     $query=$this->db->get();
     return $this->homemodel->getProductJson($query);
     
@@ -88,14 +94,25 @@ function getFilteredProducts($data,$limit=0){
 
 
 
-function searchFood($query){
+function searchFood($query,$filter,$index=0){
+    $query=urldecode($query);
+    $index=($index!=0)?$index*20+1:$index;
     $this->homemodel->selectProduct();
     $this->db->where("CONCAT(`menuitem`.`title`, `menuitem`.`catagories`,`menuitem`.`cusines`,`cooks`.`kitchename`,`cooks`.`location`,`cooks`.`service_areas` ) LIKE '%".$query."%'", NULL, FALSE);
+    $this->selectCatagory($filter->catagories,'search');
+    if(!empty($filter->cusine)){
+        $this->selectCusine($filter->cusine,'search');
+    }
+    $this->selectOrderType($filter->orderTypes);
+    // $this->selectDeliveryMethod($filter->delivery_methods);
+    $this->applyPriceFilter($filter->PriceRangeSlider);
+    $this->db->limit(20,$index);
     $retquery=$this->db->get();
     $response=array(
         'total'=>$retquery->num_rows(),
         'items'=>$this->homemodel->getProductJson($retquery),
         'success'=>true,
+        'filter'=>$filter
         );
     echo json_encode($response);
 }

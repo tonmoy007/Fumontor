@@ -4,13 +4,13 @@
        <!-- <div class="filter-search"><input type="search" name="" ng-model="search" value="" placeholder="Search Kitchen"></div> -->
        <div class="filter-logo logo ">Filter Your Search</div>
 
-       <div class="search-filter-list" ng-if="type=='food'">
-            <label class="filter-label">Order Type</label>
+       <div class="search-filter-list" ng-if="type=='food'||type=='all'">
+            <!-- <label class="filter-label">Order Type</label>
             <label class="checkbox" ng-class="{checked:ordertype.checked}"  ng-repeat="ordertype in filter.orderTypes" >
                 <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span>
                 <span class="second-icon fui-checkbox-checked"></span></span>
                 <input type="checkbox" ng-model="ordertype.checked" ng-change="searchQuery('orderType')"  data-toggle="checkbox"/> {{ordertype.name}}
-             </label>
+             </label> -->
              <label class="filter-label">Catagories</label>
             <ul class="catagoryList">
             <li ng-repeat="catagory in filter.catagories">

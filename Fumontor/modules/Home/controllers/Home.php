@@ -176,11 +176,13 @@ function getProduct(){
  }
 
 function getFilterData(){
+    $page=$this->input->get('load');
+    $page=(!empty($page))?$page*8+1:0;
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
     
     
-    $data=$this->filtermodel->getFilteredProducts($request);
+    $data=$this->filtermodel->getFilteredProducts($request,$page);
         if($data){
             echo json_encode(array('data'=>$data));
         }else{
@@ -250,9 +252,10 @@ function getItemData($kitchen_id,$product_id){
 
 
 function search($querytype,$query){
-
+    $postdata=file_get_contents("php://input");
+    $filter=json_decode($postdata);
     if($querytype=='food'){
-       return $this->filtermodel->searchFood($query);
+       return $this->filtermodel->searchFood($query,$filter);
     }else if($querytype=='kitchen'){
         
         return $this->filtermodel->searchKitchen($query);

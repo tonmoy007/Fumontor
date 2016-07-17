@@ -7,22 +7,22 @@
             <a href="#/search/kitchen/{{query}}" class="btn  cool-shadowbtn-emboshed btn-default ">Kithcens</a>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
     <search-filter type="'food'" items="'searchedMenuItems'"></search-filter>
         <div class="alert bg-trans-gray text-theme cool-shadow space" ng-show="!loading" ng-if="!searchedMenuItems.length">
         No Match Found
         </div>
         <div class="alert bg-trans-gray text-theme cool-shadow space" ng-show="!loading" ng-if="searchedMenuItems.length">
-        Total <span class="badge bg-theme text-white">{{searchedMenuItems.length}}</span> items found
-    </div>
+            Total <span class="badge bg-theme text-white">{{searchedMenuItems.length}}</span> items found
+        </div>
         <div class="product-show-div" id="product-div"   ng-class="{'searched':searched}" >
         <!-- <catagory-bar></catagory-bar> -->
             <div class="product-show-div-container" ng-show="searcedItemsShow">
                 <div class="product-container">
-                    <not-found-message></not-found-message>
+                    
                     <menu-item items="searchedMenuItems" href1="true" ></menu-item>
 
                 </div>        

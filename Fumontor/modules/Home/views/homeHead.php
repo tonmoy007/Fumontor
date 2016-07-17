@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/flat-ui.css" rel="stylesheet">
-
+        <link rel=stylesheet href="assets/css/home/switch.css">
         <link rel="stylesheet" type="text/css" href="assets/css/roboto.min.css">
         <link href="assets/css/home.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/css/ns-style-bar.css">

@@ -20,26 +20,23 @@
     </div>
     <div class="container">
         <div class="brand-container" id="brand-container">
-            <div class="brand-logo">
-                <div class="logo pulse text-white" ng-if="animated" ng-class="{animated:animated}">
+            <div class="brand-logo" style="
+    margin-bottom: 10px">
+                <div class="logo fadeInUp text-white"  ng-class="{animated:animated}">
                     <img src="assets/img/home-logo.png" class="img-responsive" alt="Fumontor">
                 </div>
             </div>
             
-            <div class="brand-subtitle">
-                <div class="text-white">
-                    <!-- a yummy relationship -->
+            <div class="brand-label  text-white" >
+                 <div class="zoomInLeft  search-title"  ng-class="{animated:animated}">
+                  <strong>  কি খাবেন??</strong>
                 </div>
             </div>
-            <div class="brand-search">
-                <div class="zoomInLeft search-title"  ng-class="{animated:animated}">
-                    কি খাবেন??
-                </div>
+            <div class="brand-search" id="brand-search">
+               
                 <search-bar></search-bar>
             </div>
-            <div class="brand-action">
-                <a href="" class="btn fadeInUpBig bg-red btn-emboshed cool-shadow btn-wide" ng-click="gotoHow()" ng-class="{animated:animated}"> Get Started</a>
-            </div>
+            
         </div>
     </div>
 </section>

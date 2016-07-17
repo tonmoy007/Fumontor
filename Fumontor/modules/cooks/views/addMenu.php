@@ -100,7 +100,7 @@
                            <textarea name="description" rows="2" class="form-control" placeholder="Description" ng-model="newItem.description" required></textarea>
                        </div>
                     <h2>Scheduling </h2>
-                        <div class="form-group form-inline" ng-form="orderNowScheduleForm">
+                        <!-- <div class="form-group form-inline" ng-form="orderNowScheduleForm">
                             <label for=""><i class="fa fa-clock-o"></i> Time Required  to deliver when item in <strong>todays menu</strong> : </label>
                             <select name="" ng-init="newItem.ordernow_start._hr='01'" class="form-control" ng-model="newItem.ordernow_start._hr">
                                 <option  value="00">0</option>
@@ -137,9 +137,9 @@
                                 <option value="30">30</option>
                                 <option value="45">45</option>
                             </select>&nbsp;<span ng-if="newItem.ordernow_start._min==='00'">Minute</span><span ng-if="!(newItem.ordernow_start._min==='00')">Minutes</span>
-                        </div>
+                        </div> -->
                         <div class="form-group form-inline" ng-form="orderNowScheduleForm">
-                            <label for=""><i class="fa fa-clock-o"></i> Time Required to deliver when item is in <strong>pre order</strong> : </label>
+                            <label for=""><i class="fa fa-clock-o"></i>Minimum time required to deliver the <strong>Pre Order</strong> : </label>
                             <select name="" ng-init="newItem.preorder_start._hr='06'" class="form-control" ng-model="newItem.preorder_start._hr">
                                 <option  value="00">0</option>
                                 <option  value="01">1</option>

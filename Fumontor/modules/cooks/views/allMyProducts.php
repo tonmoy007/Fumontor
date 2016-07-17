@@ -36,7 +36,7 @@
                         <!-- Edit Product -->
                     
                         <edit-menu-item-popup ng-repeat="(key,item) in menuItems |orderBy:id"></edit-menu-item-popup>
-                        <quantity-pop ng-repeat="(key,item) in menuItems |orderBy:id"></quantity-pop>
+                        <!-- <quantity-pop ng-repeat="(key,item) in menuItems |orderBy:id"></quantity-pop> -->
                    
                         <!-- Show Product -->
                         <!-- Add Product -->

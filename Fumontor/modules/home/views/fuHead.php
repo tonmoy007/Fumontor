@@ -15,7 +15,7 @@
                   <nav class="menu menu--prospero" id="navbar">
                       <ul class="menu__list">
                           <li class="menu__item " ng-class="{'menu__item--current':menuList[0].current}" ng-click="setCurrent(0)" title="Home"><a href="" ng-click="moveto('home')" class="menu__link" ng-click="open=!open"><i class="fa fa-home"></i> <span>Home</span></a></li>
-                          <li class="menu__item" ng-class="{'menu__item--current':menuList[1].current}"  ng-click="setCurrent(1)"><a href="" ng-click="moveto('how')" class="menu__link" ng-click="open=!open"><i class="fa fa-question-circle" ></i> <span>How it works</span></a></li>
+                          <li class="menu__item" ng-class="{'menu__item--current':menuList[1].current}"  ng-click="setCurrent(1)"><a href="" ng-click="moveto('dishes')" class="menu__link" ng-click="open=!open"><i class="fa fa-question-circle" ></i> <span>All Dishes</span></a></li>
                           
                           <li class="menu__item" ng-class="{'menu__item--current':menuList[2].current}"  ng-click="setCurrent(2)"><a href="#/all-kitchen" class="menu__link" ng-click="open=!open"><i class="fa fa-cutlery" title="All Kithcens" ></i> <span>Kitchens</span></a></li>
                           <li class="menu__item"  ng-click="setCurrent(3)" ng-class="{'menu__item--current':menuList[3].current}" ><a href="recipes/#/"  class="menu__link" ><i class="fa fa-cutlery" title="All Kithcens" ></i> <span>Recipes</span></a></li>
@@ -50,7 +50,7 @@
                   </nav>
                   
               </div>
-              <form class="main-search" name="searchForm" ng-submit="allSearch(searchquery)">
+              <form class="main-search" name="searchForm" ng-if="popup||notlandingSearch" ng-submit="allSearch(searchquery)">
               <input type="search" name="mainSearch" autocomplete="off" class="cool-shadow" value="" id="search" placeholder="{{placeholder}}" ng-model="searchquery" >
               <span class="clear-search" ng-if="searchForm.mainSearch.$viewValue" ng-click="clearSearch()"><i class="fa fa-times text-theme"></i></span>
               </form>

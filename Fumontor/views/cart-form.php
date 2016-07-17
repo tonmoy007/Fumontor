@@ -25,7 +25,7 @@
             </div>
             <a  href="" class="cd-item-remove cd-img-replace" ng-click="removeCartItem(cid,cartItem)" >Remove</a>
             <div class="cd-order-description"><small ng-if="kichenCartItem.ordertime" class="cd-order-time">Delivered within {{kichenCartItem.ordertime}}</small>
-              <small class="cd-order-type" ng-if="kichenCartItem.orderType">Order type - {{kichenCartItem.orderType}}</small>
+              <!-- <small class="cd-order-type" ng-if="kichenCartItem.orderType">Order type - {{kichenCartItem.orderType}}</small> -->
             </div>
 
           </li>

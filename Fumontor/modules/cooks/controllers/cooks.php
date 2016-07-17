@@ -436,17 +436,15 @@ function deleteItem($id){
 function changeItemScedule(){
     $request = file_get_contents("php://input");
     $data=json_decode($request);
-    
+    $send=array();
     if($this->ion_auth->logged_in()){
         if($this->ion_auth->is_cook()){
             $update=array(
-                'preorder_process_time'=>$data->ordernowtime->hr->value.':'.$data->ordernowtime->min->value,
-                'ordernow_time'=>$data->preordertime->hr->value.':'.$data->preordertime->min->value
+                'preorder_process_time'=>$data->preordertime->hr->value.':'.$data->preordertime->min->value
                 );
             $this->db->where('id',$data->id);
             $this->db->update('menuitem',$update);
             $send['preorder_time_text']=$this->homemodel->convertOrderTime($update['preorder_process_time']);
-            $send['ordernow_time_text']=$this->homemodel->convertOrderTime($update['ordernow_time']);
             echo json_encode($send);
         }
     }

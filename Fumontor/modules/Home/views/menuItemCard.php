@@ -3,10 +3,10 @@
 <div class="col-md-2 fadeIn animated grid ">
     <div class="grid-lg">
         <div class="grid-img">
-        <div class="grid-side-banner" ng-class="{now:item.todays_menu}">
+        <!-- <div class="grid-side-banner" ng-class="{now:item.todays_menu}">
             <label ng-show='!item.todays_menu' class="  banner-label">Pre Order</label>
             <label ng-show="item.todays_menu" class=" banner-label">Instant Order</label>
-        </div>
+        </div> -->
             <a ng-if="href1" href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-eye"></i></a>
             <a ng-if="!href1" href="#kitchen/{{item.cooksID}}/{{item.id}}"  class="img-overlay block-link"><i class="fa fa-eye"></i></a>
             

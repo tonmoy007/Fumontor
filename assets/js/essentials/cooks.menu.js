@@ -247,7 +247,7 @@ app.controller('productEditCtrl',function($scope,$http,Upload){
         // console.log(id);
         // console.log(ordernowtime);
         // console.log(preordertime);
-        send={id:item.id,ordernowtime:item.ordernow_time_for,preordertime:item.preorder_time_for};
+        send={id:item.id,preordertime:item.preorder_time_for};
         $http({
             url:'cooks/changeItemScedule',
             method:'POST',
@@ -258,7 +258,7 @@ app.controller('productEditCtrl',function($scope,$http,Upload){
             //console.log(response);
             if(response){
                 item.preorder_time_text=response.preorder_time_text;
-                item.ordernow_time_text=response.ordernow_time_text;
+                // item.ordernow_time_text=response.ordernow_time_text;
             }
         }).error(function(response){
             console.log(response);

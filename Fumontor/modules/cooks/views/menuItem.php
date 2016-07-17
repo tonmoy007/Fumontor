@@ -3,10 +3,10 @@
 <div class="col-sm-2 grid fadeIn animated">
     <div class="grid-lg">
         <div class="grid-img">
-        <div class="grid-side-banner cool-shadow" ng-class="{now:item.todays_menu}">
+        <!-- <div class="grid-side-banner cool-shadow" ng-class="{now:item.todays_menu}">
             <label ng-show='!item.todays_menu' class=" tag banner-label">Not today's menu</label>
             <label ng-show="item.todays_menu" class="tag banner-label">Today's menu</label>
-        </div>
+        </div> -->
             <a href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-pencil"></i></a>
             
             <img ng-if="item.feature_img" ng-show="item.feature_img" ng-src="assets/uploads/{{item.cooksID}}/{{item.id}}/{{item.feature_img}}" title="{{item.title}}" alt="{{item.title}}">
@@ -44,11 +44,11 @@
 
                <small class="text-red" ng-if="item.stock_quantity==0">not available</small>
             </div>
-            <div class="cd-customization cd-action">
+            <!-- <div class="cd-customization cd-action">
                 <a ng-if="!item.todays_menu" href="" class="btn btn-danger btn-emboshed btn-wide" ng-click="singleItemDisplay('setQuantity'+item.id)">Set  As  Today's  Menu</a>
                 
                 <a href="" ng-if="item.todays_menu" class="btn bg-red btn-emboshed " ng-click="setAsTodaysMenu(item)">remove  from  today's  menu</a>
-             </div> <!-- .cd-customization -->
+             </div> --> <!-- .cd-customization -->
         
         </div>
     </div>

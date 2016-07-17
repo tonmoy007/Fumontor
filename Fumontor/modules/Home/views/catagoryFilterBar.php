@@ -19,8 +19,8 @@
         <select name="cusine" ng-model="filter.cusine" ng-change="submitFilterQuery('cusine')" class="form-control" ng-options="cusineFilter.value for cusineFilter in filter.cusineFilters" ng-init="filter.cusine=filter.cusineFilter[0].value">
         <option value="">--Select--</option>        
         </select>
-        <label class="filter-label text-theme">Order Type</label>
-        <order-type></order-type>
+        <!-- <label class="filter-label text-theme">Order Type</label> -->
+        <!-- <order-type></order-type> -->
         
         <label class="filter-label text-theme">Sort by Price</label>
         <rzslider

@@ -156,10 +156,10 @@
                         </div>
                         <a href="" class="item-edit-trigger" ng-click="descriptionEditFormShow=!descriptionEditFormShow" title="edit"><i ng-if="!descriptionEditFormShow" class="fa fa-pencil"></i> <i ng-if="descriptionEditFormShow" class="fa fa-times"></i></a>
                     </div>
-                <div class="menutype product-data product">
+                <!-- <div class="menutype product-data product">
                     <label class="badge bg-theme" ng-show='!item.todays_menu' class=" tag banner-label">Not Added in today's menu</label>
                     <label class="badge bg-theme" ng-show="item.todays_menu" class="tag banner-label">Added to today's menu </label>
-                </div>
+                </div> -->
                 <div class="product scedule">
                     <form class="item-edit-form cool-border" name="sceduleEditForm" ng-show="sceduleEditFormShow" ng-submit="changeItemScedule(item)">
                     <label for="" class="control-label"><strong>Preparation time for</strong></label>
@@ -175,7 +175,7 @@
                             </select>munites
                             </div>
                             <div class="clearfix"> </div>
-                            <div class="form-inline">
+                           <!--  <div class="form-inline">
                             <label for="" class="control-label"> <strong>Today's menu</strong></label>
                             <select  name="scedule" ng-model="item.ordernow_time_for.hr" class="form-control" ng-options="hour as hour.value for hour in scedule.hours track by hour.value" >
                                     
@@ -183,7 +183,7 @@
                             <select  name="scedule" ng-model="item.ordernow_time_for.min" class="form-control" ng-options="munite as munite.value for munite in scedule.munites track by munite.value" >
                                     
                             </select>munites
-                            </div>
+                            </div> -->
 
 
 
@@ -194,15 +194,15 @@
                     <div class="product-data">
                     <strong>Scedule :</strong><div class="clearfix"></div>
                         <label for="">Pre order process time :{{item.preorder_time_text}}</label>
-                        <label class="">Todays Menu Process Time : {{item.ordernow_time_text}}</label>
+                        <!-- <label class="">Todays Menu Process Time : {{item.ordernow_time_text}}</label> -->
                     </div>
                     <a href="" class="item-edit-trigger" ng-click="sceduleEditFormShow=!sceduleEditFormShow" title="edit"><i ng-if="!sceduleEditFormShow" class="fa fa-pencil"></i> <i ng-if="sceduleEditFormShow" class="fa fa-times"></i></a>
                     
                 </div>
-                <div class="cd-action">
+               <!--  <div class="cd-action">
                     <a ng-if="!item.todays_menu" href="" class="btn btn-danger btn-emboshed btn-wide" ng-click="singleItemDisplay('setQuantity'+item.id)">Set  As  Today's  Menu</a>
                     <a href="" ng-if="item.todays_menu" class="btn bg-red btn-emboshed btn-wide" ng-click="setAsTodaysMenu(item)">remove  from  today's  menu</a>
-                </div> <!-- .cd-customization -->  
+                </div>  --><!-- .cd-customization -->  
                 </div>
             </div>
         </div>

@@ -66,7 +66,7 @@
                 </div>
             </div>
             
-            <div class="todays-menu-slider " ng-show="todaysMenuItems.length">
+            <!-- <div class="todays-menu-slider " ng-show="todaysMenuItems.length">
                 <div class="slider-container" >
                 <div class="menu-title text-left text-gray">
                     Todays Menu<br>
@@ -78,7 +78,7 @@
                         No Items in today's menu !!
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div  class="more-loading" id="more-loading" ng-show="!todayLoaded"></div>
 
             <div class="kitchen-menu ">

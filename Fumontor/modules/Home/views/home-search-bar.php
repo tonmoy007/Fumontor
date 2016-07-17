@@ -1,5 +1,5 @@
 <div class="top-head">
-<link rel=stylesheet href="assets/css/home/switch.css">
+
 
     <div class="search-form-container flipInX animated cool-shadow" id="searchForm"  >
         <div class="form-overlay" >
@@ -14,9 +14,9 @@
         </div> -->
             <div class="form" >
                 <div class="">
-                    <form name="Location" method="get" accept-charset="utf-8" ng-submit="submitQuery(searchedOrderType,homequery.location,Location)">
+                    <form name="Location" method="get" accept-charset="utf-8" ng-submit="submitQuery(searchedOrderType,searchquery,Location)">
                         
-                        <div class="findCatagory">
+                        <!-- <div class="findCatagory">
                             <div class="row">
                                 <div class="col-xs-3 " ng-class="{active:type.checked}" ng-repeat="type in searchedFoodTypes">
                                     <label class="radio" ng-click="setActive(type.value)" ng-class="{active:type.checked}">
@@ -27,9 +27,9 @@
                                 </div>
                                 
                             </div>
-                        </div>
+                        </div> -->
                         <div class="tab-div "  >
-                        <div class="row search-switch">
+                        <!-- <div class="row search-switch">
                             <div class="col-xs-12">
                             <div class="search-order" ng-class="{active:!searchedOrderType}">
                                 Pre Order
@@ -39,7 +39,7 @@
                                 Instant Order
                             </div>
                         </div>
-                        </div>
+                        </div> -->
                             <ul class="search-list ">
                             <li class="form-list"><label><i class="fa fa-location-arrow"></i></label></li>
 
@@ -49,15 +49,15 @@
                                 </select></li> -->
                                            
                                 <li class="form-list big">
-                                <input id="searchLocation"  type="text"  placeholder="Area/Location(Only In Dhaka)" uib-typeahead="c as c.name for c in places | filter:$viewValue:emptyOrMatch "  typeahead-no-results="noresult"  ng-model="homequery.location" typeahead-template-url="home/getTamplate/searchTemplate" class="form-control" autocomplete="off" typeahead-focus typeahead-show-hint="true" typeahead-min-length="0"  >
+                                <input id="searchLocation"  type="text"  placeholder="Search Food"  ng-model="searchquery" class="form-control"   >
 
-                                <ul class="dropdown-menu" ng-if="noresult&&homequery.location">
+                                <!-- <ul class="dropdown-menu" ng-if="noresult&&homequery.location">
                                     <li><a href="">Service not available there now please choose from the list</a></li>
-                                </ul>
+                                </ul> -->
                                 </li>
                                 
 
-                                <li class="form-list"><button type="submit" class="btn cool-shadow btn-danger  ">Find ME FOOD </button></li>
+                                <li class="form-list"><button type="submit" class="btn cool-shadow btn-danger">Find Me Food</button></li>
 
                                 
                         </ul>
@@ -72,5 +72,8 @@
 
         </div>
         
+    </div>
+    <div class="brand-action">
+        <a href="" class="btn fadeInUpBig bg-red btn-emboshed cool-shadow btn-wide" ng-click="gotoHow()" ng-class="{animated:animated}"> How it Works</a>
     </div>
 </div>

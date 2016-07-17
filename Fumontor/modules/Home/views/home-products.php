@@ -1,6 +1,6 @@
         
-    <div >
-    <a href="" ng-class="{'searched':searched}" id="filter-icon" class="filter-show cool-shadow " ng-click="hideFilterBar()"> <i class="fa fa-sliders" aria-hidden="true"></i> </a>
+    <div class="container" >
+    <!-- <a href="" ng-class="{'searched':searched}" id="filter-icon" class="filter-show cool-shadow " ng-click="hideFilterBar()"> <i class="fa fa-sliders" aria-hidden="true"></i> </a> -->
     
     <div class="product-or-kitchen">
         <div class="pro-or-kit-container">
@@ -8,15 +8,39 @@
             <a href="#/all-kitchen/{{location}}" class="btn btn-emboshed cool-shadow btn-default ">Kithcens</a>
         </div>
     </div>
-        <div class="product-show-div"   ng-class="{'searched':searched}" >
-        <catagory-bar></catagory-bar>
-            <div class="product-show-div-container" ng-show="menuItemsShow">
-                <div class="product-container">
-                    <not-found-message></not-found-message>
-                    <menu-item items="filterdmenuItems" href1="true" ></menu-item>
 
-                </div>        
+        
+        <div class="col-md-2">
+            
+        </div>
+            <div class="col-md-10" >
+        <search-filter type="'all'" items="'filterdmenuItems'"></search-filter>
+       <!--  <div class="alert bg-trans-gray text-theme cool-shadow space" ng-show="!loading" ng-if="filterdmenuItems.length">
+            Total <span class="badge bg-theme text-white">{{filterdmenuItems.length}}</span> items found
+        </div> -->
+             <div class="product-show-div" id="product-div"   >
+            <!-- <catagory-bar></catagory-bar> -->
+                <div class="product-show-div-container" ng-show="filterdmenuItems.length">
+                    <div class="product-container">
+                        
+                        <menu-item items="filterdmenuItems" href1="true" ></menu-item>
+                        <!-- <not-found-message></not-found-message> -->
+                        <div class="space">
+                    <div class="more-loading" ng-if="moreFoodloading" >
+                    
+                    </div>
+                    </div>
+                    <div class="alert bg-trans-gray text-theme" ng-if="productEnd">
+                        No more item found
+                    </div>
+                <div class="space text-center" ng-if="!productEnd" >
+                   <a href="" class="btn btn-danger btn-sm cool-shadow" ng-click="loadMoreFood(index)">Load More</a>
+               </div>
+                    </div>        
+                </div>
+
             </div>
+            
 
         </div>
         <div class="item-description-popup" ng-repeat="item in filterdmenuItems ">
