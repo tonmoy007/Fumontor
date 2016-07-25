@@ -74,6 +74,8 @@ var appid=angular.element(document.getElementById('fbAppId')).attr('data-appid')
 
 
 app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
+    $scope.$parent.endLoading();
+    $scope.$parent.loading=true;
     $scope.$parent.bodyClass='home-body';
     $scope.$parent.gotop();
     $scope.gotoHow=function(){
@@ -84,7 +86,7 @@ app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
                 }, 800
             );
     }
-
+    
     // // console.log($scope);
     // if($location.$$path){
     //    gpath=$location.$$path.split('/');
@@ -97,9 +99,7 @@ app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
 
     // }else{
     // }
-    angular.element(document.getElementById('brand-container')).ready(function(){
-        $scope.animated=true;
-    });
+    
     $scope.onSelectPart=function(item,model,label,ordertype,form){
         $scope.homequery.location='';
         $scope.submitQuery(ordertype,item,form);
@@ -208,7 +208,7 @@ app.controller('productShowCtrl',function($routeParams,$scope,$interval,$timeout
         }
     });
 });
-var SiteControl=app.controller('searchCtrl',function($scope,$http,$timeout,$document,$routeParams,$window){
+var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeout,$document,$routeParams,$window){
     
     $scope.loggedin=false;
     $scope.searched=false;
@@ -284,8 +284,9 @@ var SiteControl=app.controller('searchCtrl',function($scope,$http,$timeout,$docu
         // ItemData=$scope.menuItems;
         //console.log(ItemData);
         
-        $scope.cartLoaded=true;   
-        $scope.endLoading();
+        $scope.cartLoaded=true; 
+        $scope.endLoading();  
+        
                 
     }).error(function(response) {
         /* Act on the event */
@@ -1074,6 +1075,7 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
             window.location='#/'+id;
         }
     }
+
     // if(search_path[1]=='all-kitchen'){
     //     $scope.placeholder='Search Kitchen';
     // }else{
@@ -1090,6 +1092,18 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
                 $scope.menuList[key].current=false;
             }
         });
+        $scope.showOpenKitchenModule=function(){
+            model=angular.element(document.getElementById('cook-signup-model'));
+            container=model.find('.fu-modal-container');
+            model.addClass('is-visible');
+            container.addClass('is-visible');
+        }
+        $scope.closeOpenKitchenModule=function(){
+            model=angular.element(document.getElementById('cook-signup-model'));
+            container=model.find('.fu-modal-container');
+            model.removeClass('is-visible');
+            container.removeClass('is-visible');
+        }
     }
     
     $scope.allSearch=function(query){
@@ -1379,6 +1393,7 @@ app.controller('allKitchenCtrl',function($scope,$http,$routeParams){
         });
     }
         $scope.filterKitchen($scope.filter);
+        $('#search').focus();
 
 });
 
@@ -1445,6 +1460,7 @@ app.controller('searchPageCtrl',function($scope,$routeParams,$http){
     }
     $scope.query=$routeParams.query;
     $scope.submitFilterQuery($scope.query);
+    $('#search').focus();
     
 });
 
@@ -1891,6 +1907,15 @@ app.directive('searchFilter',function($routeParams,$window,$interval,$http){
             // console.log(scope);
             var filter;
             var mainDiv;
+            var boundery;
+            if(scope.type=='food'||scope.type=='all'){
+                    boundery=0;
+                    toffset=-40;
+                }else{
+                    toffset=100;
+                    boundery=160;
+                }
+                console.log(boundery);
             // console.log(scope.$parent[scope.items]);
             filter=elem.find('.kitchen-filter');
             if(scope.type=='food'||scope.type=='all'){
@@ -1913,11 +1938,12 @@ app.directive('searchFilter',function($routeParams,$window,$interval,$http){
                     // console.log(maxheight);
 
                     
-                    if(offset>maxheight-100){
+                    if(offset>maxheight-toffset){
                         
                         // filter.css({top:this.pageYOffset-($this)})
                         filter.removeClass('fixed');
-                        filter.css('margin-top', (offset-(offset-maxheight)-160)+'px');
+                        
+                        filter.css('margin-top', (offset-(offset-maxheight)-boundery)+'px');
                     }else{
                         filter.addClass('fixed')
                     }
@@ -2046,11 +2072,9 @@ app.directive('reviews',function($http){
                         if(response=='success'){
                             scope.review['user_id']=scope.$parent.$parent.user.id;
                             scope.review['name']=scope.$parent.$parent.user.name;
-                            scope.review.totalmark=scope.review.mark;
-
                             if(scope.item.reviews){
-                                scope.review.totalmark=scope.item.reviews[0].totalmark+scope.review.mark;
-                                scope.review.total_review=scope.item.reviews[0].total_review+1;
+                                scope.item.reviews[0].totalmark+=scope.review.mark;
+                               
                                 scope.item.reviews[0].total_review++;
                                 scope.item.reviews.push(scope.review);
                             }else{
@@ -2126,7 +2150,7 @@ app.directive('reviews',function($http){
         }
     }
 });
-app.directive('starRating', starRating);
+
 
 app.directive('orderCard',function(){
     return{
@@ -2161,7 +2185,7 @@ app.directive('orderCard',function(){
 // });
 // ***************** Rating Function *************************
 
-
+app.directive('starRating', starRating);
  function starRating() {
     return {
       restrict: 'EA',
@@ -2209,8 +2233,70 @@ app.directive('orderCard',function(){
     };
   }
 
+app.directive('chatbox',function($http){
+    return{
+        restrict:'EA',
+        templateUrl:'home/getTamplate/chatbox',
+        scope:{
+            onlineUsers:'&?',
+            user:'&?',
+            submitUrl:'&?',
+            userFetchUrl:'&?',
+        },
+        link:function(scope,elem,attr){
+            scope.onlineUsers=[];
+            scope.submitChatMessage=function(message,to){
+                send={'sender_id':scope.user.id,'user_id':to,'message':message}
+                $http({
+                    url:scope.submitUrl,
+                    dataType:'JSON',
+                    data:send,
+                    method:'POST'
+                }).success(function(response){
+                    console.log(response);
+                }).error(function(response){
+                    console.log(response);
+                });
 
+            }
+            scope.fetchOnlineUsers=function(){
+                $http({
+                    url:scope.userFetchUrl,
+                    method:'GET',
+                }).success(function(response){
+                    console.log(response);
+                    scope.onlineUsers=response.online_users;
+                }).error(function(response) {
+                    /* Act on the event */
+                });;
+            }
+        }
+    }
+});
 
+app.directive('background',  function(preload) {
+    return {
+      restrict: 'EA',
+      link: function(scope, element, attrs, tabsCtrl) {
+
+        element.hide();
+        
+        preload(attrs.url).then(function(){
+          element.css({
+            "background-image": "url('"+attrs.url+"')"
+          });
+          
+          scope.$parent.loading=false;
+          element.show();
+          scope.landingLoaded=true;
+          scope.$parent.animated=true;
+          scope.showLandingContainer=true;
+          
+          // console.log(scope)
+        });
+      }
+    };
+  });
 
 // ***************** Factory  ********************************
 
@@ -2231,6 +2317,99 @@ app.factory('isPhoneAvailable', function($q, $http) {
     return deferred.promise;
   }
 });
+    app.factory('preload', function($q) {
+      return function(url) {
+        var deffered = $q.defer(),
+        image = new Image();
+
+        image.src = url;
+
+        if (image.complete) {
+      
+          deffered.resolve();
+      
+        } else {
+      
+          image.addEventListener('load', function() {
+            deffered.resolve();
+          });
+      
+          image.addEventListener('error', function() {
+            deffered.reject();
+          });
+        }
+
+        return deffered.promise;
+      }
+    });
+
+    app.directive('cookSignupForm',function($http){
+        return{
+            restrict:'EA',
+            templateUrl:'home/getTamplate/user-cook-signupModel',
+            link:function(scope,elem,attr){
+                scope.registerUserAsCook=function(cookRegForm,cook){
+                    console.log(cook);
+                    if(cookRegForm.$invalid){
+                        return;
+                    }
+                    scope.formSubmitting=true;
+                    $http({
+                        url:'users/ajaxRegUserAsCook',
+                        method:'POST',
+                        dataType:'JSON',
+                        data:cook,
+                    }).success(function(response){
+                        console.log(response);
+                        if(response.status){
+                            window.location='cooks';
+                        }else{
+                            scope.$parent.$parent.showNoti(response.message);
+                        }
+                    });
+                }
+            }
+        }
+    });
+
+    app.directive('phoneInput', function($filter, $browser) {
+    return {
+        require: 'ngModel',
+        link: function($scope, $element, $attrs, ngModelCtrl) {
+            // console.log(ngModelCtrl);
+            var listener = function() {
+                var value = $element.val().replace(/[^0-9]/g, '');
+                $element.val($filter('tel')(value, false));
+            };
+
+            // This runs when we update the text field
+            ngModelCtrl.$parsers.push(function(viewValue) {
+                return viewValue.replace(/[^0-9]/g, '').slice(0,13);
+            });
+
+            // This runs when the model gets updated on the scope directly and keeps our view in sync
+            ngModelCtrl.$render = function() {
+                $element.val($filter('tel')(ngModelCtrl.$viewValue, false));
+            };
+
+            $element.bind('change', listener);
+            $element.bind('keydown', function(event) {
+                var key = event.keyCode;
+                // If the keys include the CTRL, SHIFT, ALT, or META keys, or the arrow keys, do nothing.
+                // This lets us support copy and paste too
+                if (key == 91 || (15 < key && key < 19) || (37 <= key && key <= 40)){
+                    return;
+                }
+                $browser.defer(listener); // Have to do this or changes don't get picked up properly
+            });
+
+            $element.bind('paste cut', function() {
+                $browser.defer(listener);
+            });
+        }
+
+    };
+});
 
 // ***************** Filters **********************
 
@@ -2241,6 +2420,51 @@ app.filter('todaysMenuFilter',function(){
         return returnedData;
     }
 })
+app.filter('tel', function () {
+    return function (tel) {
+        // console.log(tel);
+        if (!tel) { return ''; }
+
+        var value = tel.toString().trim().replace(/^\+/, '');
+
+        if (value.match(/[^0-9]/)) {
+            return tel;
+        }
+
+        var country, number;
+
+        switch (value.length) {
+            case 1:
+            case 2:
+            case 3:
+                country = value;
+                break;
+
+            default:
+                country = value.slice(0, 3);
+                number = value.slice(3);
+        }
+
+        if(number){
+            if(number.length>4){
+                if(number.length>7){
+                    number = number.slice(0, 4) + '-' + number.slice(4,7)+'-'+number.slice(7,10);
+                }else
+                number = number.slice(0, 4) + '-' + number.slice(4,7);
+            }
+            else{
+                number = number;
+            }
+
+            return ("(" + country + ") " + number).trim();
+        }
+        else{
+            return "(" + country+")";
+        }
+
+    };
+});
+
 // ***************** Static Variables ***********************
 
 

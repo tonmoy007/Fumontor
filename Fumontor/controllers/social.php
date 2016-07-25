@@ -142,28 +142,9 @@ class Social extends CI_Controller {
                                 
                         }   
                         }else{
-                            if($this->ion_auth_model->username_check($nickname)){
-                                $email=$this->ion_auth_model->getUserEmail($nickname);
-                                if ($email==null) {
-                                    echo 'noemail';
-                                    exit();
-                                }
-                                $login = $this->ion_auth->login($email, $user['email'], 1);
-                                if(isset($user['image'])){
-                                    $this->common->updateUserImage($email,$user['image']);
-                                    }else{
-                                        $this->common->updateUserImage($email,'');
-                                    }
-                                    // $user_info = $this->ion_auth->user()->row(); 
-                                    // $uid =$user_info->id;
-                                     $this->db->where('email',$user['email']);
-                                    $this->db->update('users',array('access_token'=>$user['access_token']));
-
-                                                         
-                                   
-                            }else{
-                                echo "noemail";
-                            }
+                        $data['message']='No Email provided from facebook we neeed an email address to create your user profile please use our login/signup system to log in';
+                        $data['name']=$user['name'];
+                        $this->load->view('auth/signup',$data);
                             
                         }
 
@@ -175,6 +156,7 @@ class Social extends CI_Controller {
                     //print_r($user);
                     $email=$user['email'];
                     if(!empty($user['email'])){
+
                     if(!$this->ion_auth_model->identity_check($email)){
 
                         // print_r($user);
@@ -211,24 +193,9 @@ class Social extends CI_Controller {
                             
                     }   
                     }else{
-                        if($this->ion_auth_model->username_check($nickname)){
-                            $email=$this->ion_auth_model->getUserEmail($nickname);
-                            if ($email==null) {
-                                echo 'noemail';
-                            }
-                            $login = $this->ion_auth->login($email, $user['email'], 1);
-                            
-                            if(isset($user['image'])){
-                                    $this->common->updateUserImage($email,$user['image']);
-                                    }else{
-                                        $this->common->updateUserImage($email,'');
-                                    }
-                                    $this->db->where('email',$user['email']);
-                                    $this->db->update('users',array('access_token'=>$user['access_token']));
-                             $this->common->redirectMe($page);
-                        }else{
-                            echo "noemail";
-                        }
+                        $data['message']='Sorry <strong>'.$user['name'].'</strong> your email is not provided from facebook we neeed an email address to create your user profile please use our login/signup system to log in';
+                        $data['name']=$user['name'];
+                        $this->load->view('auth/signup',$data);
                         
                     }
 

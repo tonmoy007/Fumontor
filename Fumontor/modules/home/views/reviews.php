@@ -6,6 +6,7 @@
                 <div class="content-action-bar">
                     <button class="btn btn-danger cool-shadow review-write" ng-click="writeModelShow=true" ng-show="loggedin&&!item.myreview[0].text"><i class="fa fa-pencil-square-o"></i> Write Review</button>
                     <button class="btn btn-danger cool-shadow  edit-review" ng-click="editModelShow=true" ng-show="loggedin&&item.myreview[0].text" ><i class="fa fa-edit"></i> Edit Review</button>
+                    <!-- <a class="btn btn-danger cool-shadow  login-to-review" href="social/session/facebook?from=loginto" ng-show="!loggedin" ><i class="fa fa-facebook"></i> login to give reviews</a> -->
                 </div>
                 <div class=" model-inner model-small" id="writeReview" ng-class="{'is-visible':writeModelShow}">
                 <a href="" title="" ng-click="writeModelShow=false" class="fu-modal-close alter">Close</a>

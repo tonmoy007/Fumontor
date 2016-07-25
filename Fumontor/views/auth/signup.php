@@ -41,6 +41,7 @@
    }else{
     $location='';
    }
+   $name=(!empty($name))?$name:'';
 
    ?>
     <body class="login-body">
@@ -52,6 +53,12 @@
                       <img class="img-responsive" src="assets/img/home-logo-black.png" alt="fumontor logo">
                     </div>
                   </a>
+                  <?php if(!empty($message)){?>
+                    <div class="alert text-danger">
+                      <?php echo $message;?>
+                    </div>
+
+                    <?php }?>
                   <div class="user-signup">
                     
                        <div class="center login-form-submit " ng-if="!tabs[0].checked">
@@ -67,7 +74,7 @@
                           <form action="auth/signup<?php echo $location;?>" method="post" name="signupUserForm" accept-charset="utf-8" novalidate="true">
                             <div class="form-group" ng-form="userName">
                               <label class="form-label">Full Name</label>
-                              <input type="text" name="name" required="true" minlength="4" maxlength="100" class="form-control" ng-model="name" value="" placeholder="Saddam Hossain">
+                              <input type="text" name="name" required="true" minlength="4" maxlength="100" class="form-control" ng-model="name" ng-value="<?php echo $name;?>" placeholder="Saddam Hossain">
                               <span ng-class="{nameError:userName.name.$dirty&&userName.name.$error.required}" class="form-error-message" >Your name is required.</span>
                               <span ng-class="{nameError:userName.name.$dirty&&userName.name.$error.minlength}" class="form-error-message" >Your name must contain atleast 4 character.</span>
                               <span ng-class="{nameError:userName.name.$dirty&&userName.name.$error.maxlength}" class="form-error-message" >Your name must not have more than 100 character.</span>

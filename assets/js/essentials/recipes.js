@@ -502,7 +502,30 @@ app.directive('fbShareButton',function($interval){
         }
     }
 })
-
+ app.directive('cookSignupForm',function($http){
+        return{
+            restrict:'EA',
+            templateUrl:'home/getTamplate/user-cook-signupModel',
+            link:function(scope,elem,attr){
+                scope.registerUserAsCook=function(cookRegForm,cook){
+                    scope.formSubmitting=true;
+                    $http({
+                        url:'users/ajaxRegUserAsCook',
+                        method:'POST',
+                        dataType:'JSON',
+                        data:cook,
+                    }).success(function(response){
+                        console.log(response);
+                        if(response[0].status){
+                            window.location='cooks';
+                        }else{
+                            scope.$parent.$parent.showNoti(response.message);
+                        }
+                    })
+                }
+            }
+        }
+    });
 var getfacebookMeta=function(href,type,title,description,image){
 
     href=(typeof href!='undifined')?href:'http://fumontor.com';

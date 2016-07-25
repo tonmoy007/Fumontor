@@ -1,5 +1,5 @@
-<div class="landing">
-<section class="land-section">
+<div class="landing" ng-show="landingLoaded">
+<section class="land-section" >
     <!-- <video autobuffer  loop autoplay poster="assets/img/fu-logo.jpg" class="background-video">
         <source src="assets/video/how.mp4" type="video/mp4" media="all">
         <source src="assets/video/how.ogg" type="video/ogg" media="all">
@@ -11,7 +11,7 @@
         <div class="poster"></div>        
     </video> -->
     <div class="background-video">
-        <div class="poster" id="poster">
+        <div class="poster" background url="assets/img/fu-landing.jpg"id="poster">
             
         </div>
     </div>
@@ -19,11 +19,11 @@
         
     </div>
     <div class="container">
-        <div class="brand-container" id="brand-container">
+        <div class="brand-container" id="brand-container" ng-if="showLandingContainer">
             <div class="brand-logo" style="
     margin-bottom: 10px">
-                <div class="logo fadeInUp text-white"  ng-class="{animated:animated}">
-                    <img src="assets/img/home-logo.png" class="img-responsive" alt="Fumontor">
+                <div class="fadeIn logo text-gray"  ng-class="{animated:animated}">
+                    Fumontor
                 </div>
             </div>
             

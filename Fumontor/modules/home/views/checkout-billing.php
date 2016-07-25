@@ -1,5 +1,5 @@
 <div class="checkout-tab cool-shadow" ng-show="checkout[2].current">
-    <span class="form-heading">Choose Your Billing Method</span>
+    <span class="form-heading text-theme">Choose Your Billing Method</span>
     <form name="billingForm" ng-submit="checkoutNext(billingForm,2)" novalidate="true">
         <div class="form-group col-md-6 col-md-offset-3">
             <label class="space"></label>

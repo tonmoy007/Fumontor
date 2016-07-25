@@ -18,9 +18,9 @@
        <!--  <div class="alert bg-trans-gray text-theme cool-shadow space" ng-show="!loading" ng-if="filterdmenuItems.length">
             Total <span class="badge bg-theme text-white">{{filterdmenuItems.length}}</span> items found
         </div> -->
-             <div class="product-show-div" id="product-div"   >
+             <div class="product-show-div"   >
             <!-- <catagory-bar></catagory-bar> -->
-                <div class="product-show-div-container" ng-show="filterdmenuItems.length">
+                <div class="product-show-div-container" id="product-div"  ng-show="filterdmenuItems.length">
                     <div class="product-container">
                         
                         <menu-item items="filterdmenuItems" href1="true" ></menu-item>
@@ -47,3 +47,4 @@
             <product-popup></product-popup>
         </div>
     </div>
+    

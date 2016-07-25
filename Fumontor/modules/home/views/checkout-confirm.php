@@ -1,6 +1,6 @@
 <div class="checkout-tab cool-shadow" ng-show="checkout[3].current">
 
-    <span class="form-heading">Cofirm Your order</span>
+    <span class="form-heading text-theme">Cofirm Your order</span>
     <form ng-submit="checkoutNext(confirmForm,3)" name="confirmForm">
     <div class="form-group">
         <label class="form-label text-theme"><strong>Delivery Details</strong></label>

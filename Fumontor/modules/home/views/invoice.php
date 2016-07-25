@@ -1,7 +1,7 @@
 <div >
             
                 <div class="invoice-container bg-white cool-shadow">
-                    <h1 class="form-heading" style="font-size: 1.3em">Order Details</h1>
+                    <h1 class="form-heading text-theme" style="font-size: 1.3em">Order Details</h1>
                     <div class="total">
                         Total <span class="badge badge-info">{{cartTotal}}</span> &nbsp;<span ng-if="cartTotal>1">Items</span><span ng-if="cartTotal<=1">Item</span>
                         <a href="" ng-click="toggleCart(true)"><i class="fa fa-edit"></i></a>

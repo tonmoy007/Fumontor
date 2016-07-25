@@ -15,7 +15,7 @@
                 <nav class="menu menu--prospero" id="navbar">
                     <ul class="menu__list">
                         <li class="menu__item " ng-class="{'menu__item--current':menuList[0].current}" ng-click="setCurrent(0)" title="Home"><a href="#home" class="menu__link" ng-click="open=!open"><i class="fa fa-home"></i> <span>Home</span></a></li>
-                        <li class="menu__item" ng-class="{'menu__item--current':menuList[1].current}"  ng-click="setCurrent(1)"><a href="#how" class="menu__link" ng-click="open=!open"><i class="fa fa-question-circle" ></i> <span>How it works</span></a></li>
+                        <li class="menu__item" ng-class="{'menu__item--current':menuList[1].current}"  ng-click="setCurrent(1)"><a href="" ng-click="moveto('dishes')" class="menu__link" ng-click="open=!open"><i class="fa fa-question-circle" ></i> <span>All Dishes</span></a></li>
                         
                         <li class="menu__item" ng-class="{'menu__item--current':menuList[2].current}"  ng-click="setCurrent(2)"><a href="#/all-kitchen" class="menu__link" ng-click="open=!open"><i class="fa fa-cutlery" title="All Kithcens" ></i> <span>Kitchens</span></a></li>
                         <li class="menu__item menu__item--current"  ng-click="setCurrent(3)" ng-class="{'menu__item--current':menuList[3].current}" ><a href="recipes/#/"  class="menu__link" ><i class="fa fa-cutlery" title="All Kithcens" ></i> <span>Recipes</span></a></li>
@@ -39,6 +39,8 @@
                             
                             <li><a href="recipes/#/myrecipe"><i class="fa fa-cutlery"></i>&nbsp;&nbsp; My &nbsp; Recipes</a></li>
                             <li><a href="#/orders"><i class="fa fa-clock-o"></i>&nbsp;&nbsp; My Orders</a></li>
+                            <li ng-if="user.has_kitchen"><a href="cooks" ><i class="fa fa-cutlery"></i>&nbsp;&nbsp; My kitchen</a></li>
+                            <li ng-if="!user.has_kitchen"><a href="" ng-click="showOpenKitchenModule()"><i class="fa fa-cutlery"></i>&nbsp;&nbsp; Open a kitchen</a></li>
                             <li><a href="auth/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a></li>
                             
                         
@@ -60,5 +62,6 @@
        </div>
        
    </header>
-   <user-cart></user-cart>
+   
+   <cook-signup-form ng-if="!user.has_kitchen"></cook-signup-form>
 </div><!-- /header -->

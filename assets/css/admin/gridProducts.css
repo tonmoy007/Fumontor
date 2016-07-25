@@ -726,3 +726,8 @@ Product Customization
     visibility: visible;
     opacity: 1;
 }
+.add-to-cart-full svg{
+    position: absolute;
+    right: 15px;
+    margin-top: -3px;
+}

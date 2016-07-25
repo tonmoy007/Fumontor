@@ -87,7 +87,7 @@ function insertTempData(){
 
     }
 
-    function ajaxRegAsCook(){
+function ajaxRegAsCook(){
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
     $data=$this->input->post();
@@ -149,7 +149,63 @@ function insertTempData(){
             
         }
   
+function ajaxRegUserAsCook(){
+    if($this->ion_auth->logged_in()){
+    $this->load->model('user');
+    $user=$this->ion_auth->user()->row();
+    if($this->user->hasKitchen($user->id)){
+        $result["0"]=array(
+                    'message'=>'You already have an account',
+                    'status'=>false,
+                    );
+        echo json_encode($result);
+        return;
+    }
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
+    
+            $kitchenName=$request->kitchenName;
+            $name=$request->name;
+            $number=$request->phone;
+            $email=($request->email)?$request->email:'';
+            $additional_data = array(
+                'location' =>$this->db->escape_like_str( $request->location),
+                'address' =>$this->db->escape_like_str($request->address) ,
+                'phone' => $this->db->escape_like_str($request->phone)
+            );
+            
+            $group_ids = array('group_id' => 3);
+                
+            
+                
+                $this->user->updateUser($user->id,$additional_data);
+                $this->user->updateGroup($user->id,$group_ids);
+                $userid=$user->id;
+                $cooks_info=array(
+                    'name'=>$name,
+                    'user_id'=>$userid,
+                    'kitchename'=>$kitchenName,
+                    'location'=>$request->location,
+                    'address'=>$request->address
 
+                    );
+                if($this->db->insert('cooks',$cooks_info)){
+                     $result=array('status'=>true);
+                     echo json_encode($result);
+                   
+
+                    
+                    }else{
+                        $result["0"]=array(
+                    'message'=>'Some error occurs',
+                    'status'=>false,
+                    );
+                    echo json_encode($result); 
+                    }
+    }
+               
+            
+}
 
 
 function submitCart(){

@@ -78,8 +78,10 @@ class Auth extends CI_Controller {
 						redirect('#/checkout','refresh');
 					}else if($from=='recipes'){
 						redirect('recipes/#/','refresh');
-					}else{
+					}else if($from=='login'){
 						redirect('','refresh');
+					}else{
+						redirect($from,'refresh');
 					}
 				}
 				

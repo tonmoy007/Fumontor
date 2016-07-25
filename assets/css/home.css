@@ -228,7 +228,7 @@ strong{
     color: #425f9a;
 }
 .text-gray{
-    color: #6a6a6a
+    color: #6a6a6a;
 }
 .bg-red{
     background: #ff5252;
@@ -250,6 +250,7 @@ strong{
 .text-theme2{
     color: #3bbad0;
 }
+
 .half-block{
     display: none;
     width :0px;
@@ -291,9 +292,16 @@ strong{
 .small-logo{
     position: absolute;
     width: 40px;
+    height: 40px;
+    line-height: 40px;
     left:10px;
     top: 20px;
+    font-size: 25px;
+    font-weight: bolder;
+    background-color: #ff5454;
+    color: #fff;
     display: inline-block;
+    text-align: center;
     vertical-align: middle;
     transition: top .3s ease;
 }
@@ -816,6 +824,9 @@ strong{
     color: rgba(255, 95, 95, 0.84);
     font-weight: bolder;
     max-width: 800px; 
+}
+.form-heading.text-theme{
+    color: #3bbad0;
 }
 .slide-show-container{
     margin-top: 100px;

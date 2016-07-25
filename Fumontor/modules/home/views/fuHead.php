@@ -2,7 +2,7 @@
  <header>
        <div id="main-header" class="head " ng-class="{'bg-white':open}">
          <a href="#/"><div class="small-logo ">
-             <img src="assets/img/home-logo-sm.png" class="img-responsive" alt="">
+            F
            </div></a>  
         <div class="navigation navigation-main">
             <div id="nav-icon" ng-click="open=!open" ng-class="{open:open}">
@@ -40,6 +40,8 @@
                               
                               <li><a href="recipes/#/myrecipe"><i class="fa fa-cutlery"></i>&nbsp;&nbsp; My Recipes</a></li>
                               <li><a href="#/orders"><i class="fa fa-clock-o"></i>&nbsp;&nbsp; My Orders</a></li>
+                              <li ng-if="user.has_kitchen"><a href="cooks" ><i class="fa fa-cutlery"></i>&nbsp;&nbsp; My kitchen</a></li>
+                              <li ng-if="!user.has_kitchen"><a href="" ng-click="showOpenKitchenModule()"><i class="fa fa-cutlery"></i>&nbsp;&nbsp; Open a kitchen</a></li>
                               <li><a href="auth/logout"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a></li>
                               
                           
@@ -62,4 +64,5 @@
       
    </header>
    <user-cart></user-cart>
+   <cook-signup-form ng-if="!user.has_kitchen"></cook-signup-form>
 </div><!-- /header -->

@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group text-center">
-                                <input type="submit" class="btn btn-danger cool-shadow no-mr" ng-disabled="ingredientForm.$invalid" value="add">
+                                <input type="submit" class="btn btn-danger cool-shadow no-mr" ng-disabled="ingredientForm.$invalid" value="add ingredients">
                             </div>
                         </div>
                     </form>
@@ -115,7 +115,7 @@
                             <textarea name="" id="steps" required placeholder="Add Steps" ng-model="steps" class="form-control" cols="2"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="submit"  name="" class="btn btn-danger cool-shadow no-mr" value="add" ng-disabled="directionsForm.$invalid">
+                            <input type="submit"  name="" class="btn btn-danger cool-shadow no-mr" value="add step" ng-disabled="directionsForm.$invalid">
                         </div>
                     </form>
 

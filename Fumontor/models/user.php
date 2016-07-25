@@ -22,6 +22,17 @@ function changeTempUserStatus($number){
         $this->db->where('phone',$number);
         $this->db->update('tempusers',$data);
     }
+function hasKitchen($userid){
+    $this->db->select('name');
+    $this->db->where('user_id',$userid);
+    $this->db->from('cooks');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function placeOrder($userid,$cooksid,$orderType,$deliveryType,$paymentMethod){
         $data=array(
@@ -103,6 +114,19 @@ function makeOrders($userid,$deliveryType,$paymentMethod){
     
 }
 
+function updateUser($id,$data){
+    
+    
+    $this->db->where('id',$id);
+    $this->db->update('users',$data);
+    
+}
+
+function updateGroup($id,$data){
+    $this->db->where('user_id',$id);
+    $this->db->update('users_groups',$data);
+
+}
 
 
 

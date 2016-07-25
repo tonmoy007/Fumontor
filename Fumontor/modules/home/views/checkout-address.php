@@ -1,6 +1,6 @@
 <div class="checkout-tab cool-shadow" ng-show="checkout[0].current">
 
-                    <div class="form-heading">
+                    <div class="form-heading text-theme">
                         Please Confirm your Contact Number and delivery Address
                     </div>
                     <form name="addressForm" ng-submit="checkoutNext(addressForm,0)" novalidate="">

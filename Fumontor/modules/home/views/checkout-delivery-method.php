@@ -1,6 +1,6 @@
  <div class="checkout-tab cool-shadow" ng-show="checkout[1].current">
                 <form ng-submit="checkoutNext(deliverMethodForm,1)" name="deliverMethodForm">
-                    <label class="form-heading">Choose a delivery Method for Each Kitchen</label>
+                    <label class="form-heading text-theme">Choose a delivery Method for Each Kitchen</label>
                     <div class="form-group col-md-6 col-md-offset-3" ng-repeat="(key,item) in cartItems">
                         
                             <span class="text-theme">Delivery method for <strong>{{item.kitchenName}}</strong></span><br>

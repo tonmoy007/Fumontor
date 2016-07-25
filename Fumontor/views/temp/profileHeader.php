@@ -75,6 +75,7 @@
                     </a>
 
                     <ul>
+                    <li><a href="#/"><i class="fa fa-home"></i>&nbsp;Home</a></li>
                         <li><a href="cooks"><i class="fa fa-user"></i>&nbsp;<?php
                         if(!empty($userKitchenName)){
                             echo $userKitchenName;

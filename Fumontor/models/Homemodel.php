@@ -320,6 +320,7 @@ function getUserInfo($id=null){
                 'name'=>$user->name,
                 'address'=>$user->address,
                 'location'=>$user->location,
+                'has_kitchen'=>$this->hasKitchen($user->id),
                 'access_token'=>$user->access_token
                 );
             return $send;
@@ -389,7 +390,17 @@ function getFileNames($path){
 
 }
 
-
+function hasKitchen($userid){
+    $this->db->select('name');
+    $this->db->where('user_id',$userid);
+    $this->db->from('cooks');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function getOrders($id,$index=0){
 

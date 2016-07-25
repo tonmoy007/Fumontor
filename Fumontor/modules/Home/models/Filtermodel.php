@@ -118,6 +118,7 @@ function searchFood($query,$filter,$index=0){
 }
 
 function searchKitchen($query){
+    $query=urldecode($query);
     $this->db->select('name,kitchename,user_id,service_areas,address,location,pickup,home_delivery,createdon');
     $this->db->from('cooks');
     $this->db->where("CONCAT(`name`,`kitchename`,`address`,`location`) LIKE '%".$this->db->escape_like_str($query)."%'",null,FALSE);
