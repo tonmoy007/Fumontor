@@ -27,7 +27,7 @@
                 method:'POST',
                 dataType:'JSON'
             }).success(function(response){
-                //console.log(response);
+                console.log(response);
                 $scope.user=true;
                 $scope.userid=response.userid;
                 //console.log(response);
@@ -95,8 +95,8 @@
                     data:data
                 });
                 data.upload.then(function(response){
-
-                        //console.log(response);
+                    
+                        console.log(response);
                         if(response.data){
                             // data.feature_img=response.data.name;
                             $scope.menuItems.push(response.data.item[0]);

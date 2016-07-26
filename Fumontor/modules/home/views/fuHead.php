@@ -47,7 +47,7 @@
                           
                           </ul>
                          </li>
-                          <li class="menu__item "><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)&&setCurrent(4)"><i class="fa fa-cart-arrow-down"></i><div ng-show='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div><span>Cart</span></a></li>
+                          <li class="menu__item "><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)"><i class="fa fa-cart-arrow-down"></i><div ng-show='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div><span>Cart</span></a></li>
                       </ul>
                   </nav>
                   

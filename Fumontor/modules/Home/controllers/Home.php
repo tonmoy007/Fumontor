@@ -110,8 +110,6 @@ function getHomeData(){
     
     $data=array(
         'places'=>$this->homemodel->getPlaces(),
-        'trendingFood'=>$this->homemodel->getTrandingFoods(),
-        'trendingKitchen'=>$this->homemodel->getTrandingKitchens(),
         'cartSubTotal'=>$this->cartmodel->getCartTotalAmount(),
         'cartTotal'=>$this->cartmodel->getTotalCartRow(),
         'cartTotalItems'=>$this->cartmodel->getCartTotal(),
@@ -123,7 +121,14 @@ function getHomeData(){
     }
     echo json_encode($data);
 }
-
+function getTrandings(){
+    $send =array(
+        'trendingFood'=>$this->homemodel->getTrandingFoods(),
+        'trendingKitchen'=>$this->homemodel->getTrandingKitchens(),
+        'success'=>true
+        );
+    echo json_encode($send);
+}
 function getProduct(){
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);

@@ -74,7 +74,7 @@ var appid=angular.element(document.getElementById('fbAppId')).attr('data-appid')
 
 
 app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
-    $scope.$parent.endLoading();
+    
     $scope.$parent.loading=true;
     $scope.$parent.bodyClass='home-body';
     $scope.$parent.gotop();
@@ -87,19 +87,7 @@ app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
             );
     }
     
-    // // console.log($scope);
-    // if($location.$$path){
-    //    gpath=$location.$$path.split('/');
-    //    if(gpath[1]=='how'){
-
-    //     $scope.gotoHow();
-    //    }else{
-    //     $scope.$parent.gotop();
-    //    }
-
-    // }else{
-    // }
-    
+  
     $scope.onSelectPart=function(item,model,label,ordertype,form){
         $scope.homequery.location='';
         $scope.submitQuery(ordertype,item,form);
@@ -108,32 +96,29 @@ app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
     $scope.submitQuery=function(orderType,q,form){
 
         $scope.$parent.gotop();
-        // if(location.name==undefined){
-        //     $scope.notSelect=true;
-        //     return;
-        // }else{
-        //     $scope.notSelect=false;
-        // }
+     
         $scope.searched=true;
         
 
-        // console.log(city);
-        // var orderType=(orderType)?'ordernow':'preorder';
+     
         window.location='#/search/head/'+q;
     }
     
-    // angular.element(window).scroll(function(event){
-    //     if($(this).scrollTop()>top){
-    //         $scope.$parent.popup=true;
-    //         $scope.$apply();
-    //     }else{
-    //         $scope.$parent.popup=false;
-    //         $scope.$apply();
-    //     }
-
-    // });
+   
     $scope.isSetListner=false;
-    // $(window).on('beforeunload', function() { $("video").fadeOut(200); });
+    
+    $http({
+        url:'home/getTrandings',
+    }).success(function(response){
+
+        console.log(response);
+        if(response.success){
+            $scope.trendingKitchen=response.trendingKitchen;
+            $scope.trendingFood=response.trendingFood;
+            $scope.trendingKitchenShow=true;
+            $scope.trendingFoodShow=true;
+        }
+    });
 
 });
 app.controller('productShowCtrl',function($routeParams,$scope,$interval,$timeout,$http){
@@ -253,12 +238,7 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
         method:'POST',
         dataType:'JSON'
     }).success(function(data){
-        $scope.trendingFood=data.trendingFood;
-        $scope.trendingKitchen=data.trendingKitchen;
-        $timeout(function(){
-            $scope.trendingKitchenShow=true;
-            $scope.trendingFoodShow=true;
-        },300);
+       
         
         
         // $scope.places=data.places;
@@ -285,7 +265,7 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
         //console.log(ItemData);
         
         $scope.cartLoaded=true; 
-        $scope.endLoading();  
+        $scope.loading=false;  
         
                 
     }).error(function(response) {
@@ -2286,11 +2266,12 @@ app.directive('background',  function(preload) {
             "background-image": "url('"+attrs.url+"')"
           });
           
-          scope.$parent.loading=false;
+          
           element.show();
           scope.landingLoaded=true;
           scope.$parent.animated=true;
           scope.showLandingContainer=true;
+          scope.$parent.loading=false;
           
           // console.log(scope)
         });
@@ -2317,9 +2298,11 @@ app.factory('isPhoneAvailable', function($q, $http) {
     return deferred.promise;
   }
 });
-    app.factory('preload', function($q) {
+   
+ app.factory('preload', function($q) {
       return function(url) {
         var deffered = $q.defer(),
+       
         image = new Image();
 
         image.src = url;

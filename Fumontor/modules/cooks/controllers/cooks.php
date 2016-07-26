@@ -305,8 +305,8 @@ function submitNewMenuItem(){
             //$postdata = json_decode($request);
             $this->load->model('uploadmodel');
             $ppt=$postdata['preorder_start']['_hr'].':'.$postdata['preorder_start']['_min'];
-            $onpt=$postdata['ordernow_start']['_hr'].':'.$postdata['ordernow_start']['_min'];
-           
+            // $onpt=$postdata['ordernow_start']['_hr'].':'.$postdata['ordernow_start']['_min'];
+            $onpt='00:00:00';
             // echo $postdata['title'];
 
             // return;
@@ -314,7 +314,7 @@ function submitNewMenuItem(){
                 'title'=>$postdata['title'],
                 'price'=>$postdata['price'],
                 'description'=>$postdata['description'],
-                'cooksID'=>$postdata['cooksID'],
+                'cooksID'=>$this->ion_auth->user()->row()->id,
                 'cusines'=>$postdata['cusines'],
                 'min_quantity'=>$postdata['min_quantity'],
                 'catagories'=>$postdata['catagories'],

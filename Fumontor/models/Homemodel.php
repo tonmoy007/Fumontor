@@ -63,13 +63,13 @@ function getProductJson($query){
         
         $send[$i]['preorder_time_for']['hr']=array('value'=>$preorderTime[0]);
         $send[$i]['preorder_time_for']['min']=array('value'=>$preorderTime[1]);
-        $send[$i]['ordernow_time_for']['hr']=array('value'=>$orderTime[0]);
-        $send[$i]['ordernow_time_for']['min']=array('value'=>$orderTime[1]);
+        $send[$i]['ordernow_time_for']['hr']=array('value'=>'');
+        $send[$i]['ordernow_time_for']['min']=array('value'=>'');
 
         $send[$i]['stock_quantity']=intval($send[$i]['stock_quantity']);
         
         $send[$i]['preorder_time_text']=$this->convertOrderTime($send[$i]['preorder_process_time']);
-        $send[$i]['ordernow_time_text']=$this->convertOrderTime($send[$i]['ordernow_time']);
+        // $send[$i]['ordernow_time_text']=$this->convertOrderTime($send[$i]['ordernow_time']);
         
         $i++;
     
