@@ -154,7 +154,7 @@
                       <div class="slide-container">
                           <div class="slider-img">
                               <img ng-src="assets/uploads/{{slide.cooksID}}/{{slide.id}}/{{slide.feature_img}}" class=" top img-responsive" ng-if="slide.feature_img">
-                              <img ng-src="assets/uploads/default/thumb.jpg" class=" top img-responsive" ng-if="!slide.feature_img">
+                              <img ng-src="assets/img/thumb.jpg" class=" top img-responsive" ng-if="!slide.feature_img">
                               
                           </div>
                           <div class="slider-overlay"> <a href="#/kitchen/{{slide.cooksID}}/{{slide.id}}"><i class="fa fa-eye"></i></a></div>

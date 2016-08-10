@@ -8,11 +8,11 @@
             <label ng-show="item.todays_menu" class=" banner-label">Instant Order</label>
         </div> -->
             <a ng-if="href1" href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-eye"></i></a>
-            <a ng-if="!href1" href="#kitchen/{{item.cooksID}}/{{item.id}}"  class="img-overlay block-link"><i class="fa fa-eye"></i></a>
+            <a ng-if="!href1" href="#/kitchen/{{item.cooksID}}/{{item.id}}"  class="img-overlay block-link"><i class="fa fa-eye"></i></a>
             
             <img ng-if="item.feature_img" ng-show="item.feature_img" ng-src="assets/uploads/{{item.cooksID}}/{{item.id}}/{{item.feature_img}}" title="{{item.title}}" alt="{{item.title}}">
             
-            <img ng-show="!item.feature_img" src="assets/uploads/default/thumb.jpg" title="khichuri" alt="{{item.title}}">
+            <img ng-show="!item.feature_img" src="assets/img/thumb.jpg" title="khichuri" alt="{{item.title}}">
             
             
         </div>

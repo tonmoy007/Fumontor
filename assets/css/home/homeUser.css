@@ -4,13 +4,19 @@
     opacity: .8;
     
 }
+.start-page{
+    display: block;
+    margin-top: 75px;
+    border-top: 1px solid #ddd;
+    padding: 10px 0 20px;
+}
 .logo {
     margin-bottom: 1px;
     font-size: 3em;
     text-shadow: 1px 0 2px rgba(0,0,0,.3);
     color: #279aac;
     font-weight: bolder;
-    font-family: Lindy;
+    font-family: 'Open Sans';
     
 }
 .brand-logo{
@@ -27,6 +33,19 @@
     font-family: 'Open Sans';
     color: #fff;
     font-weight: 900;
+}
+.product .info{
+    display: inline-block;
+    margin: 10px 0 0 ;
+    font-size: 14px;
+    width: 100%;
+    line-height: 1;
+    
+}
+.product .price{
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0 0;
 }
 @media(max-width:767px){
     .brand-logo .logo{

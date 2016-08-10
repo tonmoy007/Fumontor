@@ -30,8 +30,13 @@ foreach($orders as $order){
                                 <li><span class="quantity"><?php echo $orderDetail['quantity'];?>X</span><span class="product-name"><?php echo $orderDetail['title'];?></span><span class="price"><?php echo $orderDetail['price'];?></span></li>
                             
                             <?php
-                            $total+=((int)$orderDetail['quantity']*(int)$orderDetail['price']);
+                            $week=((int)$orderDetail['week']!=0)?(int)$orderDetail['week']:1;
+                            $total+=((int)$orderDetail['quantity']*(int)$orderDetail['price']*$week);
+                            if($orderDetail['week']!=0){?>
+                                <li><span class="total">for <span class="badge"><?php echo $orderDetail['week']?></span> week</span></li>
+                            <?php }
                              }?>
+
                              <li> <span class="total">Total</span><span class="price total"><?php echo $total;?></span></li>
                              <?php 
                             }?>

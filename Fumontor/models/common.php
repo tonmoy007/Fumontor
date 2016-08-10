@@ -162,7 +162,8 @@ public function redirectMe($page){
         } elseif(strcmp($page,'login')==0){
             redirect('','refresh');
         }else{
-            redirect($page,'refresh');
+            $page=str_replace('--','/',$page,$occur);
+            redirect('#'.$page,'refresh');
         }
         
         }else{

@@ -21,6 +21,7 @@ class Social extends CI_Controller {
 
     public function session($provider) { 
             $from=$this->input->get('from');
+            $from=str_replace('/','--',$from,$occur);
             if(isset($from)){
                 $this->page=$from;
             }else{

@@ -10,13 +10,13 @@
                          
 
                       
-                      <a href="social/session/facebook?from=checkout" id="" class="cool-shadow  loginBtn--facebook loginBtn host-btn ">Signin with facebook</a>
+                      <a href="{{'social/session/facebook?from='+redir}}" id="" class="cool-shadow  loginBtn--facebook loginBtn host-btn ">Signin with facebook</a>
                      
                 </p>
                 <label class="or"></label>
               <div id="infoMessage" class="login-info"></div>
-
-              <?php echo form_open("auth/login/checkout",array("class"=>"loginForm"));?>
+            
+              <form action="{{'auth/login?from='+redir}}" method="post" accept-charset="utf-8" class="loginForm ">
 
                
                

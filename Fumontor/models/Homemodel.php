@@ -474,12 +474,123 @@ function getTrandingFoods(){
     return $this->homemodel->getProductJson($query);
 }
 
+function getWeeklyItemsInString($items,$hasname=true){
+    $final=array();
+    
+    foreach($items as $item){
+        $ldItems='';
+        $i=0;
+        foreach($item as $name){
+            if($i<sizeof($item)-1){
 
+                $ldItems.=($hasname)?$name->name.',':$name.',';
+            }else{
+                $ldItems.=($hasname)?$name->name:$name;
+            }
+            $i++;
+            
+        }
+        $final[]=$ldItems;
 
+        // $lunchItems+=$item->name.',';
+    }
+    return $final;
+}
 
+function addWeeklyMenuList($items,$type,$id){
+    $i=0;
+    foreach($items as $item){
+        
+        $data=array(
+            'items'=>(!empty($item))?$item:'',
+            'day'=>$i,
+            'type'=>$type,
+            'menuid'=>$id
+            );
+        $this->db->insert('w_item_list',$data);
+        $i++;
+       
+    }
+}
 
+function getAllWeeklyMenu($cooksid=null,$id=null,$index=0,$menu=true){
 
+    $this->db->select('*');
+    $this->db->from('w_menuitem');
 
+    if($cooksid!=null){
+        $this->db->where('cooks_id',$cooksid);
+    }
+    if($id!=null){
+        $this->db->where('id',$id);
+    }
+    $this->db->limit($index,10);
+    $query=$this->db->get();
+    // print_r($query->result_array());
+   if($query->num_rows()>0){
+     $send=$this->getWeeklyItemsJson($query,$menu);
+     return $send;
+ }else{
+    $send=false;
+    return $send;
+ }
+    
+}
+
+function getWeeklyItemsJson($query,$menu=true){
+    $data=array();
+    $i=0;
+    foreach($query->result_array() as $item){
+        $data[$i]=$item;
+        $data[$i]['kitchename']=$this->getKitchenName($item['cooks_id']);
+        if($menu){
+
+            $data[$i]['menu']=$this->getWeeklyMenuLists($item['id']);
+        }
+        $i++;
+    }
+    // print_r($data);
+    return $data;
+}
+
+function getWeeklyMenuLists($id){
+
+    $send=array();
+    $i=0;
+    $days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    $this->db->select('items,day,type');
+    $this->db->where('menuid',$id);
+    $this->db->from('w_item_list');
+    $query=$this->db->get();
+    // print_r($query->result_array());
+    foreach($query->result_array() as $day){
+        if($day['type']=='lunch'){
+            $send[$day['day']]['lunchMenuItems']=explode(',',$day['items']);
+        }else{
+            $send[$day['day']]['dinnerMenuItems']=explode(',',$day['items']);
+        }
+        $send[$day['day']]['name']=$days[$day['day']];
+        if($day['day']==0){
+          $send[$day['day']]['visible']=true;  
+        }else{
+            $send[$day['day']]['visible']=false; 
+        }
+    }
+    return $send;
+
+}
+
+function getKitchenName($id){
+    $this->db->select('kitchename');
+    $this->db->where('user_id',$id);
+    $this->db->from('cooks');
+    $query=$this->db->get();
+    $name='';
+    foreach($query->result_array() as $row){
+        $name=$row['kitchename'];
+    }
+    return $name;
+}
 
 
 

@@ -49,8 +49,9 @@ class Auth extends CI_Controller {
 	function login($from='login')
 	{
 		$this->data['title'] = "Login";
+		$this->input->get('url');
+		$l_from= $this->input->get('from');
 		
-
 
 		//validate form input
 		$this->form_validation->set_rules('identity', 'Identity', 'required');
@@ -70,11 +71,11 @@ class Auth extends CI_Controller {
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				if($this->ion_auth->is_admin()){
 					redirect('admin', 'refresh');	
-				}elseif($this->ion_auth->is_cook()){
-					redirect('cooks','refresh');
 				}else{
-
-					if($from=='checkout'){
+					if($l_from!=null){
+						redirect('#/'.$l_from,'refresh');
+					}
+					else if($from=='checkout'){
 						redirect('#/checkout','refresh');
 					}else if($from=='recipes'){
 						redirect('recipes/#/','refresh');
@@ -93,6 +94,7 @@ class Auth extends CI_Controller {
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 				$data['message']=$this->ion_auth->errors();
 				$data['from']=$from;
+				$data['l_from']=$l_from;
 				$this->load->view('auth/login',$data);//use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
@@ -112,6 +114,7 @@ class Auth extends CI_Controller {
 				'type' => 'password',
 			);
 			$this->data['from']=$from;
+			$this->data['l_from']=$l_from;
 			$this->_render_page('auth/login', $this->data);
 		}
 	}

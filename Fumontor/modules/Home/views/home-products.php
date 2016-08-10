@@ -33,7 +33,7 @@
                     <div class="alert bg-trans-gray text-theme" ng-if="productEnd">
                         No more item found
                     </div>
-                <div class="space text-center" ng-if="!productEnd" >
+                <div class="space text-center" ng-if="!productEnd&&filterdmenuItems.length" >
                    <a href="" class="btn btn-danger btn-sm cool-shadow" ng-click="loadMoreFood(index)">Load More</a>
                </div>
                     </div>        

@@ -156,10 +156,12 @@
 }
 
 .content-wrap section.content-current {
-	display: block;
+	display: inline-block;
 }
 
-
+.add-weekly-item-form .content-wrap section{
+    border-bottom: none;
+}
 
 /* Fallback */
 .no-js .content-wrap section {

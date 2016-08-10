@@ -14,7 +14,7 @@
 
                   <form name="addNewForm"  method="get" accept-charset="utf-8" ng-submit="AddNewFormSubmit(newItem,addNewForm)" novalidate="true">
                 
-                       <h2>General Information</h2>
+                       <h2 class="text-left">General Information</h2>
                         <div class="form-group">
                             <div class="input-group" ng-form="titleForm">
                                 

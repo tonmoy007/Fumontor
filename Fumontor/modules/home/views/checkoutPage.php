@@ -8,7 +8,7 @@
     <div class="container">
     <div class="checkout-container">
     <div class="" ng-if="!user.id">
-        <login></login>
+        <login redir="'checkout'"></login>
     </div>
         <div class="" ng-if="user.id&&cartSubTotal>=200&&checkOutValid">
                 <h1 class="section-head  text-theme2" style="font-size: 2em">Checkout</h1>

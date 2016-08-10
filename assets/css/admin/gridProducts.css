@@ -1,7 +1,7 @@
 .grid-block{
-    display: inline-block;
-    width: 90%;
-    margin: 0 5% 10px 5% ;
+        display: inline-block;
+    width: 96%;
+    margin: 0 2% 10px 2%;
     text-align: left;
     max-width: 1226px;
 }
@@ -730,4 +730,22 @@ Product Customization
     position: absolute;
     right: 15px;
     margin-top: -3px;
+}
+.weekly-menu .grid-lg{
+    font-size: 135%;
+}
+.grid-description .order-btn{
+    font-size: 12px;
+    margin-top: 0;
+}
+.grid-description .full-menu{
+   display: inline-block;
+    position: relative;
+    text-align: center;
+}
+.weekly-menu .description-foot{
+    padding-bottom:6px;
+}
+.weekly-menu{
+    max-width: 768px;
 }

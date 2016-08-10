@@ -39,6 +39,15 @@ app.config(function($routeProvider,$locationProvider) {
     }).when('/orders',{
         templateUrl:'home/getTamplate/orders',
         controller:'orderCtrl'
+    }).when('/weekly-menu',{
+        templateUrl:'home/getTamplate/weekly-menu',
+        controller:'weekMenuCtrl'
+    }).when('/weekly-menu/:id',{
+        templateUrl:'home/getTamplate/single-weekly-menu',
+        controller:'singleWeekMenuCtrl'
+    }).when('/checkout/weekly-menu/:id',{
+        templateUrl:'home/getTamplate/weekly-checkout',
+        controller:'weeklyCheckoutCtrl'
     }).otherwise({
         templateUrl:'home/getTamplate/landing',
         controller:'landingCtrl'     
@@ -683,6 +692,9 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
     $scope.toggleCart=function(){
         $scope.showCart=!$scope.showCart;
     }
+    $scope.placeOrder=function(itemid,cooksid){
+        
+    }
     $scope.sendMail=function(form){
         if(form.$invalid){
             return;
@@ -849,7 +861,7 @@ $scope.procedeNext=function(index){
         }).success(function(response){
             console.log(response);
             if(response=='success'){
-            $scope.$parent.showNoti('Your Order Is Successfully Submitted Thanks For Using <strong>Fumontor</strong>');
+            $scope.$parent.showNoti('<strong class="text-success">Your Order Is Successfully Submitted Thanks For Using <strong>Fumontor</strong></strong>');
             
             $timeout(function(){
                 $scope.$parent.clearCart();
@@ -1007,13 +1019,13 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
         }
          if(search_path[1]=='all-kitchen'){
             $scope.notlandingSearch=true;
-            $scope.setCurrent(2);
+            $scope.setCurrent(3);
         }else if(search_path[1]=='home'){
             // console.log($scope.notlandingSearch);
             $scope.setCurrent(0);
             $scope.notlandingSearch=false;
         }else if(search_path[1]=='kitchen'){
-            $scope.setCurrent(2);
+            $scope.setCurrent(3);
             $scope.notlandingSearch=true;
         }else if(search_path[1]=='dishes'){
             $scope.notlandingSearch=true;
@@ -1021,12 +1033,16 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
         }else if(search_path[1]=='search'){
             $scope.notlandingSearch=true;
             $scope.setCurrent(null);
+        }else if(search_path[1]=='weekly-menu'){
+            $scope.notlandingSearch=true;
+            $scope.setCurrent(2);
         }else{
             $scope.setCurrent(null);
             $scope.notlandingSearch=false;
         }
    });
     $scope.moveto=function(id){
+        
         $scope.open=!$scope.open;
         console.log(id);
         loca=window.location.hash;
@@ -1304,8 +1320,8 @@ app.controller('allKitchenCtrl',function($scope,$http,$routeParams){
         
         (start==0)?start=start+7:start=start+6;
         
-        console.log(start);
-        console.log(end);
+        // console.log(start);
+        // console.log(end);
         // console.log($scope.filter);
         $scope.$apply();
         if($routeParams.location){
@@ -1351,9 +1367,10 @@ app.controller('allKitchenCtrl',function($scope,$http,$routeParams){
             method:'POST',
             data:filter
         }).success(function(response){
-            console.log(response);
+            // console.log(response);
             // return;
             if(response!='false'){
+            
             $scope.allKitchens=response;
             $scope.kitchensLoaded=true;
             $scope.loading=false;
@@ -1496,6 +1513,127 @@ app.controller('orderCtrl',function($scope,$http){
     });
 
 });
+// (((((((((((((((((((((((((weekMenu Controller)))))))))))))))))))))))))
+
+app.controller('weekMenuCtrl',function($http,$scope){
+    if($scope.$parent){
+        $scope.$parent.gotop();
+    }
+    $scope.weeklyMenuLoading=true;
+    $http({
+        url:'home/getAllWeeklyMenu'
+    }).success(function(response){
+        console.log(response);
+        if(response){
+            $scope.weeklyMenus=response;
+            $scope.weeklyMenuLoading=false;
+        }
+    }).error(function(response) {
+        /* Act on the event */
+        console.log(response);
+    });
+
+});
+
+
+
+
+
+// ((((((((((((((((((((((((((Single Weekly Menu CTRL))))))))))))))))))))))))))
+
+app.controller('singleWeekMenuCtrl',function($scope,$http,$routeParams){
+    if($scope.$parent){
+        $scope.$parent.gotop();
+    }
+    $id=$routeParams.id;
+    $scope.singleWeeklyMenuLoading=true;
+    $scope.weeklyMenuItem=[];
+    $http({
+        'url':'home/getSingleWeeklyMenu/'+$id
+    }).success(function(response){
+        console.log(response[0]);
+        if(response){
+            $scope.weeklyMenuItem=response;
+            $scope.singleWeeklyMenuLoading=false;
+        }
+    }).error(function(response) {
+        /* Act on the event */
+        console.log(response);
+
+    });
+});
+app.controller('weeklyCheckoutCtrl',function($scope,$routeParams,$http,$timeout){
+    $scope.$parent.gotop();
+    $scope.id=$routeParams.id;
+    if($scope.$parent.loggedin){
+        $scope.singleWeeklyMenuLoading=true;
+        $http({
+        'url':'home/getSingleWeeklyMenu/'+$scope.id
+    }).success(function(response){
+        console.log(response[0]);
+        if(response){
+            $scope.weeklyMenuItem=response;
+            $scope.singleWeeklyMenuLoading=false;
+        }
+    }).error(function(response) {
+        /* Act on the event */
+        console.log(response);
+
+    });
+    }
+    $scope.getNumber = function(num) {
+        number=[];
+        for(i=1;i<=num;i++){
+            number.push(i);
+        }  
+        return number;
+    }
+    $scope.checkoutNext=function(form){
+        console.log($scope.weeklyMenuItem)
+        $scope.loading=true;
+    send={address:$scope.$parent.user.address,phone:$scope.$parent.user.phone}
+        $http({
+            url:'users/updateUser',
+            method:'POST',
+            dataType:'JSON',
+            data:send
+        }).success(function(response){
+            $scope.loading=false;
+            $scope.placeUOrder($scope.weeklyMenuItem);
+        }).error(function(response) {
+            /* Act on the event */
+            console.log(response);
+        });
+}    
+    $scope.numberformat=function(str){
+        return parseInt(str);
+    }
+    $scope.placeUOrder=function(item){
+        send=item[0];
+        $http({
+            url:'home/placeWeeklyOrder',
+            method:'POST',
+            dataType:'JSON',
+            data:send
+        }).success(function(response){
+            console.log(response);
+            if(response.success){
+            $scope.$parent.showNoti('<strong class="text-success">Your Order Is Successfully Submitted Thanks For Using <strong>Fumontor</strong></strong>');
+            
+            $timeout(function(){
+               
+                window.location='#/orders'
+            },1000);
+            }else{
+                 $scope.$parent.showNoti('<strong class="text-danger">Something went wrong !! please try again later</strong>')
+            }
+        }).error(function(response) {
+            /* Act on the event */
+            console.log(response);
+        });;
+    }
+});
+
 
  // **********************************************************
  //                             Directives
@@ -1996,7 +2134,13 @@ app.directive('searchFilter',function($routeParams,$window,$interval,$http){
 app.directive('login',function(){
     return{
         restrict:'EA',
-        templateUrl:'home/getTamplate/login'
+        templateUrl:'home/getTamplate/login',
+        scope:{
+            redir:'='
+        },
+        link:function(scope,elem,attr){
+            console.log(scope);
+        }
     }
 });
 

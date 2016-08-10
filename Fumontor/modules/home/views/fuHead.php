@@ -16,9 +16,9 @@
                       <ul class="menu__list">
                           <li class="menu__item " ng-class="{'menu__item--current':menuList[0].current}" ng-click="setCurrent(0)" title="Home"><a href="" ng-click="moveto('home')" class="menu__link" ng-click="open=!open"><i class="fa fa-home"></i> <span>Home</span></a></li>
                           <li class="menu__item" ng-class="{'menu__item--current':menuList[1].current}"  ng-click="setCurrent(1)"><a href="" ng-click="moveto('dishes')" class="menu__link" ng-click="open=!open"><i class="fa fa-question-circle" ></i> <span>All Dishes</span></a></li>
-                          
-                          <li class="menu__item" ng-class="{'menu__item--current':menuList[2].current}"  ng-click="setCurrent(2)"><a href="#/all-kitchen" class="menu__link" ng-click="open=!open"><i class="fa fa-cutlery" title="All Kithcens" ></i> <span>Kitchens</span></a></li>
-                          <li class="menu__item"  ng-click="setCurrent(3)" ng-class="{'menu__item--current':menuList[3].current}" ><a href="recipes/#/"  class="menu__link" ><i class="fa fa-cutlery" title="All Kithcens" ></i> <span>Recipes</span></a></li>
+                          <li class="menu__item" ng-class="{'menu__item--current':menuList[2].current}"  ng-click="setCurrent(2)"><a href="" ng-click="moveto('weekly-menu')" class="menu__link" ng-click="open=!open"><i class="fa fa-question-circle" ></i> <span>Weekly Menu</span></a></li>
+                          <li class="menu__item" ng-class="{'menu__item--current':menuList[3].current}"><a href="#/all-kitchen" class="menu__link" ng-click="open=!open"><i class="fa fa-cutlery" title="All Kithcens" ></i> <span>Kitchens</span></a></li>
+                          <li class="menu__item"  ng-click="setCurrent(4)" ng-class="{'menu__item--current':menuList[4].current}" ><a href="recipes/#/"  class="menu__link" ><i class="fa fa-cutlery" title="Recipes" ></i> <span>Recipes</span></a></li>
                           
                           
                       </ul>

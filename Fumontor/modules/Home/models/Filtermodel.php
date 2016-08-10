@@ -128,7 +128,41 @@ function searchKitchen($query){
     echo json_encode($data);
 }
 
-
+function submitWeeklyOrder($user,$item){
+    $order=array(
+            'user_id'=>$user->id,
+            'cooksid'=>$item->cooks_id,
+            'ordertype'=>'Weekly Order',
+            'orderstatus'=>'unseen',
+            'delivery_type'=>'home_delivery',
+            'payment_method'=>'cashPayment',
+            'submit_time'=>time()
+        );
+    if($this->db->insert('orders',$order)){
+        $id=$this->db->insert_id();
+        $cart=array(
+                'orderid'=>$id,
+                'cooksid'=>$item->cooks_id,
+                'product_id'=>$item->id,
+                'title'=>$item->title,
+                'quantity'=>(int)$item->person,
+                'price'=>(int)$item->price,
+                'checkout'=>'true',
+                'week'=>(int)$item->days,
+                'subtotal'=>(int)$item->days*(int)$item->price*(int)$item->person,
+            );
+        if($this->db->insert('cart',$cart)){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+        
+    
+    
+}
 
 
 

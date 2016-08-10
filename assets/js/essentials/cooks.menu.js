@@ -62,7 +62,7 @@
                 item.removeClass('is-visible');
             }
             $scope.singleItemDisplay=function(data){
-
+                console.log(data)
                 var item=angular.element(document.getElementById(data));
                 item.addClass('is-visible');
                 //console.log(item);
@@ -297,7 +297,14 @@ app.directive('productLoading', function () {
 app.directive('addNewItemBlock',function(){
     return{
         restrict:'EA',
-        templateUrl:'cooks/getpage/addNewItemBlock'
+        templateUrl:'cooks/getpage/addNewItemBlock',
+        scope:{
+            type:'=?'
+        },
+        link:function(scope,elem,attr){
+            scope.singleItemDisplay=scope.$parent.singleItemDisplay;
+            scope.closeModel=scope.$parent.closeModel;
+        }
     };
 });
 app.directive('menuItem',function($http,$timeout){
@@ -328,11 +335,133 @@ app.directive('addNewItemPopup',function(){
         templateUrl:'cooks/getpage/addNewItemPopup'
     }
 });
+app.directive('addWeeklyItemPopup',function(){
+    return{
+        restrict:'EA',
+        replace:true,
+        templateUrl:'cooks/getpage/addWeeklyItemPopup',
+        link:function(scope,elem,attr){
+
+        }
+    }
+});
 app.directive('addNewItemForm',function(){
     return{
         restrict:'EA',
         replace:true,
         templateUrl:'cooks/getpage/addMenu'
+    }
+});
+app.directive('addWeeklyItemForm',function($http,$timeout){
+    return{
+        restrict:'EA',
+        templateUrl:'cooks/getpage/addWeeklyItemForm',
+        link:function(scope,elem,attr){
+            scope.lunchitem=[];
+            scope.dinneritem=[];
+            scope.days=[
+            {name:"Sunday",lunchMenuItems:[],dinnerMenuItems:[],lunchitem:[],dinneritem:[],visible:true,},
+            {name:"Monday",lunchMenuItems:[],dinnerMenuItems:[],lunchitem:[],dinneritem:[],visible:false,},
+            {name:"Tuesday",lunchMenuItems:[],dinnerMenuItems:[],lunchitem:[],dinneritem:[],visible:false,},
+            {name:"Wednesday",lunchMenuItems:[],dinnerMenuItems:[],lunchitem:[],dinneritem:[],visible:false,},
+            {name:"Thursday",lunchMenuItems:[],dinnerMenuItems:[],lunchitem:[],dinneritem:[],visible:false,},
+            {name:"Friday",lunchMenuItems:[],dinnerMenuItems:[],lunchitem:[],dinneritem:[],visible:false,},
+            {name:"Saturday",lunchMenuItems:[],dinnerMenuItems:[],lunchitem:[],dinneritem:[],visible:false,}
+            ];
+            scope.addToDay=function(key,item,type){
+                console.log(item);
+                if(!item.name||item.name==''){
+                    return;
+                }
+                data=item;
+
+                if(type=='lunch'){
+                    scope.days[key].lunchMenuItems.push({name:item.name});
+                    scope.days[key].lunchitem=[];
+                }else{
+                    scope.days[key].dinnerMenuItems.push({name:data.name});
+                    scope.days[key].dinneritem=[];
+                }
+            }
+            scope.setVisible=function(setKey,item){
+                angular.forEach(item,function(value,key){
+                    if(setKey==key){
+                        item[key].visible=true;
+                    }else{
+                        item[key].visible=false;
+                    }
+                })
+            }
+            scope.submitWeeklyForm=function(menu,price,title,min){
+                console.log(menu);
+                scope.formSubmitting=true;
+               var send={
+                    'menu':menu,
+                    'title':title,
+                    'price':price,
+                    'min':min
+                }
+                $http({
+                    url:'cooks/addWeeklyMenu',
+                    dataType:'JSON',
+                    method:'POST',
+                    data:send,
+                }).success(function(response){
+                    console.log(response);
+                    if(response.success){
+                        scope.formSubmitting=false;
+                    }
+                    window.location.reload();
+                }).error(function(response) {
+                    /* Act on the event */
+                    console.log(response)
+                });
+            }
+            scope.deleteWeeklyItem=function(key,index,type){
+                if(scope.days[key][type].length){
+                    console.log(scope.days[key][type]);
+                    console.log(index);
+                    delete scope.days[key][type].splice(index, 1);
+                }
+            }
+            scope.addToItemsDay=function(key,item,type){
+                console.log(item)
+                if(type=='lunch'){
+                    item.lunchMenuItems.push(item.lunchitem.name+'');
+                    item.lunchitem.name='';
+                }else{
+                    item.dinnerMenuItems.push(item.dinneritem.name+'');
+                    item.dinneritem.name='';
+                }
+            }
+           scope.deleteEditItems=function(index,item){
+            console.log(item[index]);
+            delete item.splice(index,1);
+           }
+           scope.editItems=function(item){
+            console.log(item);
+            item.formUpdating=true;
+            $http({
+                url:'cooks/updateWeeklyMenu',
+                method:'POST',
+                dataType:'JSON',
+                data:item,
+            }).success(function(response){
+                console.log(response);
+                if(response.success){
+                    item.formUpdating=false;
+                    item.message='Item Successfully Updated';
+                    $timeout(function(){
+                        item.message='';
+                    },3000);
+                }
+            }).error(function(response) {
+                /* Act on the event */
+                console.log(response);
+            });
+           } 
+        }
+
     }
 });
 app.directive('fuNotification',function(){
@@ -381,7 +510,34 @@ app.directive('quantityPop',function(){
 
     }
 });
-
+app.directive('weeklyMenuItem',function($http){
+    return{
+        restrict:'EA',
+        templateUrl:'cooks/getpage/weekly-menu-item',
+        link:function(scope,elem,attr){
+            scope.weeklyMenuItems=[];
+            $http({
+                url:'cooks/getWeeklyMenuItems/cook'
+            }).success(function(response){
+              console.log(response)
+              if(response){
+                scope.weeklyMenuItems=response;
+                scope.weeklyMenuFound=true;
+                
+              }  
+            }).error(function(response) {
+                /* Act on the event */
+                console.log(response)
+            });
+        }
+    }
+});
+app.directive('editWeeklyItemPopup',function(){
+    return{
+        restrict:'EA',
+        templateUrl:'cooks/getpage/edit-weekly-item-popup'
+    }
+});
 var newItem={
 title:'',
 catagories:{},

@@ -56,7 +56,7 @@
     $user=$this->ion_auth->user()->row();
 ?>
     <header class="cd-main-header">
-        <a href="#/" class="cd-logo"><img src="assets/img/home-logo-black.png"></a>
+        <a href="#/" class="cd-logo">Fumontor</a>
         
         
 

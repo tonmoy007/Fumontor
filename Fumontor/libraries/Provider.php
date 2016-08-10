@@ -74,6 +74,7 @@ abstract class OAuth2_Provider
 		isset($options['secret']) and $this->client_secret = $options['secret'];
 		isset($options['scope']) and $this->scope = $options['scope'];
 		
+
 		if(strcmp($options['redirect'],'home')!=0){
 			$this->redirect_uri = site_url(get_instance()->uri->uri_string().'?from='.$options['redirect']);
 		}else{
@@ -129,7 +130,7 @@ abstract class OAuth2_Provider
 
 		$params = array(
 			'client_id' 		=> $this->client_id,
-			'redirect_uri' 		=> isset($options['redirect_uri']) ? $options['redirect_uri'] : $this->redirect_uri,
+			'redirect_uri' 		=> isset($options['redirect']) ? $options['redirect'] : $this->redirect_uri,
 			'state' 			=> $state,
 			'scope'				=> is_array($this->scope) ? implode($this->scope_seperator, $this->scope) : $this->scope,
 			'response_type' 	=> 'code',

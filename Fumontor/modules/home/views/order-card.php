@@ -24,8 +24,10 @@
                             <ul>
                        
                     <li><span class="quantity">Quantity X</span><span class="title">Product Title</span><span class="price">Price/<small>piece</small></span></li>
-                                    <li ng-repeat="product in item.orderedProducts"><span class="quantity">{{product.price}}X{{product.quantity}}</span><span class="product-name">{{product.title}}</span><span class="price">{{product.subtotal}}</span></li>
-                            
+                                <div ng-repeat="product in item.orderedProducts">
+                                    <li ><span class="quantity">{{product.price}}X{{product.quantity}}</span><span class="product-name">{{product.title}}</span><span class="price">{{product.subtotal}}</span></li>
+                                    <li ng-if="parseInt(product.week)!=0&&item.ordertype=='Weekly Order'"><span class="total">for <span class="badge">{{product.week}}</span> week</span></li>
+                                </div>
                             
                              <li> <span class="total">Total</span><span class="price total">৳ {{item.orderedProducts[0].total}}</span></li>
                            

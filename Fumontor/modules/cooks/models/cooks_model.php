@@ -157,8 +157,70 @@ function updateDeliveryOptions($data,$id){
     }
 }
 
+public function addWeeklyMenu($menu,$list){
+    // print_r($list);
+    $lunch=array();
+    $dinner=array();
+    $i=0;
 
+    foreach($list as $data){
+     $lunch[]=$data->lunchMenuItems;
+     $dinner[]=$data->dinnerMenuItems;   
+    }
 
+    $lunchList=$this->homemodel->getWeeklyItemsInString($lunch);
+    $dinnerList=$this->homemodel->getWeeklyItemsInString($dinner);
+    // print_r($lunch);
+    // print_r($dinner);
+    if($this->db->insert('w_menuitem',$menu)){
+        
+        $id=$this->db->insert_id();
+        $this->homemodel->addWeeklyMenuList($lunchList,'lunch',$id);
+        $this->homemodel->addWeeklyMenuList($dinnerList,'dinner',$id);
+
+    }else{
+        $id=false;
+    }    return $id;
+
+    
+}
+function updateWeeklyMenu($item,$menu,$cooksid,$productid){
+    $lunch=array();
+    $dinner=array();
+    $i=0;
+
+    foreach($menu as $data){
+     $lunch[]=$data->lunchMenuItems;
+     $dinner[]=$data->dinnerMenuItems;   
+    }
+
+    $lunchList=$this->homemodel->getWeeklyItemsInString($lunch,false);
+    $dinnerList=$this->homemodel->getWeeklyItemsInString($dinner,false);
+    $this->db->where('id',$productid);
+    if($this->db->update('w_menuitem',$item)){
+    $this->updateWeeklyItemList($lunchList,'lunch',$productid);
+    $this->updateWeeklyItemList($dinnerList,'dinner',$productid);
+    return true;
+    }else{
+        return false;
+    }
+}
+
+function updateWeeklyItemList($list,$type,$id){
+
+    $i=0;
+    foreach($list as $items){
+        $this->db->select('*');
+        $this->db->where(array('type'=>$type,'menuid'=>$id,'day'=>$i));
+        $this->db->from('w_item_list');
+        $query=$this->db->get();
+        if($query->num_rows()>0){
+          $this->db->where(array('type'=>$type,'menuid'=>$id,'day'=>$i));
+          $this->db->update('w_item_list',array('items'=>$items));  
+        }
+        $i++;
+    }
+}
 
 
 

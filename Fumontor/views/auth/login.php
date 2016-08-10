@@ -25,7 +25,13 @@
         <script src="assets/js/home/jquery-2.1.1.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/essentials/angular.min.js"></script>
-
+<?php 
+if(!empty($l_from)){
+  $url="auth/login?from=".$l_from;
+}else{
+  $url="auth/login/".$from;
+}
+?>
       
     </head>
     <!-- BEGIN BODY -->
@@ -49,7 +55,7 @@
                 <label class="or"></label>
               <div id="infoMessage" class="login-info"><?php echo $message;?></div>
 
-              <?php echo form_open("auth/login/".$from,array("class"=>"loginForm"));?>
+              <?php echo form_open($url,array("class"=>"loginForm"));?>
 
                
                

@@ -139,3 +139,17 @@
         margin-left:-21px;
     }
 }
+.menu-title{
+    font-size: 35px;
+    font-family:'Open Sans';
+    line-height: 30px;
+    padding: 0;
+    vertical-align: middle;
+    color: #666;
+    padding: 10px 0;
+    display: inline-block;
+    width:100%;
+    margin: 10px 0;
+    text-align: left;
+    text-transform: capitalize;
+}

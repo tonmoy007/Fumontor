@@ -53,7 +53,7 @@
                 echo 'Fumontor Kitchen';
             }
 
-            ?></strong><small><?php if(!empty($cook['kitchen_sub_title'])) echo $cook['kitchen_sub_title']?></small></h2>
+            ?></strong><br><small><?php if(!empty($cook['kitchen_sub_title'])) echo $cook['kitchen_sub_title']?></small></h2>
             <h4 class="content__header__text__sub text-muted"><em>by</em> <?php if(!empty($cook['name'])){
                 echo $cook['name'];
                 }else{
@@ -145,18 +145,7 @@
 
                 
              </div>
-            <div class="slider cool-border " style="padding: 40px; margin: 20px">
-                <ul id="lightSlider" class="view__slider">
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                    <li><a href="javascript:void(0)" title=""><img src="assets/img/f6.jpg" alt=""></a></li>
-                </ul>
-            </div>
+            
             </div>
         </div>
     </div> <!-- .content-wrapper -->

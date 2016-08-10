@@ -361,10 +361,32 @@ function getMyOrders(){
     }
 }
 
+function getAllWeeklyMenu($index=0){
 
+    $response=$this->homemodel->getAllWeeklyMenu(null,null,$index,false);
+    echo json_encode($response);
+}
 
+function getSingleWeeklyMenu($id){
+    
+    $response=$this->homemodel->getAllWeeklyMenu(null,$id);
+    echo json_encode($response);
+}
 
-
+function placeWeeklyOrder(){
+     if($this->ion_auth->logged_in()){
+        $user=$this->ion_auth->user()->row();
+        $postdata=file_get_contents('php://input');
+        $item=json_decode($postdata);
+        if($this->filtermodel->submitWeeklyOrder($user,$item)){
+            $response['success']=true;
+            echo json_encode($response);
+    }else{
+        $response['success']=fasle;
+        echo json_encode($response);
+    }
+}
+}
 
 
 

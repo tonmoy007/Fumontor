@@ -869,10 +869,67 @@ function serviceAreas($parse=null){
 
 
 
+function addWeeklyMenu(){
+     if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_cook()){
+            $user=$this->ion_auth->user()->row();
+            $request = file_get_contents("php://input");
+            $postdata=json_decode($request);
+            
+            $item=array(
+                'title'=>(!empty($postdata->title))?$postdata->title:'',
+                'price'=>(!empty($postdata->price))?$postdata->price:'',
+                'cooks_id'=>$user->id,
+                'min_order'=>(!empty($postdata->min))?$postdata->min:''
+                );
+            $list=$postdata->menu;
+            $id=$this->cooks_model->addWeeklyMenu($item,$list);
+            if($id){
+                $response['success']=true;
+
+            }else{
+                $response['success']=false;
+            }
+            // $data=$request['title'];
+        }
+    }
+}
+function getWeeklyMenuItems($type=null){
+    if($type!=null){
+        $user=$this->ion_auth->user()->row();
+        $send=$this->homemodel->getAllWeeklyMenu($user->id);
+        echo json_encode($send);
+
+    }
+}
 
 
-
-
+function updateWeeklyMenu(){
+    if($this->ion_auth->logged_in()){
+        if($this->ion_auth->is_cook()){
+            $user=$this->ion_auth->user()->row();
+            $request = file_get_contents("php://input");
+            $postdata=json_decode($request);
+            // print_r($postdata);
+            $id=$postdata->id;
+            $cooksid=$postdata->cooks_id;
+            $menu=$postdata->menu;
+            $item=array(
+                'title'=>$postdata->title,
+                'price'=>$postdata->price,
+                'min_order'=>$postdata->min_order
+                );
+            $ret=$this->cooks_model->updateWeeklyMenu($item,$menu,$cooksid,$id);
+            if($ret){
+                    $response['success']=true;
+                    echo json_encode($response);
+            }else{
+                $response['success']=false;
+                echo json_encode($response);
+            }
+            }
+    }
+}
 
 
 
