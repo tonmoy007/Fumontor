@@ -1,5 +1,5 @@
-<div class="landing" ng-show="landingLoaded">
-<section class="land-section" >
+<div class="landing" >
+<section class="land-section">
     <!-- <video autobuffer  loop autoplay poster="assets/img/fu-logo.jpg" class="background-video">
         <source src="assets/video/how.mp4" type="video/mp4" media="all">
         <source src="assets/video/how.ogg" type="video/ogg" media="all">
@@ -11,6 +11,7 @@
         <div class="poster"></div>        
     </video> -->
     <div class="background-video">
+    <i class="fa fa-spinner" ng-if="!landingLoaded"></i>
         <div class="poster" background url="assets/img/fu-landing.jpg"id="poster">
             
         </div>
@@ -19,16 +20,16 @@
         
     </div>
     <div class="container">
-        <div class="brand-container" id="brand-container" ng-if="showLandingContainer">
+        <div class="brand-container" id="brand-container" >
             <div class="brand-logo" style="
     margin-bottom: 10px">
-                <div class="fadeIn logo text-gray"  ng-class="{animated:animated}">
+                <div class="fadeIn logo text-red"  ng-class="{animated:animated}">
                     Fumontor
                 </div>
             </div>
             
             <div class="brand-label  text-white" >
-                 <div class="zoomInLeft  search-title"  ng-class="{animated:animated}">
+                 <div class="zoomInLeft  search-title text-red"  ng-class="{animated:animated}">
                   <strong>  কি খাবেন??</strong>
                 </div>
             </div>

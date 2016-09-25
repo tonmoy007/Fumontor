@@ -384,12 +384,13 @@ function setAsTodaysMenu(){
 function changeFeatureImage(){
     $this->load->model('uploadmodel');
     $data=$this->input->post();
+    echo json_encode($data);
     $upload_info=$this->uploadmodel->upload_img($data['id']);
     if($upload_info){
         $this->db->where('id',$data['id']);
         $this->db->update('menuitem',array('feature_img'=>$upload_info->name));
         }
-    echo json_encode($upload_info);
+    // echo json_encode($upload_info);
 }
 
 function changeItem(){

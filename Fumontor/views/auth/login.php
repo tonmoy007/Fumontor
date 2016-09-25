@@ -41,7 +41,7 @@ if(!empty($l_from)){
             
               <a href=" " class="">
                 <div class="logo">
-                  <img class="img-responsive" src="assets/img/home-logo-black.png" alt="fumontor logo">
+                  Fumontor
                 </div>
               </a>
               

@@ -84,7 +84,7 @@ var appid=angular.element(document.getElementById('fbAppId')).attr('data-appid')
 
 app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
     
-    $scope.$parent.loading=true;
+    $scope.$parent.loading=false;
     $scope.$parent.bodyClass='home-body';
     $scope.$parent.gotop();
     $scope.gotoHow=function(){
@@ -96,7 +96,9 @@ app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
             );
     }
     
-  
+    angular.element(document).ready(function(){
+        $scope.animate=true;
+    })
     $scope.onSelectPart=function(item,model,label,ordertype,form){
         $scope.homequery.location='';
         $scope.submitQuery(ordertype,item,form);
@@ -142,7 +144,6 @@ app.controller('productShowCtrl',function($routeParams,$scope,$interval,$timeout
         var item=angular.element(document.getElementById(data));
         item.children('.fu-modal-container').removeClass('is-visible');
         item.removeClass('is-visible');
-        
         $scope.kitchenShow=true;
         $timeout(function(){$scope.todayLoaded=true;},1000);
     }
@@ -2402,7 +2403,7 @@ app.directive('background',  function(preload) {
     return {
       restrict: 'EA',
       link: function(scope, element, attrs, tabsCtrl) {
-
+        scope.landingLoaded=false;
         element.hide();
         
         preload(attrs.url).then(function(){
@@ -2413,7 +2414,6 @@ app.directive('background',  function(preload) {
           
           element.show();
           scope.landingLoaded=true;
-          scope.$parent.animated=true;
           scope.showLandingContainer=true;
           scope.$parent.loading=false;
           
@@ -2639,6 +2639,7 @@ var orderTypes=[
 ];
 var slickConfig=  {
             dots:true,
+            lazyLoad: 'ondemand',
             enabled: true,
             autoplay: true,
             arrows:true,

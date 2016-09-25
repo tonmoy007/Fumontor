@@ -198,7 +198,7 @@ app.controller('productEditCtrl',function($scope,$http,Upload){
             data:send
         });
         fUpload.then(function(response){
-            //console.log(response);
+            console.log(response);
             if(response!='false'){
                 data.feature_img=response.data.name;
                 data.feature_img_temp='';

@@ -75,7 +75,8 @@
                           <i ng-show="featureImgForm.featureImage.$error.required">*required</i><br>
                           <i ng-show="featureImgForm.featureImage.$error.maxSize">File too large 
                               {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
-                          <img ng-show="featureImgForm.featureImage.$valid" class="img-thumbnail grid-lg img-responsive" ngf-thumbnail="newItem.feature_img" > <button ng-click="newItem.feature_img =''" ng-show="newItem.feature_img">Remove</button>
+                            
+                          <img ng-show="featureImgForm.featureImage.$valid" class="img-thumbnail img-fluid img-responsive" ngf-thumbnail="newItem.feature_img" > <button ng-click="newItem.feature_img =''" ng-show="newItem.feature_img">Remove</button>
                         </div>
                 
             <div class="form-group">
