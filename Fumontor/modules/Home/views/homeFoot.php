@@ -125,13 +125,16 @@
 <!-- End FOOTER -->
 <!-- Start Javasceipt -->
 <!-- Start Common Script For All System -->
-<script src="assets/js/home/jquery-2.1.1.js"></script>
+        <script src="assets/js/home/jquery-2.1.1.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
+
+        <script src="assets/js/essentials/angular.min.js"></script>
+        
+        <script src="assets/js/essentials/locationSearch.js"></script>
         <script src="assets/js/essentials/disable-scroll.js"></script>
         <script src="assets/js/modernizr.js"></script>
         <script src="assets/js/bgloaded.js"></script>
-<script src="assets/js/lightslider.min.js"></script> 
-        <script src="assets/js/essentials/angular.min.js"></script>
+        <script src="assets/js/lightslider.min.js"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
         <script src="assets/js/essentials/ui-bootstrap-tpls-1.3.3.min.js"></script>
@@ -141,7 +144,6 @@
         <script  src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
         <script src="assets/js/essentials/angular-slick.min.js"></script>
         <script src="assets/js/essentials/typehead-focus.js"></script>
-        <script src="assets/js/essentials/locationSearch.js"></script>
     
 
 </body>

@@ -749,3 +749,7 @@ Product Customization
 .weekly-menu{
     max-width: 768px;
 }
+
+.slider-img{
+  position: relative;
+}

@@ -191,6 +191,7 @@ h1.form-center-label{
     height: 180px;
     overflow: hidden;
     margin-bottom: 10px;
+    position: relative;
 }
 .recipe-img .recipe-img-container img{
     height: 180px;

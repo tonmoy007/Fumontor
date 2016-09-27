@@ -3,7 +3,10 @@
                     <div class="slide todays-menu cool-shadow" ng-repeat="slide in todaysMenuItems">
                         <div class="slide-container">
                             <div class="slider-img">
-                                <img class="img-responsive" ng-if="slide.feature_img" ng-src="assets/uploads/{{slide.cooksID}}/{{slide.id}}/{{slide.feature_img}}" alt="">
+                                <img class="img-responsive" ng-if="slide.feature_img" data-src-image="assets/uploads/{{slide.cooksID}}/{{slide.id}}/{{slide.feature_img}}" bg-preload alt="">
+                                <div class="img-loader">
+                                    
+                                </div>
                                 <img class="img-responsive" ng-if="!slide.feature_img" ng-src="assets/img/thumb.jpg" alt="">
                             </div>
                             <div class="slider-overlay"> <a href="#/kitchen/{{slide.cooksID}}/{{slide.id}}" ><i class="fa fa-eye"></i></a></div>

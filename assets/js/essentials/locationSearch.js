@@ -245,7 +245,7 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
 
     $http({
         url:'home/getHomeData',
-        method:'POST',
+        method:'Get',
         dataType:'JSON'
     }).success(function(data){
        
@@ -265,23 +265,27 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
         // console.log(data.cartContents);
         
 
-        $scope.prepareCart(data.cartContents);
-        //console.log($scope.cartItems);
-        $scope.cartSubTotal=data.cartSubTotal;
-        $scope.checkoutTotal=data.cartSubTotal;
+       
         // console.log($scope.cartItems);
 
         // ItemData=$scope.menuItems;
         //console.log(ItemData);
         
         $scope.cartLoaded=true; 
-        $scope.loading=false;  
-        
+        $scope.loading=false; 
+
+        $scope.prepareCart(data.cartContents);
+        //console.log($scope.cartItems);
+        $scope.cartSubTotal=data.cartSubTotal;
+        $scope.checkoutTotal=data.cartSubTotal;
                 
     }).error(function(response) {
         /* Act on the event */
         console.log(response);
-    });;
+    });
+
+
+
     $scope.setActive=function(name){
         angular.forEach($scope.searchedFoodTypes,function(value,key){
             if(value.value==name){
@@ -729,6 +733,7 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
     
 });
 
+
 // ((((((((((((((((((((((((((((((((((Kitchen Page Functions))))))))))))))))))))))))))))))))))
 
  app.controller('kitchenShowCtrl',function($scope,$http,$timeout,$routeParams){
@@ -992,6 +997,7 @@ $scope.setPayment=function(data){
 
 
 app.controller('fuHeadCtrl',function($scope,$routeParams){
+    
     $scope.searchquery='';
     $scope.placeholder='Search Food';
     $scope.menuList=[{current:false},{current:false},{current:false},{current:false},{current:false}];
@@ -1120,6 +1126,49 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
         $('#search').focus();
         $scope.searchquery='';
     }
+
+      transparency=0;
+            windowHeight=$(window).height()/4;
+            
+            angular.element(document).bind('scroll',function(event) {
+                /* Act on the event */
+                // a=0.0;
+                brandSearch=angular.element(document.getElementById('brand-search'));
+                (brandSearch.offset()!=undefined)?searchtop=brandSearch.offset().top:searchtop=30;
+                transparency+=0.5;
+                if($(this).scrollTop()>30){
+                    if($(this).scrollTop()>windowHeight){
+                    
+                    angular.element(document.getElementById('go-top')).addClass('visible');
+                    }else{
+
+                        angular.element(document.getElementById('go-top')).removeClass('visible');
+                    }
+                    if($(this).scrollTop()>searchtop){
+                            $scope.popup=true;
+                            $scope.$apply();
+                        }else{
+                            $scope.popup=false;
+                            $scope.$apply();
+                        }
+                    // console.log($(this).scrollTop());
+                    angular.element(document.getElementById('catagoryBar')).addClass('moveUp');
+                    angular.element(document.getElementById('main-header')).addClass('fixed-top');
+                    angular.element(document.getElementById('filter-icon')).addClass('top-me');
+                    angular.element(document.getElementById('topme-btn')).addClass('top-me');
+                    $scope.$parent.slideNav=true;
+                }else{
+                    $scope.$parent.slideNav=false;
+                    angular.element(document.getElementById('catagoryBar')).removeClass('moveUp');
+                    angular.element(document.getElementById('main-header')).removeClass('fixed-top');
+                    angular.element(document.getElementById('filter-icon')).removeClass('top-me');
+                    angular.element(document.getElementById('topme-btn')).removeClass('top-me');
+                }
+
+                $scope.$apply();
+            });
+                
+
     // console.log($scope);
 
 });
@@ -1648,58 +1697,42 @@ app.directive('fuHead',function(){
         templateUrl:'home/getTamplate/fuHead',
         controller:'fuHeadCtrl',
         link:function($scope,elem,attr){
-            transparency=0;
-            windowHeight=$(window).height()/4;
-            
-            angular.element(document).scroll(function(event) {
-                /* Act on the event */
-                // a=0.0;
-                brandSearch=angular.element(document.getElementById('brand-search'));
-                (brandSearch.offset()!=undefined)?searchtop=brandSearch.offset().top:searchtop=30;
-                transparency+=0.5;
-                if($(this).scrollTop()>30){
-                    if($(this).scrollTop()>windowHeight){
-                    
-                    angular.element(document.getElementById('go-top')).addClass('visible');
-                    }else{
+          
 
-                        angular.element(document.getElementById('go-top')).removeClass('visible');
-                    }
-                    if($(this).scrollTop()>searchtop){
-                            $scope.popup=true;
-                            $scope.$apply();
-                        }else{
-                            $scope.popup=false;
-                            $scope.$apply();
-                        }
-                    // console.log($(this).scrollTop());
-                    angular.element(document.getElementById('catagoryBar')).addClass('moveUp');
-                    angular.element(document.getElementById('main-header')).addClass('fixed-top');
-                    angular.element(document.getElementById('filter-icon')).addClass('top-me');
-                    angular.element(document.getElementById('topme-btn')).addClass('top-me');
-                    $scope.$parent.slideNav=true;
-                }else{
-                    $scope.$parent.slideNav=false;
-                    angular.element(document.getElementById('catagoryBar')).removeClass('moveUp');
-                    angular.element(document.getElementById('main-header')).removeClass('fixed-top');
-                    angular.element(document.getElementById('filter-icon')).removeClass('top-me');
-                    angular.element(document.getElementById('topme-btn')).removeClass('top-me');
-                }
-
-                $scope.$apply();
-            });
-                
                 
         }
     }
-});
+}).directive('bgPreload',function(){
+        return{
+            restrict:'EA',
+            link:function(scope,elem,attr){
+               elem.ready(function(){
+                src=attr.srcImage;
+                // console.log(src);
+                img=new Image();
+                img.src=src;
+                $(img).on('load',function(){
+                    elem.attr({
+                        src: this.src
+                    });
+                    elem.siblings('.img-loader').hide();
+                    // t_src='url("'+this.src+'")';
+                    // m_src=decodeURI(t_src);
+                    // elem.attr('src',this.src);
+                    // elem[0].style.backgroundImage=t_src;
+                    // elem.find('.vd-progress').hide();
+                });
+               })
+            }
+        }
+    });
 
 
 app.directive('productLoading', function () {
       return {
         restrict: 'E',
         replace:true,
-        template: '<div class="center productLoading" ><div class="spinner"><i class="fa fa-spinner fa-pulse"></i></div></div>',
+        template: '<div class="center productLoading" ><div class="spinner "><div class="img-loader"></div></div></div>',
         link: function (scope, element, attr) {
             $(element).show();
               scope.$watch('loading', function (val) {  
@@ -2641,7 +2674,7 @@ var slickConfig=  {
             dots:true,
             lazyLoad: 'ondemand',
             enabled: true,
-            autoplay: true,
+            autoplay: false,
             arrows:true,
             draggable: true,  
             autoplaySpeed: 4000,

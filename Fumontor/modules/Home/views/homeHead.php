@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en"  ng-app="homeApp">
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
@@ -15,28 +15,29 @@
         <!--Base tag end-->
         <link rel="shortcut icon" href="assets/img/favicon.png"> 
        
-       
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="assets/css/flat-ui.css" rel="stylesheet">
-        <link rel=stylesheet href="assets/css/home/switch.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/roboto.min.css">
-        <link href="assets/css/home.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="assets/css/ns-style-bar.css">
+        
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" async>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" async>
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" async >
+        <link href="assets/css/flat-ui.css" rel="stylesheet" async>
+        <link rel=stylesheet href="assets/css/home/switch.css" async>
+        <link rel="stylesheet" type="text/css" href="assets/css/roboto.min.css" async>
+        <link rel="stylesheet" href="assets/css/fu-modal.css" async>
+        <link href="assets/css/home.css" rel="stylesheet" async>
+        <link rel="stylesheet" type="text/css" href="assets/css/ns-style-bar.css" async>
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/cart.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
-        <link rel="stylesheet" href="assets/css/kitchen-filter.css"> 
-        <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css">
-        <link rel="stylesheet" href="assets/css/foot.css">
-        <link type="text/css" rel="stylesheet" href="assets/css/lightslider.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/cart.css" async>
+        <link rel="stylesheet" type="text/css" href="assets/css/animate.css" async>
+        <link rel="stylesheet" href="assets/css/kitchen-filter.css" async> 
+        <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css" async>
+        <link rel="stylesheet" href="assets/css/foot.css" async>
 
+        <link rel="stylesheet" href="assets/css/admin/gridProducts.css" async>
         
         <meta id="fbAppId" data-appid="<?php echo $this->config->item('facebook')['app_id'];?>">
     </head>
     <!-- END HEAD -->
-    <body ng-app="homeApp" ng-controller="searchCtrl as mCtrl" class="{{bodyClass}}">
+    <body  ng-controller="searchCtrl as mCtrl" class="{{bodyClass}}">
         <div id="fb-root"></div>
    
        

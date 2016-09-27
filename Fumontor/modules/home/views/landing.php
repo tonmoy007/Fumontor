@@ -11,9 +11,11 @@
         <div class="poster"></div>        
     </video> -->
     <div class="background-video">
-    <i class="fa fa-spinner" ng-if="!landingLoaded"></i>
+    <div class="img-loader" ng-if="!landingLoaded">
+        
+    </div>
         <div class="poster" background url="assets/img/fu-landing.jpg"id="poster">
-            
+                    
         </div>
     </div>
     <div class="background-video-overlay">
@@ -154,7 +156,10 @@
                     
                       <div class="slide-container">
                           <div class="slider-img">
-                              <img ng-src="assets/uploads/{{slide.cooksID}}/{{slide.id}}/{{slide.feature_img}}" class=" top img-responsive" ng-if="slide.feature_img">
+                              <img data-src-image="assets/uploads/{{slide.cooksID}}/{{slide.id}}/{{slide.feature_img}}" bg-preload class=" top img-responsive" ng-if="slide.feature_img">
+                              <div class="img-loader">
+                                  
+                              </div>
                               <img ng-src="assets/img/thumb.jpg" class=" top img-responsive" ng-if="!slide.feature_img">
                               
                           </div>

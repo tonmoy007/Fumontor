@@ -525,7 +525,30 @@ app.directive('fbShareButton',function($interval){
                 }
             }
         }
-    });
+    }).directive('bgPreload',function(){
+        return{
+            restrict:'EA',
+            link:function(scope,elem,attr){
+               elem.ready(function(){
+                src=attr.srcImage;
+                // console.log(src);
+                img=new Image();
+                img.src=src;
+                $(img).on('load',function(){
+                    elem.attr({
+                        src: this.src
+                    });
+                    elem.siblings('.img-loader').hide();
+                    // t_src='url("'+this.src+'")';
+                    // m_src=decodeURI(t_src);
+                    // elem.attr('src',this.src);
+                    // elem[0].style.backgroundImage=t_src;
+                    // elem.find('.vd-progress').hide();
+                });
+               })
+            }
+        }
+    });;
 var getfacebookMeta=function(href,type,title,description,image){
 
     href=(typeof href!='undifined')?href:'http://fumontor.com';

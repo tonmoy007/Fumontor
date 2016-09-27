@@ -10,8 +10,10 @@
             <a ng-if="href1" href="" ng-click="singleItemDisplay(item.id)" class="img-overlay block-link"><i class="fa fa-eye"></i></a>
             <a ng-if="!href1" href="#/kitchen/{{item.cooksID}}/{{item.id}}"  class="img-overlay block-link"><i class="fa fa-eye"></i></a>
             
-            <img ng-if="item.feature_img" ng-show="item.feature_img" ng-src="assets/uploads/{{item.cooksID}}/{{item.id}}/{{item.feature_img}}" title="{{item.title}}" alt="{{item.title}}">
-            
+            <img ng-if="item.feature_img" ng-show="item.feature_img" data-src-image="assets/uploads/{{item.cooksID}}/{{item.id}}/{{item.feature_img}}" bg-preload title="{{item.title}}" alt="{{item.title}}">
+            <div class="img-loader">
+                
+            </div>
             <img ng-show="!item.feature_img" src="assets/img/thumb.jpg" title="khichuri" alt="{{item.title}}">
             
             

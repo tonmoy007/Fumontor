@@ -2,7 +2,7 @@
  <header >
        <div id="main-header" class="head " ng-class="{'bg-white':open}">
          <a href="#/"><div class="small-logo ">
-             <img src="assets/img/home-logo-sm.png" class="img-responsive" alt="">
+             F
            </div></a>  
         <div class="navigation navigation-main">
             <div id="nav-icon" ng-click="open=!open" ng-class="{open:open}">
