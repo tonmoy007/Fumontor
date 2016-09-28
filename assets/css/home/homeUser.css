@@ -1684,3 +1684,6 @@ input.quantity-amount{
   background: url(../../img/rings.svg) no-repeat center;
   background-size: 60px 60px;
 }
+.fu-head{
+    display: none;
+}

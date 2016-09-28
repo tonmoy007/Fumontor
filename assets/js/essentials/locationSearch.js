@@ -1692,13 +1692,13 @@ app.controller('weeklyCheckoutCtrl',function($scope,$routeParams,$http,$timeout)
 
 app.directive('fuHead',function(){
     return{
-        restrict:'E',
-        replace:true,
-        templateUrl:'home/getTamplate/fuHead',
+        restrict:'EA',
         controller:'fuHeadCtrl',
         link:function($scope,elem,attr){
           
-
+            elem.ready(function(){
+                elem.show();
+            })
                 
         }
     }

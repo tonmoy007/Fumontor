@@ -246,8 +246,10 @@ app.controller('myRecipe',function($scope,$http){
 app.directive('recipeNavigation',function(){
     return{
         restrict:'EA',
-        templateUrl:'recipes/getTemplate/recipe-navigation',
         link:function($scope,elem,attr){
+            elem.ready(function(){
+                elem.show();
+            })
             transparency=0;
             windowHeight=$(window).height()/4;
             angular.element(document).scroll(function(event) {
