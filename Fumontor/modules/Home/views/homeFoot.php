@@ -129,21 +129,21 @@
         <script src="assets/js/bootstrap.min.js"></script>
 
         <script src="assets/js/essentials/angular.min.js"></script>
-        
+        <script src="assets/node_modules/oclazyload/dist/ocLazyLoad.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="assets/js/essentials/locationSearch.js"></script>
         <script src="assets/js/essentials/disable-scroll.js"></script>
         <script src="assets/js/modernizr.js"></script>
         <script src="assets/js/bgloaded.js"></script>
-        <script src="assets/js/lightslider.min.js"></script> 
+        <!-- <script src="assets/js/lightslider.min.js"></script>  -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular-route.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
-        <script src="assets/js/essentials/ui-bootstrap-tpls-1.3.3.min.js"></script>
-        <script src="assets/js/home/rzslider.min.js"></script>
-        <script src="assets/js/essentials/switch.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script> -->
+        <!-- <script src="assets/js/essentials/ui-bootstrap-tpls-1.3.3.min.js"></script> -->
+        <!-- <script src="assets/js/home/rzslider.min.js"></script> -->
+        <!-- <script src="assets/js/essentials/switch.min.js"></script> -->
         <!-- <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script> -->
-        <script  src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
-        <script src="assets/js/essentials/angular-slick.min.js"></script>
-        <script src="assets/js/essentials/typehead-focus.js"></script>
+        <!-- <script  src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script> -->
+        <!-- <script src="assets/js/essentials/angular-slick.min.js"></script> -->
+        <!-- <script src="assets/js/essentials/typehead-focus.js"></script> -->
     
 
 </body>

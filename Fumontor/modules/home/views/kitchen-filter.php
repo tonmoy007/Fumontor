@@ -30,11 +30,13 @@
             <option value="">--Select--</option>        
             </select>
             <label class="filter-label text-theme">Sort by Price</label>
+            <div oc-lazy-load="['assets/js/home/rzslider.min.js']">
             <rzslider
                 rz-slider-model="filter.PriceRangeSlider.min"
                 rz-slider-high="filter.PriceRangeSlider.max"
                 rz-slider-options="filter.PriceRangeSlider.options">
             </rzslider>
+            </div>
         </div>
         <div class="search-filter-list" ng-if="type=='kitchen'">
             <label class="filter-label">Delivery Type</label>

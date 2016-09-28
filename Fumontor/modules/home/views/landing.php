@@ -105,6 +105,7 @@
             </div>    
        
     </section>
+    <div oc-lazy-load="lazyLoadParams">
     <section class="rest-section trending-kitchen">
         
         <div class="container" ng-show="trendingKitchenShow">
@@ -208,4 +209,5 @@
             </div>    
         </div>
     </section>
+    </div>
 </div>

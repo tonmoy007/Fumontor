@@ -7,10 +7,14 @@ angular.module('queryfilter',[]).filter("getqueryresults",function() { // regist
     };
  });
 
-var app=angular.module('homeApp',['ui.bootstrap','typeahead-focus','uiSwitch','rzModule','slickCarousel','queryfilter','ngRoute']);
+
+var app=angular.module('homeApp',['ngRoute','oc.lazyLoad']);
+
 var ItemData={};
 
 app.config(function($routeProvider,$locationProvider) {
+
+
     $routeProvider.when('/kitchen/:kitchen_id',{
         templateUrl:'home/getTamplate/kitchenPage',
         controller:'kitchenShowCtrl'
@@ -82,8 +86,13 @@ var appid=angular.element(document.getElementById('fbAppId')).attr('data-appid')
 
 
 
-app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window){
-    
+app.controller('landingCtrl',function($scope,$http,$location,$timeout,$window,$ocLazyLoad){
+    $scope.lazyLoadParams = [
+      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css',
+      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css',
+      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/angular-slick-carousel/3.1.7/angular-slick.min.js'
+    ];
     $scope.$parent.loading=false;
     $scope.$parent.bodyClass='home-body';
     $scope.$parent.gotop();
@@ -1175,7 +1184,10 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
 
 // ((((((((((((((((((((((((((((((((((((((Product Page Controller))))))))))))))))))))))))))))))))))))))
 
-app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope){
+app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$ocLazyLoad){
+    
+
+    
     $('#search').focus();
     $scope.$parent.gotop();
     $scope.$parent.bodyClass='product-body';

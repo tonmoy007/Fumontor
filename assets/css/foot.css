@@ -121,7 +121,7 @@ address span strong{
 .foot-links li a{
     padding: 10px;
     color: #fff;
-    font-family: RobotoDraft;
+    font-family: 'Open Sans';
     font-size: 1em;
     line-height: 2;
     vertical-align: middle;
@@ -302,7 +302,7 @@ address span i{
     min-width: 160px;
 }
 .score-container .score {
-    font-family: RobotoLight;
+    font-family: 'Open Sans';
     color: #333;
     font-size: 64px;
     font-weight: 100;

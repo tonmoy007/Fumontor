@@ -9,7 +9,7 @@
             <div class="" ng-if="!user.id">
                 <login redir="'checkout/weekly-menu/'+id"></login>
             </div>
-            <div class="checkout-process col-md-10 cool-border bg-white">
+            <div class="checkout-process col-md-10 cool-border bg-white" ng-if="user.id">
                 <div class="text-left" >
 
                     <div class="form-heading text-left text-theme">
