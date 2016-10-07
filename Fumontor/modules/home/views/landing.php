@@ -52,8 +52,8 @@
                 Follow the step according to your need
             </div>
             <div class="row how how-cooks">
-                <div class=" how-img cool-border">
-                    <img class="img-responsive  text-center " src="assets/img/cook.png" alt="How it Works as cook">
+                <div class=" how-img cool-border" style="padding: 10px">
+                    <img class="img-responsive  text-center " src="assets/img/accessories/cooking.svg" alt="How it Works as cook">
                 </div>
                 <div class="how-text cool-border">
                     <div class=" text-center form-heading ">
@@ -79,8 +79,8 @@
                 
             </div>
             <div class="row how how-foodie">
-                <div class=" how-img cool-border">
-                    <img class="img-responsive text-center " src="assets/img/cutlery.png" alt="How it Works as cook">
+                <div class=" how-img cool-border" style="padding: 10px">
+                    <img class="img-responsive text-center " src="assets/img/accessories/covered-food-tray-on-a-hand-of-hotel-room-service.svg" alt="How it Works as cook">
                 </div>
                 <div class="how-text cool-border">
                     <div class=" text-center form-heading text-theme2">
