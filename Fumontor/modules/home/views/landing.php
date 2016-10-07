@@ -173,7 +173,7 @@
                                     </div>
                                 </div>
                             <span class="sub-title text-muted"><strong><a class="text-black" href="#/kitchen/{{slide.cooksID}}">{{slide.kitchename}}</a></strong></span>
-                            <span class="text-center strong text-theme3 rate"> ৳ {{slide.price}}</span>
+                            <span class="text-center strong text-theme3 rate"><strong> ৳ {{slide.price}}</strong></span>
                           </div>
                            <div class="hidden">
                                 <div  class="cd-customization home-grid-action active">
