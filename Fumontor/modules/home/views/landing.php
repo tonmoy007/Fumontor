@@ -115,7 +115,7 @@
             </div>
             <div class="kitchen-slider kitchen" >
                 <slick settings='slickConfig' ng-if="trendingKitchenShow" id="carousel" >
-                    <div class="slide cool-shadow" ng-repeat="(key,slide) in trendingKitchen">
+                    <div class="slide cool-border" ng-repeat="(key,slide) in trendingKitchen">
                     
                       <div class="slide-container">
                           <div class="slider-overlay"> <a href="#/kitchen/{{slide.user_id}}"><i class="fa fa-eye"></i></a></div>
