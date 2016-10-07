@@ -1184,7 +1184,7 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
 
 // ((((((((((((((((((((((((((((((((((((((Product Page Controller))))))))))))))))))))))))))))))))))))))
 
-app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$ocLazyLoad){
+app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$ocLazyLoad,$window){
     
 
     
@@ -1274,6 +1274,7 @@ app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$
         
     }
     $scope.loadMoreFood=function(index){
+        // disableScroll()
         $scope.moreFoodloading=true;
         $http({
             url:'home/getFilterData?load='+index,
@@ -1295,6 +1296,7 @@ app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$
                 }
                 $scope.moreFoodloading=false;
                 $scope.endLoading();
+                // enableScroll();
             }else{
                 // $scope.filterdmenuItems=[];
                 $scope.$parent.NotFoundMessage='No more Item Found ';
@@ -1309,7 +1311,28 @@ app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$
     $scope.hideFilterBar=function(){
         $scope.$parent.searched=!$scope.$parent.searched;
     }
+    index=1;
+    mainDiv=angular.element(document.getElementById('product-div'))
     $scope.submitFilterQuery($scope.orderType);
+
+            angular.element($window).bind("scroll", function() {
+                loc=window.location.hash.slice(2,13);
+                if(loc=='dishes'){
+                offset=this.pageYOffset;
+                 
+
+                maxheight=mainDiv.height()-$(window).height();
+                if(offset>maxheight-200&&!$scope.moreFoodloading&&!$scope.productEnd){
+                    // console.log(maxheight);
+
+                    
+                    $scope.loadMoreFood(index);
+                    index++;
+                }else{
+                        
+                }
+            }
+            });
 
 });
 
