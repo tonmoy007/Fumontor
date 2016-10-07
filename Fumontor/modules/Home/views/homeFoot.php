@@ -80,7 +80,7 @@
                 <li class="cool-shadow"><a   href="">Privacy</a></li>
                 <li class="cool-shadow"><a   href="">Carrier</a></li>
             </ul>
-        <div class="alert center">&copy;2016 <a href=" "><strong>fumontor</strong></a>&nbsp; powered by <a href="http://binarycraft.org"><strong>Binary Craft</strong></a></div>
+        <div class="alert center text-muted">&copy;2016 <a href=" "><strong>fumontor</strong></a>&nbsp; powered by <a href="http://binarycraft.org"><strong>Binary Craft</strong></a></div>
     </div>
 </div>  
 

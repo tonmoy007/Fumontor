@@ -20,9 +20,9 @@
         </div>
         <div class="grid-description">
             <div class="description-body">
-                <a href="javascript:void(0)" class="main-url cool-shadow "><h4>{{item.title}}</h4></a>
-                <label class="secendery-url">by 
-                    <a href="#/kitchen/{{item.cooksID}}" class=" small">  {{item.kitchename}} </a>
+                <a href="javascript:void(0)" class="  text-theme2 "><h4>{{item.title}}</h4></a>
+                <label class="secendery-url ">
+                    <a href="#/kitchen/{{item.cooksID}}" class="text-black small">  {{item.kitchename}} </a>
                 </label>
                 <label for="" class="hidden cID">{{item.cooksID}}</label>
                 
@@ -30,7 +30,7 @@
             </div>
             <div class="description-foot">
                 
-                <div class="rating-div">
+                <div class="rating-div hidden">
                     <div class="rating-stars tiny-star">
                         <div class="current-rating" style="width:{{item.reviews[0].totalmark/item.reviews[0].total_review*20}}%"></div>
                     </div>
@@ -41,7 +41,7 @@
                <small class="text-muted" ng-if="item.stock_quantity>0">{{item.stock_quantity}} item available</small>
                <small class="text-danger" ng-if="item.stock_quantity<=0">out of stock </small> -->
             </div>
-            <div  class="cd-customization active" ng-class="{active:item.active}" ng-click="makeItemActive(items,key)">
+            <div  class="cd-customization hidden" ng-class="{active:item.active}" ng-click="makeItemActive(items,key)">
                 
                 <div class="quantity card"  ng-init="item.quantity=item.min_quantity">
                     

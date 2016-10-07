@@ -17,7 +17,7 @@
        
         
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" async defer>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet" async defer>
+        <link href="assets/css/flat-ui.css" rel="stylesheet" async defer>
         <link href="assets/css/home.min.css" rel="stylesheet" async defer>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" async defer>
         

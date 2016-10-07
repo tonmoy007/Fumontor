@@ -1,8 +1,8 @@
 
-<div class="kitchen-filter bg-trans-gray cool-shadow">
+<div class="kitchen-filter  cool-border">
    <div class="kitchen-filter-container text-left">
        <!-- <div class="filter-search"><input type="search" name="" ng-model="search" value="" placeholder="Search Kitchen"></div> -->
-       <div class="filter-logo logo ">Filter Your Search</div>
+    
 
        <div class="search-filter-list" ng-if="type=='food'||type=='all'">
             <!-- <label class="filter-label">Order Type</label>
@@ -11,7 +11,7 @@
                 <span class="second-icon fui-checkbox-checked"></span></span>
                 <input type="checkbox" ng-model="ordertype.checked" ng-change="searchQuery('orderType')"  data-toggle="checkbox"/> {{ordertype.name}}
              </label> -->
-             <label class="filter-label">Catagories</label>
+             <label class="filter-label text-theme2">Catagories</label>
             <ul class="catagoryList">
             <li ng-repeat="catagory in filter.catagories">
             <label class="checkbox" 
@@ -25,10 +25,12 @@
             data-toggle="checkbox"/>{{catagory.name}}</label>
             </li>
             </ul>
-            <label class="filter-label text-theme">Cuisine</label>
+            <label class="filter-label text-theme" style="margin-bottom: 10px;">Cuisine</label>
             <select name="cusine" ng-model="filter.cusine" ng-change="searchQuery('cusine')" class="form-control" ng-options="cusineFilter.value for cusineFilter in filter.cusineFilters" ng-init="filter.cusine=filter.cusineFilter[0].value">
             <option value="">--Select--</option>        
             </select>
+            <label class="filter-label "></label>
+
             <label class="filter-label text-theme">Sort by Price</label>
             <div oc-lazy-load="['assets/js/home/rzslider.min.js']">
             <rzslider

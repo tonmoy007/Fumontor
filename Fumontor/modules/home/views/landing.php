@@ -123,8 +123,8 @@
                               <img ng-src="assets/img/f6.jpg" class=" top img-responsive">
                           </div>
                           <div class="description">
-                              <h2 ng-if="slide.kitchename!=''" class="slider-title text-theme2">{{slide.kitchename}}</h2>
-                            <h2 ng-if="slide.kitchename==''" class="slider-title text-theme2">Fumontor Kitchen</h2>
+                              <h2 ng-if="slide.kitchename!=''" class="slider-title ">{{slide.kitchename}}</h2>
+                            <h2 ng-if="slide.kitchename==''" class="slider-title ">Fumontor Kitchen</h2>
                               <span for="">by - {{slide.name}}</span>
                               <span for="">Location : {{slide.location}}</span>
                               
@@ -153,7 +153,7 @@
             </div>
             <div class="kitchen-slider" >
                 <slick settings='slickConfig' id="carousel" ng-if="trendingFoodShow" >
-                    <div class="slide cool-shadow" ng-repeat="(key,slide) in trendingFood">
+                    <div class="slide cool-border" ng-repeat="(key,slide) in trendingFood">
                     
                       <div class="slide-container">
                           <div class="slider-img">
@@ -166,16 +166,16 @@
                           </div>
                           <div class="slider-overlay"> <a href="#/kitchen/{{slide.cooksID}}/{{slide.id}}"><i class="fa fa-eye"></i></a></div>
                           <div class="description">
-                              <h2 class="desc-head slider-title text-theme2">{{slide.title}}</h2>
-                                <div class="rating-div">
+                              <h2 class="desc-head slider-title text-theme2 ">{{slide.title}}</h2>
+                                <div class="rating-div hidden">
                                     <div class="rating-stars tiny-star">
                                         <div class="current-rating" style="width:{{slide.reviews[0].totalmark/slide.reviews[0].total_review*20}}%"></div>
                                     </div>
                                 </div>
-                            <span class="text-info">Price : <strong class="text-theme2">{{slide.price}}৳</strong></span>
-                            <span class="sub-title text-info">By <strong><a href="#/kitchen/{{slide.cooksID}}">{{slide.kitchename}}</a></strong></span>
+                            <span class="sub-title text-muted"><strong><a class="text-black" href="#/kitchen/{{slide.cooksID}}">{{slide.kitchename}}</a></strong></span>
+                            <span class="text-center strong text-theme3 rate"> ৳ {{slide.price}}</span>
                           </div>
-                           <div class="">
+                           <div class="hidden">
                                 <div  class="cd-customization home-grid-action active">
                                 
                                     <div class="quantity"  ng-init="slide.quantity=slide.min_quantity">
