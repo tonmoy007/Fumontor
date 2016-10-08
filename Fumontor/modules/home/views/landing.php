@@ -123,12 +123,14 @@
                               <img ng-src="assets/img/f6.jpg" class=" top img-responsive">
                           </div>
                           <div class="description">
-                              <h2 ng-if="slide.kitchename!=''" class="slider-title ">{{slide.kitchename}}</h2>
+                              <h2 ng-if="slide.kitchename!=''" class="slider-title text-theme2">{{slide.kitchename}}</h2>
                             <h2 ng-if="slide.kitchename==''" class="slider-title ">Fumontor Kitchen</h2>
-                              <span for="">by - {{slide.name}}</span>
-                              <span for="">Location : {{slide.location}}</span>
+                              <span for="">{{slide.name}}</span>
+                            <ul class="slide-category">
+                                <li class="label bg-theme" ng-repeat="cat in slide.catagories" ng-if="$index<5">{{cat}}</li>
+                            </ul>
                               
-                              <span class="text-muted">{{slide.address}}</span>
+                              <!-- <span class="text-muted">{{slide.address}}</span> -->
                               
                               <!-- <p class="lead module pfade">
                                   In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Etiam iaculis nunc ac metus. Quisque malesuada placerat nisl.
@@ -140,14 +142,14 @@
                 </slick>
             </div>    
         </div>
-        <div class="text-center">
+        <!-- <div class="text-center">
             <a href="#/all-kitchen" class="btn btn-danger btn-emboshed cool-shadow btn-wide">See   All</a>
-        </div>
+        </div> -->
     </section>
     <section class=" rest-section trending-food">
         
         <div class="container" ng-show="trendingFoodShow">
-        <h1 class="section-head text-theme2">Trending Foods</h1>
+        <h1 class="section-head text-theme2">Trending Dishes</h1>
         <div class="sub-head text-left text-gray">
                 Set your location and go find food in your area
             </div>

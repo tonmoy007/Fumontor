@@ -175,6 +175,11 @@
                      
                   </div>
                  
+          </div>
+          <div class="all-reviews" ng-if="!item.reviews">
+            
+              <p class="product-description">"No one has reviewed this dish yet. You can be the first one!" <span ng-show="!loggedin">Please <a href="auth/login">login</a> to give a review</span></p>
+            
           </div> 
         </div>
 

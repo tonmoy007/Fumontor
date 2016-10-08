@@ -1,5 +1,5 @@
 
-<div class="kitchen-filter  cool-border">
+<div class="kitchen-filter ">
    <div class="kitchen-filter-container text-left">
        <!-- <div class="filter-search"><input type="search" name="" ng-model="search" value="" placeholder="Search Kitchen"></div> -->
     
@@ -11,7 +11,7 @@
                 <span class="second-icon fui-checkbox-checked"></span></span>
                 <input type="checkbox" ng-model="ordertype.checked" ng-change="searchQuery('orderType')"  data-toggle="checkbox"/> {{ordertype.name}}
              </label> -->
-             <label class="filter-label text-theme2">Catagories</label>
+             <label class="filter-label text-theme2">Categories</label>
             <ul class="catagoryList">
             <li ng-repeat="catagory in filter.catagories">
             <label class="checkbox" 
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="search-filter-list" ng-if="type=='kitchen'">
-            <label class="filter-label">Delivery Type</label>
+            <label class="filter-label  text-theme2">Delivery Type</label>
             <label class="checkbox" ng-class="{checked:deliverytype.checked}"  ng-repeat="deliverytype in filter.deliveryTypes" >
                 <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span>
                 <span class="second-icon fui-checkbox-checked"></span></span>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="searc-filter-list" ng-if="type==null">
-        <label class="filter-label">Delivery Type</label>
+        <label class="filter-label  text-theme2">Delivery Type</label>
             <label class="checkbox" ng-class="{checked:deliverytype.checked}"  ng-repeat="deliverytype in filter.deliveryTypes" >
                 <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span>
                 <span class="second-icon fui-checkbox-checked"></span></span>

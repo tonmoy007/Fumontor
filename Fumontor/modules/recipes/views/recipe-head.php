@@ -19,14 +19,11 @@
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="assets/css/flat-ui.css" rel="stylesheet">
 
-        <link rel="stylesheet" type="text/css" href="assets/css/roboto.min.css">
-        <link href="assets/css/home.css" rel="stylesheet">
+        <link href="assets/css/home.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="assets/css/ns-style-bar.css">
         <link rel="stylesheet" type="text/css" href="assets/css/ns-default.css">
         <link rel="stylesheet" type="text/css" href="assets/css/fu-modal.css">
         <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
-        <link rel="stylesheet" href="assets/css/kitchen-filter.css"> 
-        <link rel="stylesheet" type="text/css" href="assets/css/home/homeUser.css">
 
         <link rel="stylesheet" type="text/css" href="assets/css/login.css">
         <link rel="stylesheet" type="text/css" href="assets/css/recipe.css">

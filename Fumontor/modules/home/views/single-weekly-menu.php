@@ -13,7 +13,7 @@
                         <strong>{{item.title}}</strong>
                     </div>
                     <div class="info">
-                        <em>by</em> <a href="#/kitchen/{{item.cooks_id}}">{{item.kitchename}}</a>
+                        <a href="#/kitchen/{{item.cooks_id}}">{{item.kitchename}}</a>
                     </div>
                     <div class="info">
                         minimum order for <label class="badge">{{item.min_order}}</label> persons

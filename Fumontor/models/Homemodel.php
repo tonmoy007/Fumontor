@@ -255,6 +255,18 @@ function getKitchenJson($query){
         $row['phone']=$this->homemodel->getUserPhone($row['user_id']);
         $row['total_items']=$this->homemodel->getTotalKithcenItem($row['user_id']);
         $row['total_todays_menu']=$this->homemodel->getTotalTdaysMenu($row['user_id']);
+
+        $unique_cat=array();
+        $query=$this->db->select('catagories')->where('cooksID',$row['user_id'])->from('menuitem')->get()->result_array();
+        foreach($query as $cat){
+            $allCat=explode(',',$cat['catagories']);
+            foreach($allCat as $sCat){
+                if(!$this->matchcat($unique_cat,$sCat)){
+                    $unique_cat[]=$sCat;
+                }
+            }
+        }
+        $row['catagories']=$unique_cat;
         $data[$i]=$row;
         $i++;
     }
@@ -463,9 +475,32 @@ function getTrandingKitchens(){
     $this->db->from('cooks');
     $query2=$this->db->get();
     foreach($query2->result_array() as $row){
+        
+        $unique_cat=array();
+        $query=$this->db->select('catagories')->where('cooksID',$row['user_id'])->from('menuitem')->get()->result_array();
+        foreach($query as $cat){
+            $allCat=explode(',',$cat['catagories']);
+            foreach($allCat as $sCat){
+                if(!$this->matchcat($unique_cat,$sCat)){
+                    $unique_cat[]=$sCat;
+                }
+            }
+        }
+        $row['catagories']=$unique_cat;
         $data2[]=$row;
+
     }
     return $data2;
+}
+
+function matchcat($data,$value){
+    $hasvalue=false;
+    foreach($data as $row){
+        if($row===$value){
+            return true;
+        }
+    }
+    return false;
 }
 function getTrandingFoods(){
     $this->homemodel->selectProduct();

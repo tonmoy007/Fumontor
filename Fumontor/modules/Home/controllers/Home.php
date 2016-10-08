@@ -208,7 +208,7 @@ function getKitchenPageData($id){
     echo json_encode($data);
 }
 
-function getAllKitchen($limitStart=0,$limitEnd=6,$location=null){
+function getAllKitchen($limitStart=0,$limitEnd=8,$location=null){
     $postdata = file_get_contents("php://input");
     $request = json_decode($postdata);
     

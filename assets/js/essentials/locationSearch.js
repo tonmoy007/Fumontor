@@ -1132,8 +1132,10 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
         
     }
     $scope.clearSearch=function(){
-        $('#search').focus();
+        
         $scope.searchquery='';
+        $('#search').focus();
+        console.log($scope.searchquery);
     }
 
       transparency=0;
@@ -1188,7 +1190,7 @@ app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$
     
 
     
-    $('#search').focus();
+    // $('#search').focus();
     $scope.$parent.gotop();
     $scope.$parent.bodyClass='product-body';
     $scope.filter={};
@@ -1354,10 +1356,10 @@ app.controller('allKitchenCtrl',function($scope,$http,$routeParams){
             
 
     $scope.$parent.bodyClass="allKitchens-body";
-    var start=0,end=6;
+    var start=0,end=8;
     $scope.api_base='';
        
-       $('#search').focus();
+       // $('#search').focus();
         if($routeParams.location){
             $scope.api_base='home/getAllKitchen/'+start+'/'+end+'/'+$routeParams.location;
         }else{
@@ -1403,7 +1405,7 @@ app.controller('allKitchenCtrl',function($scope,$http,$routeParams){
         disableScroll();
         $scope.kithenloading=true;
         
-        (start==0)?start=start+7:start=start+6;
+        (start==0)?start=start+9:start=start+8;
         
         // console.log(start);
         // console.log(end);
@@ -1443,7 +1445,7 @@ app.controller('allKitchenCtrl',function($scope,$http,$routeParams){
     }
 
     $scope.filterKitchen=function(filter){
-        start=0,end=6;
+        start=0,end=8;
         // console.log($scope.filter);
         $scope.endedLoading=false;
         $http({
@@ -1475,7 +1477,7 @@ app.controller('allKitchenCtrl',function($scope,$http,$routeParams){
         });
     }
         $scope.filterKitchen($scope.filter);
-        $('#search').focus();
+        // $('#search').focus();
 
 });
 
@@ -1758,6 +1760,42 @@ app.directive('fuHead',function(){
                     // elem.find('.vd-progress').hide();
                 });
                })
+            }
+        }
+    }).directive('price',function(){
+        return{
+            scope: {
+              ngModel: '=',
+              minQuantity:'='
+            },
+            require: 'ngModel',
+            link:function(scope,elem,attr,ctrl){
+                console.log(ctrl)
+             
+                 ctrl.$viewChangeListeners.push(
+
+                        function handleNgModelChange() {
+                             
+                            var mVl=ctrl.$modelValue;
+                            
+                            if(ctrl.$viewValue<scope.minQuantity||isNaN(mVl)){
+                                
+                                ctrl.$setViewValue(scope.minQuantity);
+                                ctrl.$render();
+                                
+                            }
+                        })
+                //  ctrl.$parsers.push(function (inputValue) {
+                //     if (inputValue == undefined) return '';
+                //     var transformedInput = inputValue.replace(/[^0-9]/g, '');
+                //     if (transformedInput !== inputValue) {
+                //         ctrl.$setViewValue(transformedInput);
+                //         ctrl.$render();
+                //     }
+                //     return transformedInput;
+                // });
+               
+
             }
         }
     });

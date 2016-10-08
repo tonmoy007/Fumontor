@@ -20,9 +20,9 @@
                     </div>
                     <div class="grid-description">
                         <div class="description-body">
-                            <a href="javascript:void(0)" class="main-url cool-shadow "><h4>{{item.title}}</h4></a>
-                            <label class="secendery-url">by 
-                                <a href="#/kitchen/{{item.cooks_id}}" class=" small">  {{item.kitchename}} </a>
+                            <a href="javascript:void(0)" class=" "><h4>{{item.title}}</h4></a>
+                            <label class="secendery-url">
+                                <a href="#/kitchen/{{item.cooks_id}}" class="text-black small">  {{item.kitchename}} </a>
                             </label>
 
                         </div>

@@ -1,15 +1,15 @@
         
-    <div class="container" >
+    <div class=" start-page all" >
     <!-- <a href="" ng-class="{'searched':searched}" id="filter-icon" class="filter-show cool-shadow " ng-click="hideFilterBar()"> <i class="fa fa-sliders" aria-hidden="true"></i> </a> -->
     
-    <div class="product-or-kitchen">
+  <!--   <div class="product-or-kitchen">
         <div class="pro-or-kit-container">
             <a href="#/search/{{filter.location}}/{{orderType}}" class="btn cool-shadow btn-danger btn-emboshed not-active">Products</a>
             <a href="#/all-kitchen/{{location}}" class="btn btn-emboshed cool-shadow btn-default ">Kithcens</a>
         </div>
-    </div>
+    </div> -->
 
-        
+        <div class="container">
         <div class="col-md-2">
             
         </div>
@@ -20,7 +20,7 @@
         </div> -->
              <div class="product-show-div"   >
             <!-- <catagory-bar></catagory-bar> -->
-                <div class="product-show-div-container" id="product-div"  ng-show="filterdmenuItems.length">
+                <div class="product-show-div-container" id="product-div" style="min-height: calc(100vh - 200px)" ng-show="filterdmenuItems.length">
                     <div class="product-container">
                         
                         <menu-item items="filterdmenuItems" href1="true" ></menu-item>
@@ -30,9 +30,9 @@
                     
                     </div>
                     </div>
-                    <div class="alert bg-trans-gray text-theme" ng-if="productEnd">
+                   <!--  <div class="alert bg-trans-gray text-theme" ng-if="productEnd">
                         No more item found
-                    </div>
+                    </div> -->
                 <!-- <div class="space text-center" ng-if="!productEnd&&filterdmenuItems.length" >
                    <a href="" class="btn btn-danger btn-sm cool-shadow" ng-click="loadMoreFood(index)">Load More</a>
                </div> -->
@@ -47,4 +47,4 @@
             <product-popup></product-popup>
         </div>
     </div>
-    
+    </div>

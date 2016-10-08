@@ -1,5 +1,5 @@
 
-<div class="kitchen-page">
+<div class="kitchen-page start-page all">
 <link rel="stylesheet" href="assets/css/home/kitchen.page.css">
 <product-loading></product-loading>
     <div class="kitchen" ng-show="kitchenShow">
@@ -26,7 +26,7 @@
                         </div>
                         
                         <div class="kitchen cook text-muted">
-                            By - <strong>{{kitchenData.name}} </strong>
+                            <strong>{{kitchenData.name}} </strong>
                         </div>
                         <div class="kitchen space">
                         <span class="text-gray">Service Areas</span>

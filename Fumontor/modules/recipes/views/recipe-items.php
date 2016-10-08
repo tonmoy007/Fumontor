@@ -6,7 +6,7 @@
                 <div class="recipe-img">
                 <div class="img-overlay"></div>
                     <div class="recipe-img-container">
-                        <img ng-if="item.image" data-src-image="assets/recipes/{{item.id}}/{{item.image}}" bg-preload alt="{{item.title}}" class="img-responsive center-img">
+                        <img ng-if="item.image" data-src-image="assets/recipes/{{item.id}}/{{item.image}}" bg-preload alt="" class="img-responsive center-img">
                         <img ng-src="assets/img/f6.jpg" class="img-responsive center-img" ng-if="!item.image" alt="thumbnail">
                         <div class="img-loader" ng-if="item.image" >
                             

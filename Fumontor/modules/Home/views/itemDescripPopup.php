@@ -26,10 +26,10 @@
                           {{item.reviews[0].totalmark/item.reviews.length|number:1}}
                     </div> -->
                     <div class="product price">
-                            <strong>Price :</strong> <strong class="text-theme">{{item.price}} ৳</strong>
+                            <strong></strong> <strong class="text-theme">{{item.price}}৳</strong>
                     </div>
                     <div class="product cooksName">
-                              Cooked by - <strong>&nbsp;<a href="#/kitchen/{{item.cooksID}}">{{item.kitchename}}</a></strong>
+                             <strong><a href="#/kitchen/{{item.cooksID}}">{{item.kitchename}}</a></strong>
                     </div>
                     <!-- <div class="product address">
                         <strong>Address</strong><br>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="product servicetag">
-                    <label><strong>Catagories</strong></label><div class="clearfix">
+                    <label><strong>Categories</strong></label><div class="clearfix">
                         
                     </div>
                         <label class="badge bg-theme catagory" ng-repeat="catagory in item.catagoryList">{{catagory}}</label>
@@ -65,13 +65,14 @@
                     <div class="col-md-12 text-left">
                             <div  class="cd-customization active full" >
                         
-                            <div class="quantity"  ng-init="item.quantity=item.min_quantity">
+                            <form name="itemForm"><div class="quantity"  ng-init="item.quantity=item.min_quantity">
                                 <button href="#0" ng-if="item.quantity>item.min_quantity" ng-click="item.quantity=item.quantity-1" class="btn-minus btn btn-danger"><i class="fa fa-minus"></i></button>
-                                <input type="number" class="quantity-amount" ng-model="item.quantity">
+                                <input type="number" name="price" price ng-pattern="/^\d{0,9}(\.\d{1,9})?$/" class="quantity-amount" min-quantity="item.min_quantity" ng-pattern="onlyNumbers" ng-model="item.quantity">
                                 <button href="#0" ng-if="true" ng-click="item.quantity=item.quantity+1" class="btn-plus btn btn-danger"><i class="fa fa-plus"></i></button>
                                 
-                            </div>
-                            <button id="cartBtnBig{{item.id}}"  class="cool-shadow add-to-cart-full" ng-click="addToCart(item,'cartBtnBig'+item.id)">
+                            </div></form>
+
+                            <button id="cartBtnBig{{item.id}}" ng-disabled="itemForm.price.$error.number" type="button"  class="cool-shadow add-to-cart-full" ng-click="addToCart(item,'cartBtnBig'+item.id)">
                             <!-- <span class="fa-stack fa-1x ">
                               <i class="fa fa-circle fa-stack-2x "></i>
                               <i class="fa fa-cart fa-stack-1x fa-inverse"></i>
