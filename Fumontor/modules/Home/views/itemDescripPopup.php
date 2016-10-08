@@ -14,22 +14,20 @@
                     
                 </div>
                 <div class="col-md-6 model-column">
-                    <div class="product title">
+                    <div class="product title text-theme2">
                         <strong>{{item.title}}</strong>
                         <div class="rating-div">
-                            <div class="rating-stars tiny-star">
-                                <div class="current-rating" style="width:{{item.reviews[0].totalmark/item.reviews[0].total_review*20}}%"></div>
-                            </div>
+                        <span class="full-rating badge bg-theme " ng-if="item.reviews"><i class="fa fa-star "></i> {{item.reviews[0].totalmark/item.reviews[0].total_review|number:1}}</span>
                         </div>
                     </div>
                     <!-- <div class="product rating small">
                           {{item.reviews[0].totalmark/item.reviews.length|number:1}}
                     </div> -->
-                    <div class="product price">
-                            <strong></strong> <strong class="text-theme">{{item.price}}৳</strong>
+                    <div class="product rate">
+                            <strong></strong> <strong class="">৳{{item.price}}</strong>
                     </div>
-                    <div class="product cooksName">
-                             <strong><a href="#/kitchen/{{item.cooksID}}">{{item.kitchename}}</a></strong>
+                    <div class="product text-black">
+                             <strong><a class="text-black" href="#/kitchen/{{item.cooksID}}">{{item.kitchename}}</a></strong>
                     </div>
                     <!-- <div class="product address">
                         <strong>Address</strong><br>
@@ -39,25 +37,25 @@
                     </div> -->
 
                     <div class="product cusine">
-                        <strong>Cusine</strong><br>
-                        <div class="cusineField">
+                        <span class="text-black">Cusine</span><br>
+                        <div class="cusineField label bg-dark-grey">
                             {{item.cusines}}
                         </div>
                     </div>
                     <div class="product servicetag">
-                    <label><strong>Categories</strong></label><div class="clearfix">
+                    <label><span class="text-black">Categories</span></label><div class="clearfix">
                         
                     </div>
-                        <label class="badge bg-theme catagory" ng-repeat="catagory in item.catagoryList">{{catagory}}</label>
+                        <label class="label bg-dark-grey catagory" ng-repeat="catagory in item.catagoryList">{{catagory}}</label>
                     </div>
                     <div class="clearfix">
                         
                     </div>
                     
                     <div class="product delivery-options">
-                        <label><strong>Delivery Options :</strong></label><div class="clearfix"></div>
-                        <label class="badge bg-theme" ng-show="item.pickup">Pick up</label>
-                        <label class="badge bg-theme" ng-show='item.home_delivery'>Home Delivery</label>
+                        <label><span class="text-black">Delivery Options :</span></label><div class="clearfix"></div>
+                        <label class="label bg-dark-grey " ng-show="item.pickup">Pick up</label>
+                        <label class="label bg-dark-grey " ng-show='item.home_delivery'>Home Delivery</label>
                     </div>
                     
                 <div class="product action row">
@@ -112,7 +110,7 @@
             </div>
             <div class="form-bottom">
 
-                <div class="product description space text-left">
+                <div class="product description  text-left">
                         <h2 class="up-heading">Description </h2>
                         <br>
                         <div class="product-description">

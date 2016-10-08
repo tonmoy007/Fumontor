@@ -2,7 +2,7 @@
     <div class="detail-content">
         <div class="review-block">
             <div class="content-head" >
-                <h2>Reviews</h2>
+                <h2 class="up-heading">Reviews</h2>
                 <div class="content-action-bar">
                     <button class="btn btn-danger cool-shadow review-write" ng-click="writeModelShow=true" ng-show="loggedin&&!item.myreview[0].text"><i class="fa fa-pencil-square-o"></i> Write Review</button>
                     <button class="btn btn-danger cool-shadow  edit-review" ng-click="editModelShow=true" ng-show="loggedin&&item.myreview[0].text" ><i class="fa fa-edit"></i> Edit Review</button>
@@ -178,7 +178,7 @@
           </div>
           <div class="all-reviews" ng-if="!item.reviews">
             
-              <p class="product-description">"No one has reviewed this dish yet. You can be the first one!" <span ng-show="!loggedin">Please <a href="auth/login">login</a> to give a review</span></p>
+              <p class="product-description">No one has reviewed this dish yet. You can be the first one! <span ng-show="!loggedin">Please <a href="auth/login">login</a> to give a review</span></p>
             
           </div> 
         </div>

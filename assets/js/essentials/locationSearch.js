@@ -1147,7 +1147,7 @@ app.controller('fuHeadCtrl',function($scope,$routeParams){
                 brandSearch=angular.element(document.getElementById('brand-search'));
                 (brandSearch.offset()!=undefined)?searchtop=brandSearch.offset().top:searchtop=30;
                 transparency+=0.5;
-                if($(this).scrollTop()>30){
+                if($(this).scrollTop()>0){
                     if($(this).scrollTop()>windowHeight){
                     
                     angular.element(document.getElementById('go-top')).addClass('visible');
@@ -2159,7 +2159,7 @@ app.directive('searchFilter',function($routeParams,$window,$interval,$http){
             angular.element($window).bind("scroll", function() {
                 offset=this.pageYOffset;
                 maxheight=mainDiv.height()-$(window).height();
-                if(offset>proOfset.top-68&&maxheight>200){
+                if(offset>proOfset.top-70&&maxheight>200){
                     // console.log(maxheight);
 
                     

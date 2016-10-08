@@ -12,7 +12,7 @@
                     </div>
                     <div ng-show="!loggedin">
                         <a href=""  id="topme-btn" style="font-size: 12px" ng-show="!loggedin" ng-click="showLogin=true" class="btn  bg-red  cool-shadow nav-action">
-                        <i class="fa fa-sign-in"></i>  add recipe</a>
+                        <i class="fa fa-plus-circle"></i>  add recipe</a>
                     </div>
                 </div>
             </div>

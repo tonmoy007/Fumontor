@@ -88,8 +88,9 @@
         <a href="" ng-click="gotop()"><i class="fa fa-chevron-up"></i></a>
     </div> -->
     <div id="go-top">
-    <div class="support bounceIn animated bg-theme cool-shadow" ng-show="!showSupport" >
-        <a href="" ng-click="showSupport=!showSupport"  ><strong ng-if="!showSupport">Support</strong></a>
+    <div class="support bounceIn animated bg-theme text-theme2 cool-shadow" ng-show="!showSupport" >
+        <a href="" class="fu-modal-close alter" ng-click="showSupport=!showSupport">
+        <strong ng-if="!showSupport">Support</strong></a>
     </div>
     <div class="contact cool-shadow floating slideInUp animated bg-theme text-white" ng-show="showSupport">
         <div class="form-group text-left">

@@ -18,7 +18,7 @@
         <link href="assets/css/flat-ui.css" rel="stylesheet">
         
         <link href="assets/css/roboto.min.css" rel="stylesheet">
-        <link href="assets/css/home.css" rel="stylesheet">
+        <link href="assets/css/home.min.css" rel="stylesheet">
         
         <link href="assets/css/login.css" rel="stylesheet">
 
@@ -40,12 +40,12 @@ if(!empty($l_from)){
             <div class="login-container cool-border">
             
               <a href=" " class="">
-                <div class="logo">
+                <div class="logo" style="min-width: 100%;padding: 0;margin-left: 0;text-align: center;font-size: 30px">
                   Fumontor
                 </div>
               </a>
               
-                <p class=" register-link">
+                <p class=" register-link" style="margin-top: 0">
                          
 
                       

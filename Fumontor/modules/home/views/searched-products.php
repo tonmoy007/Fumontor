@@ -11,7 +11,7 @@
     <div class="col-md-2">
         
     </div>
-    <div class="col-md-10" style="margin-top: 70px;">
+    <div class="col-md-10" >
     <search-filter type="'food'" items="'searchedMenuItems'"></search-filter>
         <div class="alert bg-trans-gray text-theme cool-shadow space" ng-show="!loading" ng-if="!searchedMenuItems.length">
         No Match Found

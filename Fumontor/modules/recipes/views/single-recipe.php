@@ -35,7 +35,7 @@
                     </div>
                     <div class="single-recipe-info col-md-4 text-left ">
                     <label class=" text-theme recipe-title main space"><strong>{{recipe.title}}</strong> </label>
-                    <span class="small">By - &nbsp;</span><small class=" small text-theme"><strong>{{recipe.name}}</strong></small>
+                    <span class="small"></span><small class=" small text-black"><strong>{{recipe.name}}</strong></small>
                          <div class="form-bottom no-bottom">
                             <span class="detail-list col-sm-6"><strong>Cusine : </strong> {{recipe.cusine}}</span>
                             <span class="detail-list col-sm-6"><strong>Prepare Time : </strong>{{recipe.prepare_time}}</span>

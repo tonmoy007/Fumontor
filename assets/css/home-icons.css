@@ -1,0 +1,87 @@
+.home-icons{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    border:1px solid #ff0000;
+    box-shadow: -1px 0 4px rgba(0,0,0,.3);
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+    background-position: center;
+}
+.home-icons.large{
+    width: auto;
+    line-height: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    padding:0 10px;
+}
+.home-icons:after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
+    background-position: center;
+}
+.home-icon:after{
+    background-image: url(../img/accessories/home-icon-silhouette.svg);
+}
+.dishes-icon:after{
+    background-image: url(../img/accessories/covered-plate-of-food.svg);
+}
+.wdish-icon:after{
+    background-image: url("../img/accessories/menu.svg");
+}
+.kitchen-icon:after{
+    background-image: url(../img/accessories/chef-hat-on-a-plate-from-side-view.svg);
+}
+.recipe-icon:after{
+    background-image: url("../img/accessories/chef-recipes-book.svg");
+}
+.login-sign-icon:after{
+    background-image: url(../img/accessories/log-in-arrow.svg);
+}
+.enter-icon:after{
+    background-image: url(../img/accessories/enter.svg);
+}
+.cart-icon:after{
+    background-image: url(../img/accessories/shopping-basket-button.svg);
+}
+.open > .dropdown-menu{
+    margin-top: 0!important;
+
+}
+.dropdown-menu{
+
+    border-top: 4px solid #ff0000;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    background-color: #fff;
+}
+.dropdown-menu li a{
+    color: #ff0000;
+}
+.dropdown-menu:after{
+    border-color: #ff0000 transparent;
+    top: -4px
+}
+.sign-drop{
+    left: -100%;
+}
+.sign-drop:after{
+    left: calc(50% - 10px);
+}
+.dropdown-menu li:first-child > a{
+    border-radius: 0;
+}
+.cd-customization.full{
+    padding:5px 0;
+}

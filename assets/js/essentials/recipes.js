@@ -257,7 +257,7 @@ app.directive('recipeNavigation',function(){
                 // a=0.0;
                 
                 transparency+=0.5;
-                if($(this).scrollTop()>30){
+                if($(this).scrollTop()>0){
                     if($(this).scrollTop()>windowHeight){
                     
                     angular.element(document.getElementById('go-top')).addClass('visible');
@@ -284,7 +284,10 @@ app.directive('recipeNavigation',function(){
                 $('#search').focus();
                 $scope.searchquery='';
             }
+            $scope.moveto=function(path){
+                window.location='#/'+path;
                 
+            }    
                 
         }
     

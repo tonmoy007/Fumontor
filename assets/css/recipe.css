@@ -4,7 +4,7 @@ body{
 .recipe-head{
     position: relative;
     display: block;
-    padding-top: 65px;
+    padding-top: 58px;
     margin: 0;
     width: 100%;
 }
@@ -265,7 +265,7 @@ h1.form-center-label{
 .single-recipe-img{
     display: inline-block;
     position: relative;
-    background-color: #fff;
+    background-color: #f7f8f8;
     height: 520px;
     overflow: hidden;
     border-radius: 5px;
@@ -293,7 +293,7 @@ h1.form-center-label{
     overflow: hidden;
     padding-top: 15px;
     max-height: 520px;
-    background: rgba(230,230,230,.3);
+    background: rgba(230,230,230,.7);
     
 }
 .image-viewer{
@@ -409,5 +409,5 @@ h1.form-center-label.recipe-title{
     text-transform: capitalize;
 }
 .nav-action.top-me{
-    top: 0;
+    top: 10px;
 }

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="assets/css/foot.css">
+<!-- <link rel="stylesheet" href="assets/css/foot.css"> -->
 
 <div class="footer-container " >
     <div class="container">
@@ -28,13 +28,13 @@
     <div class="support bounceIn animated bg-theme cool-shadow" ng-show="!showSupport" >
         <a href="" ng-click="showSupport=!showSupport"  ><strong ng-if="!showSupport">Support</strong></a>
     </div>
-    <div class="contact cool-shadow floating slideInUp animated bg-theme text-white" ng-show="showSupport">
+    <div class="contact cool-shadow floating slideInUp animated bg-theme text-theme2 text-white" ng-show="showSupport">
         <div class="form-group text-left">
             <label class="text-theme"><strong >Leave a message</strong></label>
         </div>
-        <div class="close-btn" ng-click="showSupport=!showSupport">
+        <a href="" class="fu-modal-close alter" ng-click="showSupport=!showSupport">
             
-        </div>
+        </a>
         <form  name="contactForm" ng-submit="sendMail(contactForm)" accept-charset="utf-8">
             <div class="form-group">
                 <label>Name</label>
