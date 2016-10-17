@@ -40,7 +40,7 @@ if(!empty($l_from)){
             <div class="login-container cool-border">
             
               <a href=" " class="">
-                <div class="logo" style="min-width: 100%;padding: 0;margin-left: 0;text-align: center;font-size: 30px">
+                <div class="logo" style="min-width: 100%;padding: 0;margin-left: 0;text-align: center;font-size: 34px">
                   Fumontor
                 </div>
               </a>

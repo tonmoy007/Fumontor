@@ -7,12 +7,12 @@
             <div class="recipe-head-overlay" ng-init="showAddRecipe=false">
                 <div class="recipe-section text-center" ng-init="showLogin=false">
                     <div class="" ng-show="loggedin">
-                        <a href=""  id="filter-icon"  style="font-size: 12px" ng-click="showAddRecipe=true" class="btn bg-red cool-shadow nav-action">
-                        <i class="fa fa-plus-circle"></i> add new recipe </a>
+                        <a href=""  id="filter-icon" title="add new recipe" style="font-size: 12px" ng-click="showAddRecipe=true" class=" cool-shadow nav-action tops-me">
+                        <i class="fa fa-plus-circle"></i> <span class="nav-span">add recipe</span> </a>
                     </div>
                     <div ng-show="!loggedin">
-                        <a href=""  id="topme-btn" style="font-size: 12px" ng-show="!loggedin" ng-click="showLogin=true" class="btn  bg-red  cool-shadow nav-action">
-                        <i class="fa fa-plus-circle"></i>  add recipe</a>
+                        <a href=""  id="topme-btn" title="add new recipe"  style="font-size: 12px" ng-show="!loggedin" ng-click="showLogin=true" class="  cool-shadow nav-action tops-me">
+                        <i class="fa fa-plus-circle"></i>  <span class="nav-span">add recipe</span></a>
                     </div>
                 </div>
             </div>

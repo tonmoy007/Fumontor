@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="assets/css/animate.css">
         <link href="assets/css/font-awesome.min.css" rel="stylesheet">
         <link href="assets/css/roboto.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/home.css">
+        <link rel="stylesheet" href="assets/css/home.min.css">
         <link href="assets/css/login.css" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/home-signup-modal.css">
         <script src="assets/js/jquery.js"></script>
@@ -49,8 +49,8 @@
           
                 <div class="login-container">
                    <a href=" " class="">
-                    <div class="logo">
-                      <img class="img-responsive" src="assets/img/home-logo-black.png" alt="fumontor logo">
+                    <div class="logo" style="min-width: 100%;padding: 0 0 10px;margin-left: 0;text-align: center;font-size: 34px">
+                   fumontor
                     </div>
                   </a>
                   <?php if(!empty($message)){?>

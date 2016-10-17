@@ -45,20 +45,26 @@
               <span></span>
               <span></span>
             </div>
-            <div class="container text-left">
+            <div class="container text-center">
               <div class="menu-container" id="showme" ng-class="{showme:open}">
                   <nav class="menu menu--prospero" id="navbar">
                       <ul class="menu__list">
-                          <li class="menu__item " ng-class="{'menu__item--current':menuList[0].current}" ng-click="setCurrent(0)" title="Home"><a href="" ng-click="moveto('home')" class="menu__link" ng-click="open=!open"><span class="home-icons home-icon"></span></a></li>
-                          <li class="menu__item" ng-class="{'menu__item--current':menuList[1].current}"  ng-click="setCurrent(1)"><a href="" ng-click="moveto('dishes')" class="menu__link" ng-click="open=!open"><span class="home-icons dishes-icon"></span></a></li>
-                          <li class="menu__item" ng-class="{'menu__item--current':menuList[2].current}"  ng-click="setCurrent(2)"><a href="" ng-click="moveto('weekly-menu')" class="menu__link" ng-click="open=!open"><span class="home-icons wdish-icon"></span></a></li>
-                          <li class="menu__item" ng-class="{'menu__item--current':menuList[3].current}"><a href="#/all-kitchen" class="menu__link" ng-click="open=!open"><span class="home-icons kitchen-icon"></span></a></li>
-                          <li class="menu__item"  ng-click="setCurrent(4)" ng-class="{'menu__item--current':menuList[4].current}" ><a href="recipes/#/"  class="menu__link" ><span class="home-icons recipe-icon"></span></a></li>
+                          <!-- <li class="menu__item " ng-class="{'menu__item--current':menuList[0].current}" ng-click="setCurrent(0)" title="Home"><a href="" ng-click="moveto('home')" class="menu__link" ng-click="open=!open"><span class="home-icons home-icon"></span><span class="home-icons large">Home</span></a></li> -->
+                          <li class="menu__item" ng-class="{'menu__item--current':menuList[1].current}"  ng-click="setCurrent(1)"><a href="" ng-click="moveto('dishes')" class="menu__link" ng-click="open=!open"><span class="home-icons dishes-icon"></span><span class="home-icons large">Dish</span></a></li>
+                          <li class="menu__item" ng-class="{'menu__item--current':menuList[3].current}"><a href="#/all-kitchen" class="menu__link" ng-click="open=!open"><span class="home-icons kitchen-icon"></span><span class="home-icons large">Kitchens</span></a></li>
+                          <li class="menu__item"><form class="main-search" name="searchForm" ng-submit="allSearch(searchquery)">
+                            <input type="search" name="mainSearch" autocomplete="off" class="cool-shadow" value="" id="search" placeholder="{{placeholder}}" ng-model="searchquery" >
+                            <span class="clear-search" ng-if="searchForm.mainSearch.$viewValue" ng-click="clearSearch()"><i class="fa fa-times text-theme"></i></span>
+                            </form>
+                          </li>
+                          <li class="menu__item" ng-class="{'menu__item--current':menuList[2].current}"  ng-click="setCurrent(2)"><a href="" ng-click="moveto('weekly-menu')" class="menu__link" ng-click="open=!open"><span class="home-icons wdish-icon"></span><span class="home-icons large">Weekly</span></a></li>
+                          
+                          <li class="menu__item"  ng-click="setCurrent(4)" ng-class="{'menu__item--current':menuList[4].current}" ><a href="recipes/#/"  class="menu__link" ><span class="home-icons recipe-icon"></span><span class="home-icons large">Recipe</span></a></li>
                           
                           
                       </ul>
                       <ul class="menu__list right">
-                        <li class="menu__item"  ng-if="!loggedin"><a href="" class="menu__link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><span class="home-icons enter-icon"></span></a>
+                        <li class="menu__item"  ng-if="!loggedin"><a href="" class="menu__link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><i class="fa fa-sign-in"></i><span class="nav-span">Signup</span></a>
                           <ul class="dropdown-menu cool-shadow sign-drop">
                               <li><a href="auth/login">Signin</a></li>
                               
@@ -69,8 +75,8 @@
                           </ul>
                           </li>
 
-                          <li ng-if="loggedin" class="menu__item" ><a href="" title="{{user.first_name}} {{user.last_name}}"  class="menu__link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span width="40px" ng-if="user.image" class="home-icons " style="background-image: url({{user.image}})" alt=""></span>
-                            <span ng-if="!user.image"  class="home-icons  " style="background-image: url(../img/avatar.png );" alt="{{user.first_name}} {{user.last_name}}"></span><span class="home-icons large">{{user.first_name}}</span></a>
+                          <li ng-if="loggedin" class="menu__item" ><a href="" title="{{user.first_name}} {{user.last_name}}"  class="menu__link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span width="32px" height="32px" ng-if="user.image" class="home-icons cool-border" style="background-image: url({{user.image}});vertical-align: top; padding:0" alt=""></span>
+                            <span ng-if="!user.image"  class="home-icons cool-border" style="background-image: url(assets/img/avatar.png );vertical-align: top;padding: 0" alt="{{user.first_name}} {{user.last_name}}"></span><span class="nav-span">{{user.first_name}}</span></a>
                           <ul class="dropdown-menu cool-shadow">
                               
                               <li><a href="recipes/#/myrecipe"><i class="fa fa-cutlery"></i>&nbsp;&nbsp; My Recipes</a></li>
@@ -82,15 +88,12 @@
                           
                           </ul>
                          </li>
-                          <li class="menu__item "><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)"><span class="home-icons cart-icon"></span><div ng-if='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div></a></li>
+                          <li class="menu__item " ng-show="cartTotal"><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)"><span class="home-icons cart-icon cart"></span><div ng-if='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div></a></li>
                       </ul>
                   </nav>
                   
               </div>
-              <form class="main-search" name="searchForm" ng-if="popup||notlandingSearch" ng-submit="allSearch(searchquery)">
-              <input type="search" name="mainSearch" autocomplete="off" class="cool-shadow" value="" id="search" placeholder="{{placeholder}}" ng-model="searchquery" >
-              <span class="clear-search" ng-if="searchForm.mainSearch.$viewValue" ng-click="clearSearch()"><i class="fa fa-times text-theme"></i></span>
-              </form>
+              
                 <!-- <li class="menu__item pull-right" ng-class="{'menumenu__item--current':menuList[4].current}"><a href="" class="menu__link" id="cart-button" title="Cart"  ng-click="(showCart=!showCart)&&setCurrent(4)"><i class="fa fa-cart-arrow-down"></i><div ng-show='cartTotal' class="cool-shadow"><strong>{{cartTotal}}</strong></div><span>Cart</span></a></li> -->
             </div>
         </div>

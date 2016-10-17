@@ -37,12 +37,12 @@
                     </div> -->
 
                     <div class="product cusine">
-                        <span class="text-black">Cusine</span><br>
+                        <span class="text-black">Cuisine</span><br>
                         <div class="cusineField label bg-dark-grey">
                             {{item.cusines}}
                         </div>
                     </div>
-                    <div class="product servicetag">
+                    <div class="product servicetag" ng-if="item.catagoryList.length">
                     <label><span class="text-black">Categories</span></label><div class="clearfix">
                         
                     </div>
@@ -52,7 +52,7 @@
                         
                     </div>
                     
-                    <div class="product delivery-options">
+                    <div class="product delivery-options" ng-if="item.pickup||item.home_delivery">
                         <label><span class="text-black">Delivery Options :</span></label><div class="clearfix"></div>
                         <label class="label bg-dark-grey " ng-show="item.pickup">Pick up</label>
                         <label class="label bg-dark-grey " ng-show='item.home_delivery'>Home Delivery</label>

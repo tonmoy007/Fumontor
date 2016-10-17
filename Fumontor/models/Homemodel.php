@@ -24,8 +24,11 @@ function getProductJson($query){
         $send[$i]['reviews']=$this->getAllReviews($row['id']);
         if($this->ion_auth->logged_in()){
             $user=$this->ion_auth->user()->row();
-            $myreview=$this->getMyReview($user->id,$row['id']);
-            $send[$i]['myreview']=$myreview;
+            
+            if($user!=null){
+                $myreview=$this->getMyReview($user->id,$row['id']);
+                $send[$i]['myreview']=$myreview;
+            }
         }
         $catagories=explode(',',$send[$i]['catagories']);
         $send[$i]['catagoryList']=$catagories;

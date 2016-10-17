@@ -60,7 +60,7 @@
                             </div> -->
                             
                             <div class="kitchen total-menuiitems ">
-                                <strong>Total Menu Items</strong> <span class="badge">{{kitchen.total_items}}</span>
+                                Total Menu <span class="badge">{{kitchen.total_items}}</span>
                             </div>
                             <!-- <div class="kitchen total-todays-menu">
                                 <strong>Todays menu item </strong> <span class="badge">{{kitchen.total_todays_menu}}</span>

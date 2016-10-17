@@ -745,7 +745,7 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
 
 // ((((((((((((((((((((((((((((((((((Kitchen Page Functions))))))))))))))))))))))))))))))))))
 
- app.controller('kitchenShowCtrl',function($scope,$http,$timeout,$routeParams){
+ app.controller('kitchenShowCtrl',function($scope,$http,$timeout,$routeParams,$ocLazyLoad){
     
     
     $scope.$parent.gotop();
@@ -755,6 +755,9 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
     // console.log($scope.$parent.lastKitchenId);
     // console.log($routeParams.kitchen_id);
     $scope.$parent.bodyClass='kitchen-body';
+    $scope.kitchenShow=false;
+    $ocLazyLoad.load('assets/css/tabs.css');
+    $ocLazyLoad.load('assets/css/tabstyles.css')
 
     if($scope.$parent!=null&&$scope.$parent.lastKitchenId!=$routeParams.kitchen_id){
     
@@ -772,10 +775,11 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
        date=created[0].split('-');
        //console.log(created);
        time=created[1].split(':');
-       var mydate = new Date(date[0],date[1],date[2],time[0],time[1],time[2]);
-        response.kitchenInfo[0].createdon=mydate.valueOf();
+       var mydate = new Date(response.kitchenInfo[0].createdon);
+        response.kitchenInfo[0].createdon=mydate;
         $scope.$parent.kitchenData=response.kitchenInfo[0];
         $scope.$parent.menuItems=response.products;
+        $scope.$parent.weekly_menu=response.weekly_menu;
         $scope.loading=false;
         $scope.kitchenShow=true;
         if(response.products){
@@ -801,8 +805,22 @@ var SiteControl=app.controller('searchCtrl',function($scope,preload,$http,$timeo
     //     $timeout(function(){$scope.$parent.singleItemDisplay($routeParams.productId);},0);
     // }
 }
-
-
+    $scope.tabNav=[];
+        for(i=0;i<3;i++){
+            $scope.tabNav[i]={current:false};
+        }
+    $scope.setTab=function(index){
+            console.log(index);
+            console.log($scope.tabNav)
+            angular.forEach($scope.tabNav,function(value,key){
+                if(key==index){
+                    $scope.tabNav[key].current=true;
+                }else{
+                    $scope.tabNav[key].current=false;
+                }
+            })
+        }
+         $scope.setTab(0);
  });
 
 
@@ -1206,6 +1224,7 @@ app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$
     $scope.filter.delivery_methods=deliveryMethods;
     $scope.$parent.searched=true;
     $rootScope.index=0;
+    
     // $scope.$parent.location=$routeParams.location;
     // $scope.filter.location=$routeParams.location;
     // $scope.orderType=$routeParams.orderType;
@@ -1218,6 +1237,7 @@ app.controller('productPageCtrl',function($scope,$http,$routeParams,$rootScope,$
         item.removeClass('is-visible');
     }
 
+   
     $scope.filter.PriceRangeSlider = {
           min: 0,
           max: 1000,
@@ -1676,7 +1696,7 @@ app.controller('weeklyCheckoutCtrl',function($scope,$routeParams,$http,$timeout)
         return number;
     }
     $scope.checkoutNext=function(form){
-        console.log($scope.weeklyMenuItem)
+        // console.log($scope.weeklyMenuItem)
         $scope.loading=true;
     send={address:$scope.$parent.user.address,phone:$scope.$parent.user.phone}
         $http({
@@ -1770,7 +1790,7 @@ app.directive('fuHead',function(){
             },
             require: 'ngModel',
             link:function(scope,elem,attr,ctrl){
-                console.log(ctrl)
+                // console.log(ctrl)
              
                  ctrl.$viewChangeListeners.push(
 

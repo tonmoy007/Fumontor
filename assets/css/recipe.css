@@ -4,7 +4,7 @@ body{
 .recipe-head{
     position: relative;
     display: block;
-    padding-top: 58px;
+    padding-top: 80px;
     margin: 0;
     width: 100%;
 }
@@ -12,14 +12,14 @@ body{
     display: inline-block;
     width: 100%;
     position: relative;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+
+    border-top: 1px solid #ddd;
     
 }
 .recipe-section{
     display: inline-block;
     width: 100%;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
 }
 .recipe-section a{
     margin-top: 10px;
@@ -31,7 +31,7 @@ input[type=search]:hover{
     color: #000;
 }
 .menu__list.right{
-    right: 60px;
+    right: 15px;
 }
 .menu__item .dropdown-menu{
     left: auto;
@@ -169,7 +169,8 @@ h1.form-center-label{
     text-align: center;
 }
 .recipe-items-container .col-md-2{
-    float: left;
+    display: inline-block;
+    max-width: 220px;
     vertical-align: middle;
     padding-left: 5px;
     padding-right: 5px;
@@ -404,10 +405,57 @@ h1.form-center-label.recipe-title{
     z-index: 100;
     font-family: 'Open Sans';
     font-weight: normal;
-    top: 10px;
-    right: 190px;
+    top: 0;
+    margin-top: 0;
+    right: 144px;
+    padding: 0 8px;
+    line-height: 28px;
+    height: 28px;
+    vertical-align: middle;
     text-transform: capitalize;
+    background-color:#ff0000;
+    color: #ffffff;
 }
-.nav-action.top-me{
-    top: 10px;
+.nav-action{
+    color: #fff!important;
+    background-color: #f00000;
+}
+.nav-action .nav-span,.nav-action i{
+    line-height: 28px;
+    height: 28px;
+}
+.nav-action i{
+    display: inline-block;
+    width: 14px;
+    height: 28px;
+    line-height: 28px;
+    vertical-align: top;
+}
+@media(max-width: 1250px){
+    .nav-span{
+        display: none!important;
+    }
+    .nav-action{
+        right: 80px
+    }
+}
+.nav-action.tops-me{
+    top: 0;
+    margin-top: 5px;
+}
+@media(min-width: 768px){
+    .nav-action.tops-me{
+        top: 10px;
+        margin-top: 8px;
+    }
+}
+@media(max-width: 960px){
+    .nav-action.tops-me{
+        right: 60px;
+    }
+}
+@media(max-width: 767px){
+    .nav-action.tops-me{
+        right: 120px;
+    }
 }

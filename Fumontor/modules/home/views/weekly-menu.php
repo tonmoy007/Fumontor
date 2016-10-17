@@ -4,7 +4,7 @@
     
 </div>
     <div class="weekly-menu container" ng-if="!weeklyMenuLoading">
-        <div class="menu-item" ng-repeat="item in weeklyMenus">
+        <div class="menu-item weekly" ng-repeat="item in weeklyMenus">
             <div class="col-md-2 fadeIn animated grid ">
                 <div class="grid-lg">
                     <div class="grid-img">
@@ -24,10 +24,10 @@
                             <label class="secendery-url">
                                 <a href="#/kitchen/{{item.cooks_id}}" class="text-black small">  {{item.kitchename}} </a>
                             </label>
-
+                             
                         </div>
                         <div class="description-foot">
-                            <span class="rate">৳ <label class="price">{{item.price}}</label></span>
+                           <span class="rate">৳ <label class="price">{{item.price}}</label>/<span class="small">person</span></span>
                            
                         </div>
                         <div  class="cd-customization active full-menu" ng-class="{active:item.active}" >

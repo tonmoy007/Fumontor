@@ -19,5 +19,8 @@
                         <a href=""    ng-click="showLoginFrom()" class="btn  bg-red btn-wide cool-shadow ">
                         <i class="fa fa-sign-in"></i> Login  </a>
                     </div>
+                    <div>
+                        <a class="btn bg-trans-gray text-theme" href="recipes/#/"><span class="home-icons recipe-icon"></span><br> all recipes</a>
+                    </div>
     </div>
 </div>

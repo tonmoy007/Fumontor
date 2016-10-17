@@ -252,7 +252,7 @@ span.pending,span.recived,span.delivered,span.ondelivery{
     z-index: 2;
     width: 1.8em;
     color: white;
-    background: #029AAC;
+    background: #ff0000;
     height: 1.3em;
     line-height: 1;
     border-top-right-radius: .17em;
@@ -290,7 +290,7 @@ span.pending,span.recived,span.delivered,span.ondelivery{
     border-top: 1px solid #c1c1dd;
 }
 .order-details ul li:last-child{
-    border-top: 2px solid #029AAC;
+    border-top: 2px solid #ff0000;
 }
 .order-details .price{
     float: right;

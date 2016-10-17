@@ -11,7 +11,7 @@
                 <span class="second-icon fui-checkbox-checked"></span></span>
                 <input type="checkbox" ng-model="ordertype.checked" ng-change="searchQuery('orderType')"  data-toggle="checkbox"/> {{ordertype.name}}
              </label> -->
-             <label class="filter-label text-theme2">Categories</label>
+            <label class="filter-label text-theme2">Categories</label>
             <ul class="catagoryList">
             <li ng-repeat="catagory in filter.catagories">
             <label class="checkbox" 

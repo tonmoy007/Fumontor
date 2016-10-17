@@ -199,6 +199,7 @@ function getKitchenPageData($id){
 
 
     $data['kitchenInfo']=$this->homemodel->getKitchenInfo($id);
+    $data['weekly_menu']=$this->homemodel->getAllWeeklyMenu($id);
     $this->homemodel->selectProduct();
     $this->db->where('cooksID',$id);
     $query=$this->db->get();
@@ -280,7 +281,8 @@ function addReview(){
             echo 'failed';
             return;
         }
-        $data = file_get_contents($review->image);
+        $this->load->helper('url');
+        $data = (!empty($review->image)?file_get_contents($review->image):file_get_contents(site_url('assets/img/avatar.png')));
         $fileName = $user->id.'.jpg';
         $file = fopen('assets/reviews/'.$fileName, 'w+');
         fputs($file, $data);

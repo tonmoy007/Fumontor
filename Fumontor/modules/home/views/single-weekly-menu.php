@@ -9,17 +9,17 @@
                     <img src="assets/img/thumb.jpg" alt="{{item.title}}" class="img-responsive">
                 </div>
                 <div class="col-md-6 text-left product">
-                    <div class="product title">
+                    <div class="product title text-theme2">
                         <strong>{{item.title}}</strong>
                     </div>
                     <div class="info">
-                        <a href="#/kitchen/{{item.cooks_id}}">{{item.kitchename}}</a>
+                        <a class="text-black" href="#/kitchen/{{item.cooks_id}}">{{item.kitchename}}</a>
                     </div>
                     <div class="info">
                         minimum order for <label class="badge">{{item.min_order}}</label> persons
                     </div>
-                    <div class="price">
-                        Price {{item.price}}৳
+                    <div class="price rate">
+                         ৳{{item.price}}/<span class="small">person</span>
                     </div>
                 </div>
                 <div class="col-md-4 text-right">

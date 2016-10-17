@@ -37,9 +37,8 @@
                     <label class=" text-theme recipe-title main space"><strong>{{recipe.title}}</strong> </label>
                     <span class="small"></span><small class=" small text-black"><strong>{{recipe.name}}</strong></small>
                          <div class="form-bottom no-bottom">
-                            <span class="detail-list col-sm-6"><strong>Cusine : </strong> {{recipe.cusine}}</span>
+                            <span class="detail-list col-sm-6"><strong>Cuisine : </strong> {{recipe.cusine}}</span>
                             <span class="detail-list col-sm-6"><strong>Prepare Time : </strong>{{recipe.prepare_time}}</span>
-                            <span class="detail-list col-sm-6"><strong>Cost : </strong>{{recipe.cost}}</span>
                             <span class="detail-list col-sm-6">For <span class="badge">{{recipe.person}}</span> Person</span>
                         </div>
                         <!-- <div class="form-bottom ">
@@ -71,7 +70,7 @@
                 </div>
                 <div class="single-recipe-details text-left space">
                     
-                        <label class="recipe-title space"><strong>Ingredients</strong></label>
+                        <label class="recipe-title space text-theme2"><strong>Ingredients</strong></label>
                         <div class="form-bottom no-bottom">
                             <div class="ingredients">
                                 <ul>
@@ -81,12 +80,12 @@
                                 </ul>
                             </div>
                         </div>
-                        <label class="recipe-title space"><strong>Directions</strong></label>
+                        <label class="recipe-title space text-theme2"><strong>Directions</strong></label>
                         <div class="form-bottom ">
                             <div class="directions">
                                 <ul>
                                     <li ng-repeat="(key,step) in recipe.directions track by $index">
-                                        <strong class="light-span">Step: <span class="badge">{{key+1}}</span></strong>
+                                        <strong class="light-span">Step: {{$index+1}}</strong>
                                         <p class="lead product-description">{{step}}</p>
                                     </li>
                                 </ul>

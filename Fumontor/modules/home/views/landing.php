@@ -14,7 +14,7 @@
     <div class="img-loader" ng-if="!landingLoaded">
         
     </div>
-        <div class="poster" background url="assets/img/fu-landing.jpg"id="poster">
+        <div class="poster" background url="assets/img/accessories/chef-hat.svg"id="poster">
                     
         </div>
     </div>
@@ -52,10 +52,10 @@
                 Follow the step according to your need
             </div>
             <div class="row how how-cooks">
-                <div class=" how-img cool-border" style="padding: 10px">
+                <div class=" how-img " style="padding: 10px">
                     <img class="img-responsive  text-center " src="assets/img/accessories/cooking.svg" alt="How it Works as cook">
                 </div>
-                <div class="how-text cool-border">
+                <div class="how-text ">
                     <div class=" text-center form-heading ">
                         <strong>You Know Cooking??</strong>
                         <a href="" class="short-video-link" title="Short video for Cook"><span class="fa-stack  fa-1x ">
@@ -79,10 +79,10 @@
                 
             </div>
             <div class="row how how-foodie">
-                <div class=" how-img cool-border" style="padding: 10px">
+                <div class=" how-img " style="padding: 10px">
                     <img class="img-responsive text-center " src="assets/img/accessories/covered-food-tray-on-a-hand-of-hotel-room-service.svg" alt="How it Works as cook">
                 </div>
-                <div class="how-text cool-border">
+                <div class="how-text ">
                     <div class=" text-center form-heading text-theme2">
                        <strong> Looking For Food??</strong>
                        <a href="" class="short-video-link" title="Short video for Foodie">

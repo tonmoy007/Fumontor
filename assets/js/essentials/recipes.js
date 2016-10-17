@@ -287,6 +287,18 @@ app.directive('recipeNavigation',function(){
             $scope.moveto=function(path){
                 window.location='#/'+path;
                 
+            }
+            $scope.showOpenKitchenModule=function(){
+                model=angular.element(document.getElementById('cook-signup-model'));
+                container=model.find('.fu-modal-container');
+                model.addClass('is-visible');
+                container.addClass('is-visible');
+            }
+            $scope.closeOpenKitchenModule=function(){
+                model=angular.element(document.getElementById('cook-signup-model'));
+                container=model.find('.fu-modal-container');
+                model.removeClass('is-visible');
+                container.removeClass('is-visible');
             }    
                 
         }
